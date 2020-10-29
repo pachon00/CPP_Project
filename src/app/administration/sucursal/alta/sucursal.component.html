@@ -1,0 +1,91 @@
+<div class="card">
+  <div class="card-header">
+    <div class="col-md-9">
+      {{this.accionTitulo}}
+    </div>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="altaForm" (ngSubmit)="onSubmit()">
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="nombre">  Sucursal :    </label>
+          <input
+            autofocus aria-describedby="nombre"
+            class="form-control"
+            id="nombre"
+            formControlName="nombre"
+            name="nombre"
+            placeholder="Ingrese el nombre de la sucursal">
+
+            <div *ngIf="altaForm.controls['nombre'].invalid && (altaForm.controls['nombre'].dirty
+                      || altaForm.controls['nombre'].touched)"
+            class="invalid-feedback ng-star-inserted">
+                <div *ngIf="altaForm.controls['nombre'].errors.required">
+                  El nombre de la sucursal es requerido.
+                </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="encargado">  Encargado :  </label>
+          <input
+            autofocus aria-describedby="encargado"
+            class="form-control"
+            id="encargado"
+            formControlName="encargado"
+            name="encargado"
+            placeholder="Ingrese el nombre del encargado">
+
+            <div *ngIf="altaForm.controls['encargado'].invalid && (altaForm.controls['encargado'].dirty
+                      || altaForm.controls['encargado'].touched)"
+            class="invalid-feedback ng-star-inserted">
+                <div *ngIf="altaForm.controls['encargado'].errors.required">
+                  El nombre del encargado es requerido.
+                </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="activo pr-3"> Activo:   </label>
+          <input id="activo"
+          name="activo"
+          formControlName="activo"
+           type="checkbox">
+        </div>
+      </div>
+    </div>
+
+   <hr>
+    <div class="row text-center">
+      <div class="col-md-8">
+        &nbsp;
+      </div>
+
+      <div class="col-md-4">
+        <button
+        type="submit"
+        class="btn btn-success  mr-1"
+        [disabled]="(altaForm.pristine || altaForm.invalid)">
+        Guardar
+    </button>
+        <button type="button" class="btn btn-danger" (click)="this.cancelar()">Cancelar</button>
+      </div>
+    </div>
+
+  </form>
+  </div>
+</div>

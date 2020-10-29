@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-sm-3">
+      <div  class="card card-body card-widget">
+        <div  class="widget-icon rounded-circle bg-yellow text-white icon icon-basic-sheet-pencil"></div>
+        <div  class="block ml-3 mr-3">
+          <h5  class="mb-0 fw-400"> {{this.total}} </h5><small
+            class="text-muted text-uppercase "><strong >Total  </strong></small>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div  class="card card-body card-widget">
+        <div  class="widget-icon rounded-circle bg-blue text-white icon icon-basic-sheet-pencil"></div>
+        <div  class="block ml-3 mr-3">
+          <h5  class="mb-0 fw-400"> {{this.proceso}} </h5><small
+            class="text-muted text-uppercase "><strong >Proceso</strong></small>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div  class="card card-body card-widget">
+        <div  class="widget-icon rounded-circle bg-green text-white icon icon-basic-sheet-pencil"></div>
+        <div  class="block ml-3 mr-3">
+          <h5  class="mb-0 fw-400"> {{this.pagadas}} </h5><small
+            class="text-muted text-uppercase "><strong >Pagadas</strong></small>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-3">
+      <div  class="card card-body card-widget">
+        <div  class="widget-icon rounded-circle bg-red text-white icon icon-basic-sheet-pencil"></div>
+        <div  class="block ml-3 mr-3">
+          <h5  class="mb-0 fw-400"> {{this.canceladas}} </h5><small
+            class="text-muted text-uppercase "><strong >Cancel</strong></small>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+
+    <div class="card">
+      <div class="card-header">Detalles</div>
+      <div class="card-body">
+
+
+        <div class="table-responsive">
+          <table class="table table-bordered table-striped mb-0"
+                 datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+              >
+            <thead>
+              <tr>
+                <th> Num Remision </th>
+                <th> Sucursal </th>
+                <th> Proveedor </th>
+                <th> Forma Pago</th>
+                <th> Fecha Alta </th>
+                <th> Fecha Credito </th>
+                <th> Fecha Real Pago </th>
+                <th> Estatus </th>
+                <th> </th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of this.data">
+                  <td> {{data.remision_id}} </td>
+                  <td> {{data.sucursal}}</td>
+                  <td>  {{data.proveedor}}</td>
+                  <td>  {{data.forma_pago}}</td>
+                  <td>  {{data.fecha_alta}}</td>
+                  <td>  {{data.fecha_credito}}</td>
+                  <td>  </td>
+                  <td>  {{data.estado}}</td>
+                  <td style="text-align: center;">
+                      <i class="fa fa-eye fa-2x"></i>
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+
+  </div>
+
+</div>

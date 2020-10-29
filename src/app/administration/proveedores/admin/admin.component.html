@@ -1,0 +1,162 @@
+<div class="card">
+  <div class="card-header">
+    <div class="col-md-9">
+      {{this.accionTitulo}}
+    </div>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="altaForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="nombre"> Nombre: <span class="required">*</span> </label>
+            <input autofocus aria-describedby="nombre" class="form-control" id="nombre"
+            maxlength="60" name="nombre" required
+              formControlName="nombre" placeholder="Ingrese el nombre del proveedor">
+            <div *ngIf="altaForm.controls['nombre'].invalid && (altaForm.controls['nombre'].dirty
+                      || altaForm.controls['nombre'].touched)" class="invalid-feedback ng-star-inserted">
+              <div *ngIf="altaForm.controls['nombre'].errors.required">
+                El tipo de nombre es requerido.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="direccion"> Dirección: <span class="required">*</span> </label>
+            <textarea aria-describedby="emailHelp"  required     maxlength="500" class="form-control" id="direccion" name="direccion"
+              formControlName="direccion" placeholder="Ingrese la Dirección" rows="3" cols="50"> </textarea>
+            <div *ngIf="altaForm.controls['direccion'].invalid && (altaForm.controls['direccion'].dirty
+            || altaForm.controls['direccion'].touched)" class="invalid-feedback ng-star-inserted">
+              <div *ngIf="altaForm.controls['direccion'].errors.required">
+                La dirección es requerida
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="rfc"> RFC : <span class="required">*</span> </label>
+            <input aria-describedby="rfc" class="form-control" id="rfc"
+            formControlName="rfc"   required    maxlength="15"
+              placeholder="Ingrese el rfc del proveedor">
+
+              <div *ngIf="altaForm.controls['rfc'].invalid && (altaForm.controls['rfc'].dirty
+              || altaForm.controls['rfc'].touched)" class="invalid-feedback ng-star-inserted">
+                <div *ngIf="altaForm.controls['rfc'].errors.required">
+                  El RFC del proveedor es requerido
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="telefono"> Teléfono: <span class="required">*</span> </label>
+            <input aria-describedby="telefono" maxlength="25" class="form-control" id="telefono"
+             placeholder="Teléfono"   required      formControlName="telefono" >
+
+             <div *ngIf="altaForm.controls['telefono'].invalid && (altaForm.controls['telefono'].dirty
+             || altaForm.controls['telefono'].touched)" class="invalid-feedback ng-star-inserted">
+               <div *ngIf="altaForm.controls['telefono'].errors.required">
+                 El teléfono del proveedor es requerido
+               </div>
+             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="forma_pago_id"> Forma Pago : <span class="required">*</span> </label>
+            <select class="form-control" id="forma_pago_id"  required name="forma_pago_id"
+              formControlName="forma_pago_id">
+              <option  value="" selected>  </option>
+              <option *ngFor="let forma of formaPago" value="{{forma.id}}">{{forma.forma_pago}}</option>
+            </select>
+            <div *ngIf="altaForm.controls['forma_pago_id'].invalid && (altaForm.controls['forma_pago_id'].dirty
+            || altaForm.controls['forma_pago_id'].touched)" class="invalid-feedback ng-star-inserted">
+              <div *ngIf="altaForm.controls['tipo_proveedor_id'].errors.required">
+                 Debe selecionar la forma de pago
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="dias_credito"> Días Crédito: <span class="required">*</span> </label>
+            <input aria-describedby="dias_credito"
+             type="number" min="1" max="30"
+             formControlName="dias_credito" required
+              class="form-control" id="dias_credito" placeholder="Días de crédito">
+
+             <div *ngIf="altaForm.controls['dias_credito'].invalid && (altaForm.controls['dias_credito'].dirty
+             || altaForm.controls['dias_credito'].touched)" class="invalid-feedback ng-star-inserted">
+               <div *ngIf="altaForm.controls['dias_credito'].errors.required">
+                  Debe ingresar los días de credito.
+               </div>
+               <div *ngIf="altaForm.controls['dias_credito'].errors.max">
+                  Los días máximos para credito son 30.
+              </div>
+              <div *ngIf="altaForm.controls['dias_credito'].errors.min">
+                   El mínimo permitido para credito es 1 día.
+              </div>
+             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="tipo_proveedor_id"> Tipo Proveedor: <span class="required">*</span> </label>
+            <select class="form-control" id="tipo_proveedor_id"  required name="tipo_proveedor_id"   formControlName="tipo_proveedor_id">
+              <option  value="" selected> </option>
+              <option *ngFor="let tipo of tipoProveedor" value="{{tipo.id}}" >{{tipo.tipo_proveedor}}</option>
+            </select>
+
+
+            <div *ngIf="altaForm.controls['tipo_proveedor_id'].invalid && (altaForm.controls['tipo_proveedor_id'].dirty
+            || altaForm.controls['tipo_proveedor_id'].touched)" class="invalid-feedback ng-star-inserted">
+              <div *ngIf="altaForm.controls['tipo_proveedor_id'].errors.required">
+                 Debe selecionar el tipo de proveedor
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group text-left">
+            <label for="activo"> Activo </label>
+            <input type="checkbox" aria-describedby="activo" class="form-control" id="activo"
+              name="activo" formControlName="activo" value="false"
+             >
+          </div>
+        </div>
+      </div>
+
+
+      <hr>
+      <div class="row text-center">
+        <div class="col-md-9">
+          &nbsp;
+        </div>
+        <div class="col-md-1 mr-4">
+          <button type="submit" class="btn btn-success"   [disabled]="(altaForm.pristine || altaForm.invalid)">Guardar</button>
+        </div>
+        <div class="col-md-1">
+          <button type="button" class="btn btn-danger" (click)="this.cancelar()">Cancelar</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

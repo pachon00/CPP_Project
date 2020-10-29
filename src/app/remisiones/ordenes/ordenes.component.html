@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-md-12">
+  
+      <div class="card">
+        <div class="card-header">
+          <div class="col-md-10">
+            Órdenes de activas
+          </div>
+          <div class="col-md-1 ml-2">
+            <button type="button" class="btn btn-outline-primary" (click)="CreateOrder()">Nuevo</button>
+            <!-- <div>
+                <i *ngIf="view" class="fa fa-trash fa-2x" style="cursor: pointer;"></i>
+                <i *ngIf="!view" class="fa fa-trash fa-2x disabled" style="cursor: pointer;"></i>
+            </div> -->
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+            </div>
+            <div class="table-responsive">
+              <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+                class="table table-bordered table-striped mb-0">
+                <thead>
+                  <tr>
+                    <th> Orden </th>
+                    <th> Proveedor </th>
+                    <th> Usuario </th>
+  
+                    <th> Fecha Alta </th>
+                    <th> Estatus </th>
+  
+                    <th> Total Remisiones </th>
+                    <th> Monto Total </th>
+                    <th> Forma de Pago </th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of this.data">
+                    <td>{{data.orden_id}}</td>
+                    <td>{{data.proveedor}}</td>
+                    <td>{{data.usuario_alta}}</td>
+  
+                    <td>{{data.fecha_alta | date:'dd/MM/yyyy'}}</td>
+                    <td>{{data.estatus}}</td>
+                    <td>{{data.total_remisiones}}</td>
+                    <td>{{data.monto_total | currency: 'USD' | lowercase}}}}</td>
+                    <td>{{data.forma_pago}}</td>
+                    <td style="text-align: center;" >
+                      <i  *ngIf="data.estado_orden_id==1" class="fa fa-edit fa-2x" style="cursor: pointer;" (click)="editarOrden(data.orden_id)"></i>
+                      <i  *ngIf="data.estado_orden_id==1" class="fa fa-trash fa-2x" style="cursor: pointer;" (click)="eliminarOrden(data)"></i>
+                      <i *ngIf="data.estado_orden_id==0" class="fa fa-edit fa-2x disabled" style="cursor: pointer;"></i>                        
+                      <i *ngIf="data.estado_orden_id==0" class="fa fa-trash fa-2x disabled" style="cursor: pointer;"></i> 
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

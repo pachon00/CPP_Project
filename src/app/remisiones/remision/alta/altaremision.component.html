@@ -1,0 +1,123 @@
+<div class="card">
+  <div class="card-header">
+    <div class="col-md-9">
+      {{this.accionTitulo}}
+    </div>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="altaForm" (ngSubmit)="onSubmit()">
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="proveedor_id"> Proveedor: <span class="required">*</span> </label>
+            <select class="form-control" id="proveedor_id" required name="proveedor_id" formControlName="proveedor_id">
+              <option value="" selected> Seleccion un proveedor </option>
+              <option *ngFor="let proveedor of this.proveedores" value="{{proveedor.id}}">{{proveedor.nombre}}</option>
+            </select>
+
+            <div *ngIf="altaForm.controls['proveedor_id'].invalid && (altaForm.controls['proveedor_id'].dirty
+        || altaForm.controls['proveedor_id'].touched)" class="invalid-feedback ng-star-inserted">
+              <div *ngIf="altaForm.controls['proveedor_id'].errors.required">
+                Debe selecionar el proveedor
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="sucursal_id"> Sucursal: <span class="required">*</span> </label>
+            <select class="form-control" id="sucursal_id" required name="sucursal_id" formControlName="sucursal_id">
+              <option value="" selected> Seleccione una Sucursal </option>
+              <option *ngFor="let sucursal of this.sucursales" value="{{sucursal.id}}">{{sucursal.nombre}}</option>
+            </select>
+
+            <div *ngIf="altaForm.controls['sucursal_id'].invalid && (altaForm.controls['sucursal_id'].dirty
+        || altaForm.controls['sucursal_id'].touched)" class="invalid-feedback ng-star-inserted">
+              <div *ngIf="altaForm.controls['sucursal_id'].errors.required">
+                Debe selecionar la sucursal
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="cantidad"> Monto: <span class="required">*</span> </label>
+            <input aria-describedby="cantidad" type="number" formControlName="cantidad" required class="form-control"
+              id="cantidad" placeholder="Ingrese el monto de la remisión.">
+
+            <div *ngIf="altaForm.controls['cantidad'].invalid && (altaForm.controls['cantidad'].dirty
+             || altaForm.controls['cantidad'].touched)" class="invalid-feedback ng-star-inserted">
+              <div *ngIf="altaForm.controls['cantidad'].errors.required">
+                Debe ingresar el monto de la remisión.
+              </div>
+              <div *ngIf="altaForm.controls['cantidad'].errors.pattern ">
+                Debe ingresar el monto válido.
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="fecha_remision"> Fecha Remisión: <span class="required">*</span> </label>
+            <input aria-describedby="fecha_remision" type="date" formControlName="fecha_remision" required
+              class="form-control" id="fecha_remision">
+
+            <div *ngIf="altaForm.controls['fecha_remision'].invalid && (altaForm.controls['fecha_remision'].dirty
+           || altaForm.controls['fecha_remision'].touched)" class="invalid-feedback ng-star-inserted">
+              <div *ngIf="altaForm.controls['fecha_remision'].errors.required">
+                Debe ingresar la fecha de la remisión.
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="fecha_pago"> Fecha Pago: </label>
+            <input aria-describedby="fecha_pago" readonly  class="form-control" id="fecha_pago">
+
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+
+            <label for="comentarios"> Comentarios:  </label>
+            <textarea aria-describedby="comentarios"  required     maxlength="500" class="form-control" id="comentarios" name="comentarios"
+            formControlName="comentarios"   rows="3" cols="50"> </textarea>
+
+          </div>
+        </div>
+      </div>
+
+      <hr>
+      <div class="row text-center">
+        <div class="col-md-8">
+          &nbsp;
+        </div>
+
+        <div class="col-md-4">
+          <button type="submit" class="btn btn-success  mr-1" [disabled]="(altaForm.pristine || altaForm.invalid)">
+            Guardar
+          </button>
+          <button type="button" class="btn btn-danger" (click)="this.cancelar()">Cancelar</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
