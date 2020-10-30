@@ -45,7 +45,6 @@ export class OrdenService {
   }
 
   public deleteOrdenes(id:number){
-    console.log(id);
     return this.http.delete<AltaOrden>(this.baseUrl+'/'+id)
     .pipe(
       catchError(this.handleError)

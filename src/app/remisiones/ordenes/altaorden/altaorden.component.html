@@ -2,26 +2,28 @@
     <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          <div class="col-md-10">
-            Órdenes de remisión
-          </div>
-          <div class="col-md-1 ml-2">
-            <button type="button" class="btn btn-outline-primary" (click)="CreateRemission()">{{ isUpdate ? "Editar" : "Generar" }} Orden</button>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col" *ngIf="!isUpdate">
-              <div ngbDropdown class="d-inline-block">
-                <button class="btn btn-outline-primary" id="dropdownBasic1" Style="width: 300px;margin-bottom: 5px;" ngbDropdownToggle>{{supplierSelected}}</button>
-                <div ngbDropdownMenu aria-labelledby="dropdownBasic1" Style="width: 300px;">
-                  <div *ngFor="let proveedor of provedores">
-                    <button class="dropdown-item" (click)="filterSupplier(proveedor.id,proveedor.nombre)">{{proveedor.nombre}}</button>
-                  </div>
+          <div class="row col-md-12">
+              <div class="col-md-4">
+                Órdenes de remisión
+              </div>
+              <div class="col-md-3 ml-md-auto">
+                <button type="button" class="btn btn-outline-primary" (click)="open(content,0);">{{ isUpdate ? "Editar" : "Generar" }} Orden</button>
+              </div>
+              <div class="row col-md-12">
+                <div class="dataTables_length" *ngIf="!isUpdate">
+                  <label for="id_proveedor" style="font-family: 'Arimo', Helvetica, sans-serif; font-size: 0.875rem;font-weight: 400;"> Seleccione Proveedor : </label>
+                    <select class="form-control" id="id_proveedor"  name="id_proveedor" (change)="filterSupplier($event)"
+                      [(ngModel)]="selectedSupplier">
+                      <option *ngFor="let provedor of provedores" value="{{provedor.id}}">{{provedor.nombre }}</option>
+                    </select>
                 </div>
               </div>
-            </div>
+          </div>
+        </div>
+         <div class="card-body">
+          <div class="row">
             <div class="table-responsive">
+
               <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
                 class="table table-bordered table-striped mb-0">
                 <thead>
@@ -66,4 +68,22 @@
       </div>
     </div>
   </div>
-  
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Generar Orden</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="dateOfBirth"> Será generada una remisión con las ordenes: {{this.ordersToRemis}} Monto Total: $ {{this.monto.toFixed(2)}}</label>
+           <!-- // ¿Está seguro de querer eliminar el registro seleccionado?</label> -->
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Aceptar</button>
+    </div>
+  </ng-template>
