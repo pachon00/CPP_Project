@@ -64,10 +64,6 @@ const MENUITEMS = [
       {
         state: "ordenes",
         name: "Ordenes"
-      },
-      {
-        state: "pagoremision",
-        name: "Pago Ordenes"
       }
     ]
   },
