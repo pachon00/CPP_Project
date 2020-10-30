@@ -9,19 +9,25 @@
               <div class="col-md-3 ml-md-auto">
                 <button type="button" class="btn btn-outline-primary" (click)="open(content,0);">{{ isUpdate ? "Editar" : "Generar" }} Orden</button>
               </div>
-              <div class="row col-md-12">
-                <div class="dataTables_length" *ngIf="!isUpdate">
+
+          </div>
+        </div>
+         <div class="card-body">
+
+          <div class="row mb-3">
+                <div class="col-md-2">
                   <label for="id_proveedor" style="font-family: 'Arimo', Helvetica, sans-serif; font-size: 0.875rem;font-weight: 400;"> Seleccione Proveedor : </label>
+                </div>
+                <div class="col-md-5">
+                  <div class="dataTables_length" *ngIf="!isUpdate">
                     <select class="form-control" id="id_proveedor"  name="id_proveedor" (change)="filterSupplier($event)"
                       [(ngModel)]="selectedSupplier">
                       <option *ngFor="let provedor of provedores" value="{{provedor.id}}">{{provedor.nombre }}</option>
                     </select>
                 </div>
-              </div>
+                </div>
           </div>
-        </div>
-         <div class="card-body">
-          <div class="row">
+          <div class="row mt-3">
             <div class="table-responsive">
 
               <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
@@ -32,10 +38,10 @@
                     <th> Num Remision </th>
                     <th> Sucursal </th>
                     <th> Usuario </th>
-  
+
                     <th> Fecha Remisión </th>
                     <th> Fecha Pago </th>
-  
+
                     <th> Monto </th>
                     <th> Forma de Pago </th>
                   </tr>
@@ -51,7 +57,7 @@
                     <td>{{data.id}}</td>
                     <td>{{data.sucursal}}</td>
                     <td>{{data.usuario}}</td>
-  
+
                     <td>{{data.fecha_remision | date:'dd/MM/yyyy'}}</td>
                     <td>{{data.fecha_pago | date:'dd/MM/yyyy'}}</td>
                     <td>{{data.monto | currency: 'USD' | lowercase}}</td>

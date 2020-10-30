@@ -81,7 +81,7 @@ export class AltaOrdenComponent implements OnInit {
         });
       }
     });
-  }      
+  }
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
@@ -102,6 +102,7 @@ export class AltaOrdenComponent implements OnInit {
     this.monto=0;
     this.service.getOrdenesByIdSupplier(id).subscribe( (data:AltaOrden[])=>{
       this.data = data;
+      this.rerender();
     });
   }
 
@@ -146,4 +147,6 @@ export class AltaOrdenComponent implements OnInit {
       this.CheckedItem(true,x.id,x.monto);
     });
   }
+
+
 }
