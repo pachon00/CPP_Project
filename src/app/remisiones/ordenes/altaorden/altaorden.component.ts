@@ -9,7 +9,8 @@ import { SucursalService } from '../../../services/administration/sucursal.servi
 import { Proveedor } from '../../../model/administration/Proveedor.model';
 import { OrdenService } from 'src/app/services/remisiones/ordenes.service';
 import { AltaOrden, AltaOrdenDetail } from 'src/app/model/remision/ordenesAlta.model';
-import { ConfirmationDialogService } from './confirmation-dialog/confirmation-dialog.service';
+import { NgbModal,ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { renderFlagCheckIfStmt } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-altaorden',
@@ -31,17 +32,19 @@ export class AltaOrdenComponent implements OnInit {
   public altaForm: FormGroup;
   public accionTitulo: string = "Alta";
   public isUpdate: boolean = false;
+  public selectedSupplier: number=-1;
+  public closeResult: string = '';
+
 
   constructor(private router: Router,
+      private modalService: NgbModal,
       private fb: FormBuilder,
       private service: OrdenService,
       private activatedRoute: ActivatedRoute,
       private sucursaleService: SucursalService,
       private proveedorService: ProveedorService,
-      private toastr: ToastrService,
-      private confirmationDialogService: ConfirmationDialogService ) {
+      private toastr: ToastrService) {
     }
-      
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -61,6 +64,7 @@ export class AltaOrdenComponent implements OnInit {
               this.monto=0;
               this.createForm();
               this.accionTitulo = "Editar";
+              this.dtTrigger.next();
             },
             error => {
               this.toastr.error("Ocurrio un error al querer obtener el proveedor a editar " + error);
@@ -70,6 +74,10 @@ export class AltaOrdenComponent implements OnInit {
         this.proveedorService.getProveedor().subscribe((data:Proveedor[])=>{
           this.remiss = new AltaOrdenDetail();
           this.provedores = data;
+        });
+        this.service.getOrdenesByIdSupplier(0).subscribe( (data:AltaOrden[])=>{
+          this.data = data;
+          this.dtTrigger.next();
         });
       }
     });
@@ -86,13 +94,12 @@ export class AltaOrdenComponent implements OnInit {
     });
   }
 
-  filterSupplier(id: number, nombre: string){
+  filterSupplier(event){
+    let id = event.target.value;
     this.ordersToRemis=[];
     this.remiss.proveedor_id=id;
     this.remiss.remisiones=[];
     this.monto=0;
-    this.supplierSelected = nombre;
-
     this.service.getOrdenesByIdSupplier(id).subscribe( (data:AltaOrden[])=>{
       this.data = data;
     });
@@ -110,29 +117,28 @@ export class AltaOrdenComponent implements OnInit {
     }
   }
 
-  CreateRemission(){
+  public open(content, id) : void {
     if(this.ordersToRemis.length>0){
-      if(this.isUpdate){
-        this.openConfirmationDialog('Será actualizada una remisión con las ordenes: '+this.ordersToRemis+' Monto Total: $'+this.monto.toFixed(2));
-      }else{
-        this.openConfirmationDialog('Será generada una remisión con las ordenes: '+this.ordersToRemis+' Monto Total: $'+this.monto.toFixed(2));
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+          if(!this.isUpdate){
+              this.service.saveOrdenes(this.remiss);
+          }else{
+              this.service.updateOrdenes(this.remiss);
+          }
+        }, (reason) => {
+          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
       }
-    }
   }
 
-  public openConfirmationDialog(msg:string) {
-    this.confirmationDialogService.confirm('Favor de confirmar... ', msg)
-    .then((confirmed) => {
-      if(confirmed){
-          console.log('User confirmed:', confirmed);
-          if(!this.isUpdate){
-            this.service.saveOrdenes(this.remiss);
-          }else{
-            this.service.updateOrdenes(this.remiss);
-          }
-      }
-    })
-    .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
   createForm(): void {
@@ -140,5 +146,4 @@ export class AltaOrdenComponent implements OnInit {
       this.CheckedItem(true,x.id,x.monto);
     });
   }
-
 }

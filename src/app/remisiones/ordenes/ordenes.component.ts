@@ -10,9 +10,6 @@ import { SucursalService } from '../../services/administration/sucursal.service'
 import { Proveedor } from '../../model/administration/Proveedor.model';
 import { OrdenService } from 'src/app/services/remisiones/ordenes.service';
 import { Ordenes } from 'src/app/model/remision/ordenes.model';
-import { ConfirmationDialogService } from './altaorden/confirmation-dialog/confirmation-dialog.service';
-import { AltaOrden } from 'src/app/model/remision/ordenesAlta.model';
-
 
 @Component({
   selector: 'app-ordenes',
@@ -21,7 +18,7 @@ import { AltaOrden } from 'src/app/model/remision/ordenesAlta.model';
 })
 export class OrdenesComponent implements OnInit {
   dtElement: DataTableDirective;
-  // public dtOptions: DataTables.Settings = {};
+  public dtOptions: DataTables.Settings = {};
   public dtTrigger: Subject<any> = new Subject();
   public data : Ordenes[] = [];
   public provedores: Proveedor[]=[];
@@ -29,7 +26,6 @@ export class OrdenesComponent implements OnInit {
   public ordersToRemis: number[]=[];
   public monto: number=0;
   public supplierSelected: string="Seleccione un proveedor";
-  public dtOptions: DataTables.Settings = {};
   public closeResult: string = '';
 
     constructor(private router: Router,
@@ -39,8 +35,7 @@ export class OrdenesComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private sucursaleService: SucursalService,
         private proveedorService: ProveedorService,
-        private toastr: ToastrService,
-        private confirmationDialogService: ConfirmationDialogService ) {
+        private toastr: ToastrService) {
         // this.model = new AltaRemision();
       }
       
@@ -69,8 +64,7 @@ export class OrdenesComponent implements OnInit {
 
   public open(content, id) : void {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-        // this.eliminarRemision(remisionId)
-        console.log("");
+        this.eliminarOrdenServ(id);
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
@@ -80,9 +74,9 @@ export class OrdenesComponent implements OnInit {
     this.router.navigate(['remisiones/ordenes/editar', id]);
   }
 
-  public eliminarOrden(item:Ordenes){
-        this.openConfirmationDialog('La Orden: '+item.orden_id +' será eliminada.', item);
-    }
+  // public eliminarOrden(item:Ordenes){
+  //       this.openConfirmationDialog('La Orden: '+item.orden_id +' será eliminada.', item);
+  //   }
 
   public eliminarOrdenServ(id) : void {
       this.service.deleteOrdenes(id)
@@ -95,14 +89,14 @@ export class OrdenesComponent implements OnInit {
         });
   }
 
-  public openConfirmationDialog(msg:string,item:Ordenes) {
-      this.confirmationDialogService.confirm('Favor de confirmar... ', msg )
-      .then((confirmed) => {
-        if(confirmed)
-          this.eliminarOrdenServ(item.orden_id);
-      })
-      .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
-    }
+  // public openConfirmationDialog(msg:string,item:Ordenes) {
+  //     this.confirmationDialogService.confirm('Favor de confirmar... ', msg )
+  //     .then((confirmed) => {
+  //       if(confirmed)
+  //         this.eliminarOrdenServ(item.orden_id);
+  //     })
+  //     .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
+  //   }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
