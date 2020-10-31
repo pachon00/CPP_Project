@@ -1,93 +1,93 @@
 <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header">
-          <div class="row col-md-12">
-              <div class="col-md-8">
-                Órdenes de remisión
-              </div>
-              <div class="col-md-2 ml-auto">
-                <button type="button" class="btn btn-outline-primary" (click)="open(content,0);">{{ isUpdate ? "Editar" : "Generar" }} Orden</button>
-              </div>
-
-          </div>
-        </div>
-         <div class="card-body">
-          <div class="row">
-              <div class="table-responsive">
-                <div class="dataTables_length" *ngIf="!isUpdate">
-                  <label  for="id_proveedor" class="col-md-7 dataTables_length" 
-                          style="padding-left:0px;"> 
-                  Seleccione Proveedor :
-                  <select class="DataTables_Table_0_length" id="id_proveedor" 
-                  style="border: 1px solid #aaa;border-radius: 3px;
-                  padding: 5px;background-color: transparent;padding: 4px;" 
-                    name="id_proveedor" (change)="filterSupplier($event)"
-                    [(ngModel)]="selectedSupplier">
-                    <option *ngFor="let provedor of provedores" value="{{provedor.id}}">{{provedor.nombre }}</option>
-                  </select>
-                </label>
-              </div>
-              <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
-                class="table table-bordered table-striped mb-0">
-                <thead>
-                  <tr>
-                    <th>  </th>
-                    <th> Num Remision </th>
-                    <th> Sucursal </th>
-                    <th> Usuario </th>
-  
-                    <th> Fecha Remisión </th>
-                    <th> Fecha Pago </th>
-  
-                    <th> Monto </th>
-                    <th> Forma de Pago </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let data of this.data">
-                    <td style="text-align: center;">
-                      <div class="form-check">
-                        <input *ngIf="isUpdate" type="checkbox" [checked]="true" class="form-check-input" id="{{data.id}}" value="{{data.monto}}"(change)="CheckedItem($event.target.checked,$event.target.id,$event.target.value)">
-                        <input *ngIf="!isUpdate" type="checkbox" [checked]="false" class="form-check-input" id="{{data.id}}" value="{{data.monto}}"(change)="CheckedItem($event.target.checked,$event.target.id,$event.target.value)">
-                      </div>
-                    </td>
-                    <td>{{data.id}}</td>
-                    <td>{{data.sucursal}}</td>
-                    <td>{{data.usuario}}</td>
-  
-                    <td>{{data.fecha_remision | date:'dd/MM/yyyy' }}</td>
-                    <td>{{data.fecha_pago | date:'dd/MM/yyyy' }}</td>
-                    <td>{{data.monto | currency: 'USD' | lowercase}}</td>
-                    <td>{{data.forma_pago}}</td>
-                  </tr>
-                </tbody>
-              </table>
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="row col-md-12">
+            <div class="col-md-8">
+              Órdenes de remisión
             </div>
+            <div class="col-md-2 ml-auto">
+              <button type="button" class="btn btn-outline-primary" (click)="open(content,0);">{{ isUpdate ? "Editar" : "Generar" }} Orden</button>
+            </div>
+
+        </div>
+      </div>
+       <div class="card-body">
+        <div class="row">
+            <div class="table-responsive">
+              <div class="dataTables_length" *ngIf="!isUpdate">
+                <label  for="id_proveedor" class="col-md-7 dataTables_length" 
+                        style="padding-left:0px;"> 
+                Seleccione Proveedor :
+                <select class="col-md-6" id="id_proveedor" 
+                style="border: 1px solid #aaa;border-radius: 3px;
+                padding: 5px;background-color: transparent;padding: 4px;" 
+                  name="id_proveedor" (change)="filterSupplier($event)"
+                  [(ngModel)]="selectedSupplier">
+                  <option *ngFor="let provedor of provedores" value="{{provedor.id}}">{{provedor.nombre }}</option>
+                </select>
+              </label>
+            </div>
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+              class="table table-bordered table-striped mb-0">
+              <thead>
+                <tr>
+                  <th>  </th>
+                  <th> Num Remision </th>
+                  <th> Sucursal </th>
+                  <th> Usuario </th>
+
+                  <th> Fecha Remisión </th>
+                  <th> Fecha Pago </th>
+
+                  <th> Monto </th>
+                  <th> Forma de Pago </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of this.data">
+                  <td style="text-align: center;">
+                    <div class="form-check">
+                      <input *ngIf="isUpdate" type="checkbox" [checked]="true" class="form-check-input" id="{{data.id}}" value="{{data.monto}}"(change)="CheckedItem($event.target.checked,$event.target.id,$event.target.value)">
+                      <input *ngIf="!isUpdate" type="checkbox" [checked]="false" class="form-check-input" id="{{data.id}}" value="{{data.monto}}"(change)="CheckedItem($event.target.checked,$event.target.id,$event.target.value)">
+                    </div>
+                  </td>
+                  <td>{{data.id}}</td>
+                  <td>{{data.sucursal}}</td>
+                  <td>{{data.usuario}}</td>
+
+                  <td>{{data.fecha_remision | date:'dd/MM/yyyy' }}</td>
+                  <td>{{data.fecha_pago | date:'dd/MM/yyyy' }}</td>
+                  <td>{{data.monto | currency: 'USD' | lowercase}}</td>
+                  <td>{{data.forma_pago}}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-        <div class="card-footer">
-          <h6 Style="text-align-last: right;">Monto Total: {{monto | currency: 'USD' | lowercase}}</h6>
-        </div>
+      </div>
+      <div class="card-footer">
+        <h6 Style="text-align-last: right;">Monto Total: {{monto | currency: 'USD' | lowercase}}</h6>
       </div>
     </div>
   </div>
-  <ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Generar Orden</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <label for="dateOfBirth"> Será generada una remisión con las ordenes: {{this.ordersToRemis}} Monto Total: $ {{this.monto.toFixed(2)}}</label>
-           <!-- // ¿Está seguro de querer eliminar el registro seleccionado?</label> -->
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Aceptar</button>
-    </div>
-  </ng-template>
+</div>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Generar Orden</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="dateOfBirth"> Será generada una remisión con las ordenes: {{this.ordersToRemis}} Monto Total: $ {{this.monto.toFixed(2)}}</label>
+         <!-- // ¿Está seguro de querer eliminar el registro seleccionado?</label> -->
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Aceptar</button>
+  </div>
+</ng-template>
