@@ -45,8 +45,9 @@ export class OrdenesComponent implements OnInit, OnDestroy {
       
 
   ngOnInit(): void {
-    this.recepcion = new PagarOrden;
+    this.recepcion = new PagarOrden();
     this.loadData();
+    this.createForm();
   }      
 
   loadData(){
@@ -58,17 +59,13 @@ export class OrdenesComponent implements OnInit, OnDestroy {
   }
 
   createForm(): void {
-    //this.recepcion = new PagarOrden;
     this.altaForm = this.fb.group({
+      id : [this.recepcion.id,Validators.required],
       persona_recibe : [this.recepcion.persona_recibe,Validators.required],
-      nroCheck : [this.recepcion.numero_cheque,Validators.required],
-      nroTrans : [this.recepcion.numero_transferencia,Validators.required],
-      commnet : [this.recepcion.comentarios,Validators.required ],
+      numero_cheque : [this.recepcion.numero_cheque,Validators.required],
+      numero_transferencia : [this.recepcion.numero_transferencia,Validators.required],
+      comentarios : [this.recepcion.comentarios,Validators.required ],
     });
-    //console.log(this.altaForm.controls['persona_recibe'].errors.required);
-    console.log(this.altaForm.controls['comentarios']);
-    console.log(this.recepcion);
-
   }
 
   ngOnDestroy(): void {
@@ -97,9 +94,10 @@ export class OrdenesComponent implements OnInit, OnDestroy {
   public TipoPago(content, id) : void {
     let filterData = this.data.filter((x)=>x.orden_id === id);
     this.selectedOrder = filterData[0];
-    this.recepcion = new PagarOrden;
+    
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.service.savePagarOrden(this.recepcion)
+      const objData = Object.assign({}, this.altaForm.value);
+      this.service.savePagarOrden(objData)
         .subscribe( _ => {
           this.data = this.data.filter(t => t.orden_id != id);
           this.toastr.success("El pago fue registrado correctamente.")
@@ -110,7 +108,7 @@ export class OrdenesComponent implements OnInit, OnDestroy {
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     }, );
-    
+    this.recepcion = new PagarOrden();
   }
 
   public editarOrden(id : number) : void {
@@ -138,6 +136,40 @@ export class OrdenesComponent implements OnInit, OnDestroy {
     }
   }
 
+  public onSubmit(): void {
 
+    const objData = Object.assign({}, this.altaForm.value);
+    console.log(objData);
+
+   // const sucursal = { ...objData, id: this.sucursalId ? this.sucursalId : 0};
+
+    // if (!this.isUpdate) {
+
+      // this.service.postSucursal(sucursal)
+      // .subscribe(
+      //   (data) => {
+      //     this.toastr.success("La sucursal " + sucursal.nombre + " se ha creado correctamente.")
+      //     this.cancelar();
+      //   },
+      //   error => {
+      //     console.log(error)
+      //     this.toastr.error(error);
+      //   }
+      // );
+    // }
+    // else {
+      // this.service.postActualizarSucursal(sucursal)
+      // .subscribe(
+      //   (data) => {
+      //     this.toastr.success("La sucursal " + sucursal.nombre + " se ha actualizado correctamente.")
+      //     this.cancelar();
+      //   },
+      //   error => {
+      //     console.log(error)
+      //     this.toastr.error(error);
+      //   }
+      // );
+    // }
+  }
 
 }

@@ -27,7 +27,7 @@
                     <th> Total Remisiones </th>
                     <th> Monto Total </th>
                     <th> Forma de Pago </th>
-                    <th> </th>
+                    <th> Acciones </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -42,7 +42,7 @@
                     <td>{{data.monto_total | currency: 'USD' | lowercase}}</td>
                     <td>{{data.forma_pago}}</td>
                     <td style="text-align: center;" >
-                      <div [ngStyle]="{'color':data.estado_orden_id==1 ? 'black':'gray'}">
+                      <div [ngStyle]="{'color':data.estado_orden_id==1 ? 'black;':'gray'}">
                         <i class="fa fa-edit fa-2x" style="cursor: pointer;" 
                           (click)="data.estado_orden_id==1 ? editarOrden(data.orden_id):false">
                         </i>
@@ -83,95 +83,138 @@
     </div>
   </ng-template>
 
+
   <ng-template #pago let-modal>
-    <div>
+    <div class="card">
       <div class="modal-header">
-          <h4 class="modal-title" id="modal-basic-title">Registro de Pago [ {{selectedOrder.forma_pago}} ]</h4>
-          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div  class="modal-body">
-          <form #form="ngForm" class="form-group">
+        <h4 class="modal-title" id="modal-basic-title">Registro de Pago [ {{selectedOrder.forma_pago}} ]</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="altaForm" (ngSubmit)="modal.close('Save click')">
+          
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="persona_recibe">  Persona que recibe: <span class="required">*</span>   </label>
+                <input
+                  autofocus aria-describedby="persona_recibe"
+                  class="form-control"
+                  id="persona_recibe"
+                  formControlName="persona_recibe"
+                  name="persona_recibe"
+                  placeholder="Ingrese el nombre de la persona que recibe el pago">
+      
+                  <div *ngIf="altaForm.controls['persona_recibe'].invalid && (altaForm.controls['persona_recibe'].dirty
+                            || altaForm.controls['persona_recibe'].touched)"
+                  class="invalid-feedback ng-star-inserted">
+                      <div *ngIf="altaForm.controls['persona_recibe'].errors.required">
+                        Se requiere registrar el nombre de la persona que recibe el pago.
+                      </div>
+                  </div>
+      
+              </div>
+            </div>
+          </div>
 
-            <div class="row">
-              <div class="col-md-12">
-                <label for="persona_recibe">Persona que recibe:<span class="required">*</span></label>
-                <input id="persona_recibe" name="persona_recibe" class="form-control"
-                    #persona_recibe="ngModel"
-                    [(ngModel)]="recepcion.persona_recibe"
-                    [required]="true"
-                    [disabled]="(false) || isView"
-                    [status]="persona_recibe.dirty ? (persona_recibe.invalid  ? 'danger' : 'success') : ''">
-                  <ng-container *ngIf="persona_recibe.invalid && persona_recibe.dirty">
-                    <p class="error-message text-danger" *ngIf="persona_recibe.errors?.required">
-                      Se requiere registrar el nombre de la persona que recibe el pago.</p>
-                  </ng-container>
+          <div class="row" *ngIf="selectedOrder.forma_pago==='Cheque'">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="numero_cheque"> Número de cheque:<span class="required">*</span> </label>
+                <input
+                  autofocus aria-describedby="numero_cheque"
+                  class="form-control"
+                  id="numero_cheque"
+                  formControlName="numero_cheque"
+                  name="numero_cheque"
+                  placeholder="Ingrese el número de cheque">
+      
+                  <div *ngIf="altaForm.controls['numero_cheque'].invalid && (altaForm.controls['numero_cheque'].dirty
+                            || altaForm.controls['numero_cheque'].touched)"
+                  class="invalid-feedback ng-star-inserted">
+                      <div *ngIf="altaForm.controls['numero_cheque'].errors.required">
+                        Se requiere número de cheque para aplicar pago.
+                      </div>
+                  </div>
+      
               </div>
             </div>
-            <div class="row" *ngIf="selectedOrder.forma_pago==='Cheque'">
-              <div class="col-md-12">
-                <label for="numero_cheque"> Número de cheque: <span class="required">*</span></label>
-                <input id="numero_cheque" name="numero_cheque" class="form-control"
-                    #numero_cheque="ngModel"
-                    [(ngModel)]="recepcion.numero_cheque"
-                    [required]="true"
-                    [disabled]="(false) || isView"
-                    [status]="numero_cheque.dirty ? (numero_cheque.invalid  ? 'danger' : 'success') : ''">
-                  <ng-container *ngIf="numero_cheque.invalid && numero_cheque.dirty">
-                    <p class="error-message text-danger" *ngIf="numero_cheque.errors?.required">
-                        Se requiere número de cheque para aplicar pago.</p>
-                  </ng-container>
-              </div>
-            </div>
-            <div class="row" *ngIf="selectedOrder.forma_pago==='Transferencia'">
-              <div class="col-md-12">
-                <label for="numero_transferencia"> Número de transferencia: <span class="required">*</span></label>
-                <input id="numero_transferencia" name="numero_transferencia" class="form-control"
-                    #numero_transferencia="ngModel"
-                    [(ngModel)]="recepcion.numero_transferencia"
-                    [required]="true"
-                    [disabled]="(false) || isView"
-                    [status]="numero_transferencia.dirty ? (numero_transferencia.invalid  ? 'danger' : 'success') : ''">
-                  <ng-container *ngIf="numero_transferencia.invalid && numero_transferencia.dirty">
-                    <p class="error-message text-danger" *ngIf="numero_transferencia.errors?.required">
-                      Se requiere número de transferencia para aplicar pago.</p>
-                  </ng-container>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <label class="col-md-12" for="comentarios">Comentarios:</label>
-                <textarea class="form-control" id="comentarios" name="comentarios" 
-                          [(ngModel)]="recepcion.comentarios" 
-                          #comentarios="ngModel" 
-                          rows="3"
-                    [placeholder]="">
-                </textarea>
-              </div>
-            </div>
+          </div>
 
-         <div *ngIf="selectedOrder.forma_pago==='Efectivo'" class="modal-footer"> 
-          <button type="button" class="btn btn-outline-dark" 
-            [disabled]="(persona_recibe.errors?.required)"
-            (click)="modal.close('Save click')">Aceptar
-          </button>
-        </div>
-        <div *ngIf="selectedOrder.forma_pago==='Cheque'" class="modal-footer">
-          <button type="button" class="btn btn-outline-dark" 
-            [disabled]="(persona_recibe.errors?.required && 
-                          numero_cheque.errors?.required)"
-            (click)="modal.close('Save click')">Aceptar
-          </button>
-        </div>
-       <div *ngIf="selectedOrder.forma_pago==='Transferencia'" class="modal-footer">
-            <button type="button" class="btn btn-outline-dark" 
-              [disabled]="(persona_recibe.errors?.required && 
-                          numero_transferencia.errors?.required)"
-              (click)="modal.close('Save click')">Aceptar
-            </button>
-        </div>
-      </form>
-    </div>       
+          <div class="row" *ngIf="selectedOrder.forma_pago==='Transferencia'">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="numero_transferencia"> Número de transferencia: <span class="required">*</span> </label>
+                <input
+                  autofocus aria-describedby="numero_transferencia"
+                  class="form-control"
+                  id="numero_transferencia"
+                  formControlName="numero_transferencia"
+                  name="numero_transferencia"
+                  placeholder="Ingrese el número de transferencia">
+      
+                  <div *ngIf="altaForm.controls['numero_transferencia'].invalid && (altaForm.controls['numero_transferencia'].dirty
+                            || altaForm.controls['numero_transferencia'].touched)"
+                  class="invalid-feedback ng-star-inserted">
+                      <div *ngIf="altaForm.controls['numero_transferencia'].errors.required">
+                        Se requiere número de transferencia para aplicar pago.
+                      </div>
+                  </div>
+      
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="comentarios">Comentarios: </label>
+                <textarea
+                  autofocus aria-describedby="comentarios"
+                  class="form-control" id="comentarios"
+                  rows=3 maxlength="100"
+                  formControlName="comentarios" name="comentarios"
+                  placeholder="Ingrese los comentarios"> </textarea>    
+              </div>
+            </div>
+          </div>
+
+          <div class="row text-center">
+            <div class="col-md-8">
+              &nbsp;
+            </div>
+      
+            <div class="col-md-4" *ngIf="selectedOrder.forma_pago==='Efectivo'">
+              <button
+                type="submit"
+                class="btn btn-success  mr-1"
+                [disabled]="altaForm.controls['persona_recibe'].errors?.required">
+                Guardar
+              </button>
+            </div>
+            <div class="col-md-4" *ngIf="selectedOrder.forma_pago==='Cheque'">
+              <button
+                type="submit"
+                class="btn btn-success  mr-1"
+                [disabled]="(altaForm.controls['numero_cheque'].errors?.required
+                            || altaForm.controls['persona_recibe'].errors?.required)">
+                Guardar
+              </button>
+            </div>
+            <div class="col-md-4" *ngIf="selectedOrder.forma_pago==='Transferencia'">
+              <button
+                type="submit"
+                class="btn btn-success  mr-1"
+                [disabled]="(altaForm.controls['numero_transferencia'].errors?.required
+                            || altaForm.controls['persona_recibe'].errors?.required)">
+                Guardar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </ng-template>
+

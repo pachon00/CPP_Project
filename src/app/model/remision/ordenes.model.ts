@@ -12,10 +12,16 @@ export class Ordenes {
 }
 
 export class PagarOrden{
-    id : number=0;
-    persona_recibe : string = '';
-    numero_transferencia : string = '';
-    numero_cheque : string = '';
-    comentarios : string = '';
-    constructor( ){}
+    id : number;
+    persona_recibe : string;
+    numero_transferencia : string;
+    numero_cheque : string;
+    comentarios : string;
+    constructor(){
+        this.id=0;
+        this.persona_recibe='';
+        this.numero_transferencia='';
+        this.numero_cheque='';
+        this.comentarios='';
+    }
 }
