@@ -1,5 +1,13 @@
 i.disabled {
+    cursor: pointer;
     color: gray;
+    cursor: not-allowed;
+    text-decoration: underline;
+}
+
+i.enabled {
+    cursor: pointer;
+    color: black;
     cursor: not-allowed;
     text-decoration: underline;
 }

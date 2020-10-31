@@ -18,6 +18,7 @@ import { renderFlagCheckIfStmt } from '@angular/compiler/src/render3/view/templa
   styleUrls: ['./altaorden.component.css']
 })
 export class AltaOrdenComponent implements OnInit {
+  @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
   public dtTrigger: Subject<any> = new Subject();
@@ -34,7 +35,6 @@ export class AltaOrdenComponent implements OnInit {
   public isUpdate: boolean = false;
   public selectedSupplier: number=-1;
   public closeResult: string = '';
-
 
   constructor(private router: Router,
       private modalService: NgbModal,
@@ -102,6 +102,7 @@ export class AltaOrdenComponent implements OnInit {
     this.monto=0;
     this.service.getOrdenesByIdSupplier(id).subscribe( (data:AltaOrden[])=>{
       this.data = data;
+      this.rerender();
     });
   }
 
@@ -117,11 +118,43 @@ export class AltaOrdenComponent implements OnInit {
     }
   }
 
+  // public open(content, id) : void {
+  //   this.remiss.proveedor_id=25;
+  //   this.remiss.remisiones=[];
+  //   this.remiss.remisiones.push(3);
+  //   this.remiss.remisiones.push(5);
+  //   this.remiss.remisiones.push(6);
+  //   this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+  //         this.service.saveOrdenes(this.remiss)
+  //           .subscribe((data) => {
+  //                     this.toastr.success("La remisión se ha creado correctamente.")
+  //                     // this.cancelar();
+  //                   },
+  //                   error => {
+  //                     console.log(JSON.stringify(this.remiss));
+  //                     console.log(error);
+  //                     this.toastr.error(error);
+  //                   }
+  //                 );
+  //             }, (reason) => {
+  //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  //   });
+  // }
+
   public open(content, id) : void {
     if(this.ordersToRemis.length>0){
         this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
           if(!this.isUpdate){
-              this.service.saveOrdenes(this.remiss);
+              this.service.saveOrdenes(this.remiss).subscribe(
+                (data) => {
+                  this.toastr.success("La remisión se ha creado correctamente.")
+                  // this.cancelar();
+                },
+                error => {
+                  console.log(error)
+                  this.toastr.error(error);
+                }
+              );
           }else{
               this.service.updateOrdenes(this.remiss);
           }

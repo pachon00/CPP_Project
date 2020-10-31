@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
@@ -9,24 +9,28 @@ import { ProveedorService } from '../../services/administration/proveedores.serv
 import { SucursalService } from '../../services/administration/sucursal.service';
 import { Proveedor } from '../../model/administration/Proveedor.model';
 import { OrdenService } from 'src/app/services/remisiones/ordenes.service';
-import { Ordenes } from 'src/app/model/remision/ordenes.model';
+import { Ordenes, PagarOrden } from 'src/app/model/remision/ordenes.model';
 
 @Component({
   selector: 'app-ordenes',
   templateUrl: './ordenes.component.html',
   styleUrls: ['./ordenes.component.css']
 })
-export class OrdenesComponent implements OnInit {
+export class OrdenesComponent implements OnInit, OnDestroy {
+  @ViewChild(DataTableDirective, {static: false})
   dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
   public dtTrigger: Subject<any> = new Subject();
   public data : Ordenes[] = [];
+  public selectedOrder : Ordenes;
   public provedores: Proveedor[]=[];
   // public  seleccion: boolean=false;
   public ordersToRemis: number[]=[];
   public monto: number=0;
   public supplierSelected: string="Seleccione un proveedor";
   public closeResult: string = '';
+  public altaForm: FormGroup;
+  public recepcion: PagarOrden;
 
     constructor(private router: Router,
         private modalService: NgbModal,
@@ -41,11 +45,31 @@ export class OrdenesComponent implements OnInit {
       
 
   ngOnInit(): void {
+    this.recepcion = new PagarOrden;
+    this.loadData();
+  }      
+
+  loadData(){
     this.service.getCreateOrders().subscribe( (data:Ordenes[])=> {
       this.data = data;
       this.dtTrigger.next();
+      this.rerender();
     });
-  }      
+  }
+
+  createForm(): void {
+    //this.recepcion = new PagarOrden;
+    this.altaForm = this.fb.group({
+      persona_recibe : [this.recepcion.persona_recibe,Validators.required],
+      nroCheck : [this.recepcion.numero_cheque,Validators.required],
+      nroTrans : [this.recepcion.numero_transferencia,Validators.required],
+      commnet : [this.recepcion.comentarios,Validators.required ],
+    });
+    //console.log(this.altaForm.controls['persona_recibe'].errors.required);
+    console.log(this.altaForm.controls['comentarios']);
+    console.log(this.recepcion);
+
+  }
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
@@ -70,13 +94,28 @@ export class OrdenesComponent implements OnInit {
     });
   }
 
+  public TipoPago(content, id) : void {
+    let filterData = this.data.filter((x)=>x.orden_id === id);
+    this.selectedOrder = filterData[0];
+    this.recepcion = new PagarOrden;
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.service.savePagarOrden(this.recepcion)
+        .subscribe( _ => {
+          this.data = this.data.filter(t => t.orden_id != id);
+          this.toastr.success("El pago fue registrado correctamente.")
+        },
+          error => {
+              this.toastr.error(error)
+      });
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    }, );
+    
+  }
+
   public editarOrden(id : number) : void {
     this.router.navigate(['remisiones/ordenes/editar', id]);
   }
-
-  // public eliminarOrden(item:Ordenes){
-  //       this.openConfirmationDialog('La Orden: '+item.orden_id +' será eliminada.', item);
-  //   }
 
   public eliminarOrdenServ(id) : void {
       this.service.deleteOrdenes(id)
@@ -88,15 +127,6 @@ export class OrdenesComponent implements OnInit {
             this.toastr.error(error)
         });
   }
-
-  // public openConfirmationDialog(msg:string,item:Ordenes) {
-  //     this.confirmationDialogService.confirm('Favor de confirmar... ', msg )
-  //     .then((confirmed) => {
-  //       if(confirmed)
-  //         this.eliminarOrdenServ(item.orden_id);
-  //     })
-  //     .catch(() => console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)'));
-  //   }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {

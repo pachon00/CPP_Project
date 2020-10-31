@@ -14,3 +14,4 @@ export class AltaOrdenDetail{
     remisiones: number[];
     constructor( ){ }
 }
+

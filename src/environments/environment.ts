@@ -8,5 +8,5 @@
 export const environment = {
   production: false,
   apiServer : "http://imariscaltel-001-site1.btempurl.com/api/"
-  // apiServer : "http://imariscalmodus-001-site1.htempurl.com/"
+  // apiServer : "http://imariscalmodus-001-site1.htempurl.com/api/"
 };

@@ -4,13 +4,14 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { AltaOrden, AltaOrdenDetail } from 'src/app/model/remision/ordenesAlta.model';
-import { Ordenes } from 'src/app/model/remision/ordenes.model';
+import { Ordenes, PagarOrden } from 'src/app/model/remision/ordenes.model';
 
 @Injectable(
   {
     providedIn: "root"
   }
 )
+
 export class OrdenService {
 
   private baseUrl: string = `${environment.apiServer}Ordenes`;
@@ -30,14 +31,16 @@ export class OrdenService {
     );
   }
 
-  public saveOrdenes(item:AltaOrdenDetail){
+  public saveOrdenes( item: AltaOrdenDetail)
+    : Observable<AltaOrdenDetail> {
     return this.http.post<AltaOrdenDetail>(this.baseUrl,item)
     .pipe(
       catchError(this.handleError)
     );
   }
 
-  public updateOrdenes(item:AltaOrdenDetail){
+  public updateOrdenes(item:AltaOrdenDetail)
+    :Observable<AltaOrdenDetail> {
     return this.http.put<AltaOrdenDetail>(this.baseUrl,item)
     .pipe(
       catchError(this.handleError)
@@ -58,6 +61,14 @@ export class OrdenService {
       catchError(this.handleError)
     );
   }
+
+  public savePagarOrden(item:PagarOrden)
+  :Observable<PagarOrden> {
+  return this.http.post<PagarOrden>(this.baseUrl+'/PagarOrden',item)
+  .pipe(
+    catchError(this.handleError)
+  );
+}
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {

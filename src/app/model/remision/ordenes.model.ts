@@ -10,3 +10,12 @@ export class Ordenes {
     forma_pago:string;
     constructor(){ }
 }
+
+export class PagarOrden{
+    id : number=0;
+    persona_recibe : string = '';
+    numero_transferencia : string = '';
+    numero_cheque : string = '';
+    comentarios : string = '';
+    constructor( ){}
+}

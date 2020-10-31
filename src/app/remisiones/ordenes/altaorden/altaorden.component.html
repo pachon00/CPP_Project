@@ -3,27 +3,31 @@
       <div class="card">
         <div class="card-header">
           <div class="row col-md-12">
-              <div class="col-md-4">
+              <div class="col-md-8">
                 Órdenes de remisión
               </div>
-              <div class="col-md-3 ml-md-auto">
+              <div class="col-md-2 ml-auto">
                 <button type="button" class="btn btn-outline-primary" (click)="open(content,0);">{{ isUpdate ? "Editar" : "Generar" }} Orden</button>
               </div>
-              <div class="row col-md-12">
-                <div class="dataTables_length" *ngIf="!isUpdate">
-                  <label for="id_proveedor" style="font-family: 'Arimo', Helvetica, sans-serif; font-size: 0.875rem;font-weight: 400;"> Seleccione Proveedor : </label>
-                    <select class="form-control" id="id_proveedor"  name="id_proveedor" (change)="filterSupplier($event)"
-                      [(ngModel)]="selectedSupplier">
-                      <option *ngFor="let provedor of provedores" value="{{provedor.id}}">{{provedor.nombre }}</option>
-                    </select>
-                </div>
-              </div>
+
           </div>
         </div>
          <div class="card-body">
           <div class="row">
-            <div class="table-responsive">
-
+              <div class="table-responsive">
+                <div class="dataTables_length" *ngIf="!isUpdate">
+                  <label  for="id_proveedor" class="col-md-7 dataTables_length" 
+                          style="padding-left:0px;"> 
+                  Seleccione Proveedor :
+                  <select class="DataTables_Table_0_length" id="id_proveedor" 
+                  style="border: 1px solid #aaa;border-radius: 3px;
+                  padding: 5px;background-color: transparent;padding: 4px;" 
+                    name="id_proveedor" (change)="filterSupplier($event)"
+                    [(ngModel)]="selectedSupplier">
+                    <option *ngFor="let provedor of provedores" value="{{provedor.id}}">{{provedor.nombre }}</option>
+                  </select>
+                </label>
+              </div>
               <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
                 class="table table-bordered table-striped mb-0">
                 <thead>
@@ -52,8 +56,8 @@
                     <td>{{data.sucursal}}</td>
                     <td>{{data.usuario}}</td>
   
-                    <td>{{data.fecha_remision | date:'dd/MM/yyyy'}}</td>
-                    <td>{{data.fecha_pago | date:'dd/MM/yyyy'}}</td>
+                    <td>{{data.fecha_remision | date:'dd/MM/yyyy' }}</td>
+                    <td>{{data.fecha_pago | date:'dd/MM/yyyy' }}</td>
                     <td>{{data.monto | currency: 'USD' | lowercase}}</td>
                     <td>{{data.forma_pago}}</td>
                   </tr>
