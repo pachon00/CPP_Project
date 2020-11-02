@@ -80,7 +80,7 @@
             <label for="forma_pago_id"> Forma Pago : <span class="required">*</span> </label>
             <select class="form-control" id="forma_pago_id"  required name="forma_pago_id"
               formControlName="forma_pago_id">
-              <option  value="" selected>  </option>
+              <option  value="0" selected> Seleccione una forma de pago  </option>
               <option *ngFor="let forma of formaPago" value="{{forma.id}}">{{forma.forma_pago}}</option>
             </select>
             <div *ngIf="altaForm.controls['forma_pago_id'].invalid && (altaForm.controls['forma_pago_id'].dirty
@@ -120,7 +120,7 @@
           <div class="form-group">
             <label for="tipo_proveedor_id"> Tipo Proveedor: <span class="required">*</span> </label>
             <select class="form-control" id="tipo_proveedor_id"  required name="tipo_proveedor_id"   formControlName="tipo_proveedor_id">
-              <option  value="" selected> </option>
+              <option  value="0" selected> Seleccione un tipo de proveedor </option>
               <option *ngFor="let tipo of tipoProveedor" value="{{tipo.id}}" >{{tipo.tipo_proveedor}}</option>
             </select>
 

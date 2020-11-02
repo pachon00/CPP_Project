@@ -42,13 +42,13 @@ export class OrdenesComponent implements OnInit, OnDestroy {
         private toastr: ToastrService) {
         // this.model = new AltaRemision();
       }
-      
+
 
   ngOnInit(): void {
     this.recepcion = new PagarOrden();
     this.loadData();
     this.createForm();
-  }      
+  }
 
   loadData(){
     this.service.getCreateOrders().subscribe( (data:Ordenes[])=> {
@@ -94,9 +94,13 @@ export class OrdenesComponent implements OnInit, OnDestroy {
   public TipoPago(content, id) : void {
     let filterData = this.data.filter((x)=>x.orden_id === id);
     this.selectedOrder = filterData[0];
-    
+
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      const objData = Object.assign({}, this.altaForm.value);
+
+      // EL Id no ha sido asingado por eso no se puede pagar la orden
+      let  objData = Object.assign({}, this.altaForm.value);
+      objData = {...objData, id: id};
+
       this.service.savePagarOrden(objData)
         .subscribe( _ => {
           this.data = this.data.filter(t => t.orden_id != id);
@@ -140,36 +144,6 @@ export class OrdenesComponent implements OnInit, OnDestroy {
 
     const objData = Object.assign({}, this.altaForm.value);
     console.log(objData);
-
-   // const sucursal = { ...objData, id: this.sucursalId ? this.sucursalId : 0};
-
-    // if (!this.isUpdate) {
-
-      // this.service.postSucursal(sucursal)
-      // .subscribe(
-      //   (data) => {
-      //     this.toastr.success("La sucursal " + sucursal.nombre + " se ha creado correctamente.")
-      //     this.cancelar();
-      //   },
-      //   error => {
-      //     console.log(error)
-      //     this.toastr.error(error);
-      //   }
-      // );
-    // }
-    // else {
-      // this.service.postActualizarSucursal(sucursal)
-      // .subscribe(
-      //   (data) => {
-      //     this.toastr.success("La sucursal " + sucursal.nombre + " se ha actualizado correctamente.")
-      //     this.cancelar();
-      //   },
-      //   error => {
-      //     console.log(error)
-      //     this.toastr.error(error);
-      //   }
-      // );
-    // }
   }
 
 }

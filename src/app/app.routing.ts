@@ -25,6 +25,13 @@ export const AppRoutes: Routes = [
           import("./remisiones/remisiones.module").then(
             m => m.RemisionesModule
           )
+      },
+      {
+        path: "reportes",
+        loadChildren: () =>
+          import("./reportes/reportes.module").then(
+            m => m.ReportesModule
+          )
       }
     ]
   },

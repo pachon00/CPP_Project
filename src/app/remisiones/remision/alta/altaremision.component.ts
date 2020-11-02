@@ -75,7 +75,8 @@ export class AltaRemisionComponent implements OnInit {
 
 
   public onSubmit(): void {
-    const objData = Object.assign({}, this.altaForm.value);
+    let objData = Object.assign({}, this.altaForm.value);
+    objData = {...objData, proveedor_id: +objData.proveedor_id, sucursal_id: +objData.sucursal_id};
     console.log(objData);
     if (!this.isUpdate) {
 

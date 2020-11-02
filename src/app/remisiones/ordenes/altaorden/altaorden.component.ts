@@ -59,7 +59,7 @@ export class AltaOrdenComponent implements OnInit {
               this.isUpdate = true;
               this.ordersToRemis=[];
               this.remiss = new AltaOrdenDetail();
-              this.remiss.proveedor_id=id;
+              this.remiss.proveedor_id=+id;
               this.remiss.remisiones=[];
               this.monto=0;
               this.createForm();
@@ -97,7 +97,7 @@ export class AltaOrdenComponent implements OnInit {
   filterSupplier(event){
     let id = event.target.value;
     this.ordersToRemis=[];
-    this.remiss.proveedor_id=id;
+    this.remiss.proveedor_id=+id;
     this.remiss.remisiones=[];
     this.monto=0;
     this.service.getOrdenesByIdSupplier(id).subscribe( (data:AltaOrden[])=>{
@@ -108,9 +108,9 @@ export class AltaOrdenComponent implements OnInit {
 
   CheckedItem(checked:any,id:any,value:any){
     if(checked){
-      this.ordersToRemis.push(id);
+      this.ordersToRemis.push(+id);
       this.monto += Number(value);
-      this.remiss.remisiones.push(id);
+      this.remiss.remisiones.push(+id);
     }else{
       this.ordersToRemis.splice(this.ordersToRemis.indexOf(id), 1);
       this.monto -= Number(value);
@@ -147,8 +147,8 @@ export class AltaOrdenComponent implements OnInit {
           if(!this.isUpdate){
               this.service.saveOrdenes(this.remiss).subscribe(
                 (data) => {
-                  this.toastr.success("La remisión se ha creado correctamente.")
-                  // this.cancelar();
+                  this.toastr.success("La remisión se ha creado correctamente.");
+                  this.router.navigate(['remisiones/ordenes']);
                 },
                 error => {
                   console.log(error)

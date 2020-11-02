@@ -4,7 +4,7 @@
     <div class="card">
       <div class="card-header">
         <div class="col-md-10">
-          Detalles Remisiones Por Vencer
+          Detalles Remisiones Vencidas
         </div>
         <div class="col-md-1 ml-2">
 
@@ -31,7 +31,7 @@
             </div>
           </div>
           <div class="col-md-2 mt-4" >
-            <button type="button" class="btn btn-outline-primary" (click)="buscarPorVencer()">Buscar</button>
+            <button type="button" class="btn btn-outline-primary" (click)="buscarVencidos()">Buscar</button>
           </div>
 
         </div>
@@ -42,13 +42,13 @@
               class="table table-bordered table-striped mb-0">
               <thead>
                 <tr>
-                  <th> Num Remisión </th>
+                  <th> Num Remision </th>
                   <th> Sucursal </th>
                   <th> Proveedor </th>
                   <th> Forma Pago </th>
                   <th> Fecha Alta </th>
-                  <th> Fecha Crédito </th>
-                  <th> Dias Para Vencer </th>
+                  <th> Fecha Credito </th>
+                  <th> Dias Vencimiento </th>
 
                 </tr>
               </thead>
@@ -60,7 +60,7 @@
                   <td> {{data.forma_pago }}</td>
                   <td> {{data.fecha_alta | date : 'dd/MM/yyyy'}}</td>
                   <td> {{data.fecha_credito | date : 'dd/MM/yyyy'}}</td>
-                  <td> {{data.dias_vencimiento * -1}}</td>
+                  <td> {{data.dias_vencimiento}}</td>
                 </tr>
               </tbody>
             </table>

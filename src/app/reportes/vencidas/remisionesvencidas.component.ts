@@ -4,19 +4,19 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
-import { Proveedor } from 'src/app/model/administration/Proveedor.model';
-import { Sucursal } from 'src/app/model/administration/Sucursal.model';
-import { ProveedorService } from 'src/app/services/administration/proveedores.service';
-import { SucursalService } from 'src/app/services/administration/sucursal.service';
+import { Proveedor } from '../../model/administration/Proveedor.model';
+import { ProveedorService } from '../../services/administration/proveedores.service';
 import { RemisionesVencidas } from '../../model/reportes/remisionesvencidas.model';
 import { ReportesService } from '../../services/reportes/reportes.service';
+import { SucursalService } from '../../services/administration/sucursal.service';
+import { Sucursal } from '../../model/administration/Sucursal.model';
 
 
 @Component({
-  templateUrl: './porvencer.component.html',
-  styleUrls: ['./porvencer.component.css']
+  templateUrl: './remisionesvencidas.component.html',
+  styleUrls: ['./remisionesvencidas.component.css']
 })
-export class PorVencerComponent implements OnInit {
+export class RemisionesVencidasComponent implements OnInit {
 
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
@@ -24,13 +24,13 @@ export class PorVencerComponent implements OnInit {
   public dtTrigger: Subject<any> = new Subject();
   public closeResult: string = '';
   public data$ : RemisionesVencidas[] = [];
+  public dataBack : RemisionesVencidas[] = [];
   public proveedores : Proveedor[];
   public sucursales: Sucursal[];
   public proveedorId: number = 0;
   public sucursalId: number = 0;
 
-
-  constructor(private router: Router,
+ constructor(private router: Router,
     private modalService: NgbModal,
     private service : ReportesService,
     private proveedorService : ProveedorService,
@@ -41,18 +41,18 @@ export class PorVencerComponent implements OnInit {
   ngOnInit() : void {
     this.proveedorService.getProveedor().subscribe( data => {
         this.proveedores = data;
-    });
+    })
 
     this.sucursalService.getSucursal().subscribe( sucursales => {
       this.sucursales = sucursales;
       console.log(sucursales);
-  });
+  })
 
-  this.service.getRemisionesPorVencer(this.proveedorId, this.sucursalId).subscribe( data=> {
-    this.data$ = data;
-    this.dtTrigger.next();
-  });
-
+    this.service.getRemisionesVencidas(this.proveedorId, this.sucursalId).subscribe( data=> {
+      this.data$ = data;
+      this.dataBack = data;
+      this.dtTrigger.next();
+    })
   }
 
   ngOnDestroy(): void {
@@ -66,21 +66,21 @@ export class PorVencerComponent implements OnInit {
     });
   }
 
+  public buscarVencidos() : void {
+    this.service.getRemisionesVencidas(this.proveedorId, this.sucursalId).subscribe( data=> {
+      this.data$ = data;
+      this.dataBack = data;
+      this.rerender();
+    })
+  }
 
-public buscarPorVencer() : void {
-  this.service.getRemisionesPorVencer(this.proveedorId, this.sucursalId).subscribe( data=> {
-    this.data$ = data;
-    this.rerender();
-  });
-}
+  public changeSucursal(event :any) : void {
+    this.sucursalId = +event.srcElement.value;
+  }
 
-public changeSucursal(event :any) : void {
-  this.sucursalId = +event.srcElement.value;
-}
-
-public changeProveedor(event :any) : void {
-  this.proveedorId = +event.srcElement.value;
-}
+  public changeProveedor(event :any) : void {
+    this.proveedorId = +event.srcElement.value;
+  }
 
 
 }

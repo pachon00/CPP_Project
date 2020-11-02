@@ -2,5 +2,5 @@
 
 export const environment = {
   production: true,
-  apiServer : "http://localhost:51309/api/"
+  apiServer : "http://imariscaltel-001-site1.btempurl.com/api/"
 };

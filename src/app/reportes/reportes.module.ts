@@ -5,9 +5,15 @@ import { RouterModule } from '@angular/router';
 import { ReportesRoutes } from './reportes.routing';
 import { DataTablesModule } from 'angular-datatables';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { RemisionesVencidasComponent } from './vencidas/remisionesvencidas.component';
+import { PorVencerComponent } from './porvencer/porvencer.component';
+import { PagoProveedoresComponent } from './pagoproveedores/pagoproveedores.component';
 
 @NgModule({
   declarations: [
+    RemisionesVencidasComponent,
+    PorVencerComponent,
+    PagoProveedoresComponent
   ],
   imports: [
     CommonModule,

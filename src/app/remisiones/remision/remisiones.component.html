@@ -40,8 +40,12 @@
 
                   <td>  {{data.estado_remision}}</td>
                   <td style="text-align: center;">
-                    <i class="fa fa-edit fa-2x" style="cursor: pointer;" (click)="eliminarRemision(data.id)"></i>
-                    <i class="fa fa-trash fa-2x" style="cursor: pointer;" (click)="open(content,data.id);"></i>
+                    <i [ngStyle]="{'color':data.estado_remision_id==1 ? 'black;':'gray'}" class="fa fa-edit fa-2x"
+                    style="cursor: pointer;"
+                    (click)="(data.estado_remision_id==1 ?eliminarRemision(data.id): false)"></i>
+                    <i  [ngStyle]="{'color':data.estado_remision_id==1 ? 'black;':'gray'}"
+                    class="fa fa-trash fa-2x" style="cursor: pointer;"
+                    (click)="(data.estado_remision_id==1 ?open(content,data.id): false)"></i>
                   </td>
                 </tr>
               </tbody>

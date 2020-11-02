@@ -74,11 +74,11 @@ const MENUITEMS = [
     icon: "basic-sheet-pen",
     children: [
       {
-        state: "proximosavencer",
+        state: "porvencer",
         name: "Pagos por vencer"
       },
       {
-        state: "vencidos",
+        state: "remisionesvencidas",
         name: "Pagos vencidos"
       },
       {

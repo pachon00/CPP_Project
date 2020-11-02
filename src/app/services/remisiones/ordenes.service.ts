@@ -32,16 +32,16 @@ export class OrdenService {
   }
 
   public saveOrdenes( item: AltaOrdenDetail)
-    : Observable<AltaOrdenDetail> {
-    return this.http.post<AltaOrdenDetail>(this.baseUrl,item)
+    : Observable<any> {
+    return this.http.post<any>(this.baseUrl,item)
     .pipe(
       catchError(this.handleError)
     );
   }
 
   public updateOrdenes(item:AltaOrdenDetail)
-    :Observable<AltaOrdenDetail> {
-    return this.http.put<AltaOrdenDetail>(this.baseUrl,item)
+    :Observable<any> {
+    return this.http.put<any>(this.baseUrl,item)
     .pipe(
       catchError(this.handleError)
     );
