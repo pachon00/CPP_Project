@@ -17,10 +17,10 @@ import { Sucursal } from '../../model/administration/Sucursal.model';
   styleUrls: ['./remisionesvencidas.component.css']
 })
 export class RemisionesVencidasComponent implements OnInit {
-
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
-  public dtOptions: DataTables.Settings = {};
+
+  public dtOptions: any={}; //DataTables.Settings = {};
   public dtTrigger: Subject<any> = new Subject();
   public closeResult: string = '';
   public data$ : RemisionesVencidas[] = [];
@@ -45,7 +45,6 @@ export class RemisionesVencidasComponent implements OnInit {
 
     this.sucursalService.getSucursal().subscribe( sucursales => {
       this.sucursales = sucursales;
-      console.log(sucursales);
   })
 
     this.service.getRemisionesVencidas(this.proveedorId, this.sucursalId).subscribe( data=> {
@@ -53,6 +52,41 @@ export class RemisionesVencidasComponent implements OnInit {
       this.dataBack = data;
       this.dtTrigger.next();
     })
+
+    this.dtOptions = {
+      columns:[{
+        title: 'Num Remisión',
+        data: 'remision_id',
+      },{
+        title: 'Sucursal',
+        data: 'sucursal',
+      },{
+        title: 'Proveedor',
+        data: 'proveedor',
+      },{
+        title: 'Forma Pago',
+        data: 'forma_pago',
+      },{    
+        title: 'Fecha Alta',
+        data: 'fecha_alta',
+      },{    
+        title: 'Fecha Crédito',
+        data: 'fecha_credito',
+      },{
+        title: 'Días Para Vencer',
+        data: 'dias_vencimiento',
+      }],
+      dom: 'Bfrtip',
+      buttons: [
+        // 'columnsToggle',
+        // 'colvis',
+        // 'copy',
+        // 'print',
+        'excel',
+        'csv',
+      ]
+    };
+
   }
 
   ngOnDestroy(): void {

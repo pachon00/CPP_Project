@@ -21,7 +21,7 @@ export class PagoProveedoresComponent implements OnInit {
 
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
-  public dtOptions: DataTables.Settings = {};
+  public dtOptions: any={}; //DataTables.Settings = {};
   public dtTrigger: Subject<any> = new Subject();
   public closeResult: string = '';
   public data$ : PagoProveedores[] = [];
@@ -40,12 +40,57 @@ export class PagoProveedoresComponent implements OnInit {
   ngOnInit() : void {
     this.proveedorService.getProveedor().subscribe( data => {
         this.proveedores = data;
-    })
+    });
 
     this.service.getPagoOrdenesProveedor(this.proveedorId).subscribe( data=> {
       this.data$ = data;
       this.dtTrigger.next();
-    })
+    });
+
+    this.dtOptions = {
+      columns:[{
+        title: 'Num Orden',
+        data: 'data.orden_id',
+      },{
+        title: 'Proveedor',
+        data: 'data.proveedor',
+      },{
+        title: 'Fecha Alta',
+        data: 'data.fecha_alta',
+      },{
+        title: 'Usuario Alta',
+        data: 'data.usuario_alta',
+      },{    
+        title: 'Fecha Pago',
+        data: 'data.fecha_pago',
+      },{    
+        title: 'Banco',
+        data: 'data.banco',
+      },{
+        title: '# Cheque',
+        data: 'data.numero_cheque',
+      },{
+        title: '# Transferencia',
+        data: 'data.numero_transferencia',
+      },{
+        title: 'Recibe',
+        data: 'data.persona_recibe',
+      },{
+        title: '# Remisiones',
+        data: 'data.numero_remisiones',
+      }],
+      dom: 'Bfrtip',
+      buttons: [
+        // 'columnsToggle',
+        // 'colvis',
+        // 'copy',
+        // 'print',
+        'excel',
+        'csv',
+      ]
+    };
+
+
   }
 
   ngOnDestroy(): void {

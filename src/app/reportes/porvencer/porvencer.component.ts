@@ -17,10 +17,11 @@ import { ReportesService } from '../../services/reportes/reportes.service';
   styleUrls: ['./porvencer.component.css']
 })
 export class PorVencerComponent implements OnInit {
-
   @ViewChild(DataTableDirective, { static: false })
-  dtElement: DataTableDirective;
-  public dtOptions: DataTables.Settings = {};
+  private dtElement: DataTableDirective;
+
+  public dtOptions: any = {};//DataTables.Settings = {};
+
   public dtTrigger: Subject<any> = new Subject();
   public closeResult: string = '';
   public data$ : RemisionesVencidas[] = [];
@@ -28,7 +29,7 @@ export class PorVencerComponent implements OnInit {
   public sucursales: Sucursal[];
   public proveedorId: number = 0;
   public sucursalId: number = 0;
-
+  //public dtOptions: any;
 
   constructor(private router: Router,
     private modalService: NgbModal,
@@ -53,6 +54,39 @@ export class PorVencerComponent implements OnInit {
     this.dtTrigger.next();
   });
 
+  this.dtOptions = {
+                    columns:[{
+                      title: 'Num Remisión',
+                      data: 'data.remision_id',
+                    },{
+                      title: 'Sucursal',
+                      data: 'data.sucursal',
+                    },{
+                      title: 'Proveedor',
+                      data: 'data.proveedor',
+                    },{
+                      title: 'Forma Pago',
+                      data: 'data.forma_pago',
+                    },{    
+                      title: 'Fecha Alta',
+                      data: 'data.fecha_alta',
+                    },{    
+                      title: 'Fecha Crédito',
+                      data: 'data.fecha_credito',
+                    },{
+                      title: 'Días Para Vencer',
+                      data: 'data.dias_vencimiento',
+                    }],
+                    dom: 'Bfrtip',
+                    buttons: [
+                      // 'columnsToggle',
+                      // 'colvis',
+                      // 'copy',
+                      // 'print',
+                      'excel',
+                      'csv',
+                    ]
+                  };
   }
 
   ngOnDestroy(): void {
