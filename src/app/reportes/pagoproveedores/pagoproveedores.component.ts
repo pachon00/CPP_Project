@@ -50,34 +50,34 @@ export class PagoProveedoresComponent implements OnInit {
     this.dtOptions = {
       columns:[{
         title: 'Num Orden',
-        data: 'data.orden_id',
+        data: 'orden_id',
       },{
         title: 'Proveedor',
-        data: 'data.proveedor',
+        data: 'proveedor',
       },{
         title: 'Fecha Alta',
-        data: 'data.fecha_alta',
+        data: 'fecha_alta',
       },{
         title: 'Usuario Alta',
-        data: 'data.usuario_alta',
+        data: 'usuario_alta',
       },{    
         title: 'Fecha Pago',
-        data: 'data.fecha_pago',
+        data: 'fecha_pago',
       },{    
         title: 'Banco',
-        data: 'data.banco',
+        data: 'banco',
       },{
         title: '# Cheque',
-        data: 'data.numero_cheque',
+        data: 'numero_cheque',
       },{
         title: '# Transferencia',
-        data: 'data.numero_transferencia',
+        data: 'numero_transferencia',
       },{
         title: 'Recibe',
-        data: 'data.persona_recibe',
+        data: 'persona_recibe',
       },{
         title: '# Remisiones',
-        data: 'data.numero_remisiones',
+        data: 'numero_remisiones',
       }],
       dom: 'Bfrtip',
       buttons: [
@@ -89,8 +89,6 @@ export class PagoProveedoresComponent implements OnInit {
         'csv',
       ]
     };
-
-
   }
 
   ngOnDestroy(): void {
