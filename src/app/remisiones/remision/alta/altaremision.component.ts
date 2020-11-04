@@ -10,6 +10,7 @@ import { Proveedor } from '../../../model/administration/Proveedor.model';
 import { Sucursal } from '../../../model/administration/Sucursal.model';
 import { AltaRemision } from '../../../model/remision/remisionAlta.model';
 import { RemisionService } from '../../../services/remisiones/remision.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-formapago',
@@ -24,7 +25,9 @@ export class AltaRemisionComponent implements OnInit {
   public altaForm: FormGroup;
   public isUpdate: boolean = false;
   public model: AltaRemision;
-
+  public selectedSupplier: number;
+  public fechaRemision: Date;
+  public fechaPago: any;
 
   public sucursales: Sucursal[];
   public proveedores: Proveedor[];
@@ -126,6 +129,34 @@ export class AltaRemisionComponent implements OnInit {
       comentarios: [this.model.comentarios],
       fecha_remision: [this.model.fecha_remision, Validators.required],
     });
+  }
+
+  changePayDate($event){
+    let x = this.proveedores.filter((x)=>x.id ==this.selectedSupplier);
+    if(this.fechaRemision){
+      let fecha = this.addDays( this.fechaRemision, x[0].dias_credito );
+      this.fechaPago = this.transformDate(fecha.toString());   
+    }
+  }
+
+  transformDate(value:string){
+    var datePipe = new DatePipe("en-US");
+    value = datePipe.transform(value, 'yyyy-MM-dd');
+    return value;
+  }
+
+  addDays(date, days) {
+    var result = new Date(date);
+    result.setDate(result.getDate() + days+1);
+    return result;
+  }
+
+  getObject($event){
+    if(this.selectedSupplier > 0 ){
+      let x = this.proveedores.filter((x)=>x.id == this.selectedSupplier);
+      let fecha = this.addDays( this.fechaRemision, x[0].dias_credito );
+      this.fechaPago = this.transformDate(fecha.toString());
+    }
   }
 
 }
