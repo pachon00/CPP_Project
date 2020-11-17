@@ -32,9 +32,53 @@
       </div>
     </div>
 
-
     <div class="row">
       <div class="col-md-12">
+        <div class="form-group">
+          <label for="direccion">  Dirección :  </label>
+          <input
+            autofocus aria-describedby="direccion"
+            class="form-control"
+            id="direccion"
+            formControlName="direccion"
+            name="direccion"
+            placeholder="Ingrese la direccion de la sucursal">
+
+            <div *ngIf="altaForm.controls['direccion'].invalid && (altaForm.controls['direccion'].dirty
+                      || altaForm.controls['direccion'].touched)"
+            class="invalid-feedback ng-star-inserted">
+                <div *ngIf="altaForm.controls['direccion'].errors.required">
+                  Ingrese la direccion de la sucursal.
+                </div>
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="telefono">  Teléfono :  </label>
+          <input
+            autofocus aria-describedby="telefono"
+            class="form-control"
+            id="telefono"
+            formControlName="telefono"
+            name="telefono"
+            placeholder="Ingrese el telefono de la sucursal">
+
+            <div *ngIf="altaForm.controls['telefono'].invalid && (altaForm.controls['telefono'].dirty
+                      || altaForm.controls['telefono'].touched)"
+            class="invalid-feedback ng-star-inserted">
+                <div *ngIf="altaForm.controls['telefono'].errors.required">
+                  Ingrese el teléfono de la sucursal.
+                </div>
+            </div>
+
+        </div>
+      </div>
+      <div class="col-md-6">
         <div class="form-group">
           <label for="encargado">  Encargado :  </label>
           <input
@@ -58,13 +102,12 @@
     </div>
 
     <div class="row">
-      <div class="col-md-12">
-        <div class="form-group">
-          <label for="activo pr-3"> Activo:   </label>
-          <input id="activo"
-          name="activo"
-          formControlName="activo"
-           type="checkbox">
+      <div class="col-md-2">
+        <div class="form-group text-left">
+          <label for="activo"> Activo </label>
+          <input type="checkbox" aria-describedby="activo" class="form-control" id="activo"
+            name="activo" formControlName="activo" value="false"
+           >
         </div>
       </div>
     </div>

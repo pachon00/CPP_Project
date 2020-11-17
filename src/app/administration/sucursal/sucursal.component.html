@@ -20,6 +20,8 @@
               <thead>
                 <tr>
                   <th> Nombre </th>
+                  <th> Dirección </th>
+                  <th> Teléfono: </th>
                   <th> Encargado </th>
 
                   <th> Activo </th>
@@ -29,6 +31,8 @@
               <tbody>
                   <tr *ngFor="let sucursal of this.data">
                     <td> {{sucursal.nombre}}</td>
+                    <td> {{sucursal.direccion }}</td>
+                    <td> {{sucursal.telefono }}</td>
                     <td> {{sucursal.encargado}}</td>
                     <th> {{sucursal.activo == true ? "Activo" : "No activo"}} </th>
                     <td style="text-align: center;">

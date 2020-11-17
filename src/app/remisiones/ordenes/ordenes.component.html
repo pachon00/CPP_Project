@@ -113,12 +113,27 @@
                       <div *ngIf="altaForm.controls['persona_recibe'].errors.required">
                         Se requiere registrar el nombre de la persona que recibe el pago.
                       </div>
-                  </div>
-      
+                  </div>    
               </div>
             </div>
           </div>
-
+        
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="fecha_pago"> Fecha pago: <span class="required">*</span> </label>
+              <input aria-describedby="fecha_pago" type="date" formControlName="fecha_pago" 
+                required (change)="getObject($event);"
+                class="form-control" id="fecha_pago" [(ngModel)]="fecha_pago">
+              <div *ngIf="altaForm.controls['fecha_pago'].invalid && (altaForm.controls['fecha_pago'].dirty
+            || altaForm.controls['fecha_pago'].touched)" class="invalid-feedback ng-star-inserted">
+                <div *ngIf="altaForm.controls['fecha_pago'].errors.required">
+                  Debe ingresar la fecha de pago.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
           <div class="row" *ngIf="selectedOrder.forma_pago==='Cheque'">
             <div class="col-md-12">
               <div class="form-group">
@@ -190,7 +205,8 @@
               <button
                 type="submit"
                 class="btn btn-success  mr-1"
-                [disabled]="altaForm.controls['persona_recibe'].errors?.required">
+                [disabled]="(altaForm.controls['persona_recibe'].errors?.required
+                            || altaForm.controls['fecha_pago'].errors?.required)">
                 Guardar
               </button>
             </div>
@@ -199,7 +215,8 @@
                 type="submit"
                 class="btn btn-success  mr-1"
                 [disabled]="(altaForm.controls['numero_cheque'].errors?.required
-                            || altaForm.controls['persona_recibe'].errors?.required)">
+                            || altaForm.controls['persona_recibe'].errors?.required
+                            || altaForm.controls['fecha_pago'].errors?.required)">
                 Guardar
               </button>
             </div>
@@ -208,7 +225,8 @@
                 type="submit"
                 class="btn btn-success  mr-1"
                 [disabled]="(altaForm.controls['numero_transferencia'].errors?.required
-                            || altaForm.controls['persona_recibe'].errors?.required)">
+                            || altaForm.controls['persona_recibe'].errors?.required
+                            || altaForm.controls['fecha_pago'].errors?.required)">
                 Guardar
               </button>
             </div>

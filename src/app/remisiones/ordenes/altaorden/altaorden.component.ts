@@ -24,6 +24,9 @@ export class AltaOrdenComponent implements OnInit {
   public dtTrigger: Subject<any> = new Subject();
   public data : AltaOrden[] = [];
   public provedores: Proveedor[]=[];
+  public provedoresFP: Proveedor[]=[];
+  public provedoresTP: Proveedor[]=[];
+
   public ordersToRemis: number[]=[];
   public monto: number=0;
   public supplierSelected: string="Seleccione un proveedor";
@@ -33,7 +36,11 @@ export class AltaOrdenComponent implements OnInit {
   public altaForm: FormGroup;
   public accionTitulo: string = "Alta";
   public isUpdate: boolean = false;
+
   public selectedSupplier: number=-1;
+  public selectedSupplierType: number=-1;
+  public selectedPayType: number=-1;
+
   public closeResult: string = '';
 
   constructor(private router: Router,
@@ -94,16 +101,30 @@ export class AltaOrdenComponent implements OnInit {
     });
   }
 
-  filterSupplier(event){
-    let id = event.target.value;
-    this.ordersToRemis=[];
-    this.remiss.proveedor_id=+id;
-    this.remiss.remisiones=[];
-    this.monto=0;
-    this.service.getOrdenesByIdSupplier(id).subscribe( (data:AltaOrden[])=>{
-      this.data = data;
+  filterSupplier(event, src){
+    if(src==='Supplier'){
+        let id = event.target.value;
+        this.ordersToRemis=[];
+        this.remiss.proveedor_id=+id;
+        this.remiss.remisiones=[];
+        this.monto=0;
+        this.service.getOrdenesByIdSupplier(id).subscribe( (data:AltaOrden[])=>{
+          this.data = data;
+          this.rerender();
+        });
+      }
+    if(src==='PayType'){
+      console.log(event.target.value);
+      let prov = this.provedores.filter(x=> x.forma_pago_id == event.target.value);
+      this.data = this.data.filter(x=>x.forma_pago == prov[0].forma_pago_descripcion);
       this.rerender();
-    });
+    }
+    if(src==='SupplierType'){
+      console.log(event.target.value);
+      let prov = this.provedores.filter(x=>x.tipo_proveedor_id == event.target.value);
+      this.data = this.data.filter(x=>x.forma_pago == prov[0].tipo_proveedor_descripcion);
+      this.rerender();
+    }
   }
 
   CheckedItem(checked:any,id:any,value:any){

@@ -17,6 +17,7 @@ export class PagarOrden{
     numero_transferencia : string;
     numero_cheque : string;
     comentarios : string;
+    fecha_pago: Date;
     constructor(){
         this.id=0;
         this.persona_recibe='';

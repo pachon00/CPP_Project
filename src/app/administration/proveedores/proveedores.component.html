@@ -23,6 +23,7 @@
                   <th> Tipo Proveedor </th>
                   <th> Forma Pago </th>
                   <th> Días Credito </th>
+                  <th> Correo Electrónico </th>
                   <th> Activo </th>
                   <th> Acciones </th>
                 </tr>
@@ -33,6 +34,7 @@
                     <td> {{proveedor.tipo_proveedor_descripcion}}</td>
                     <td> {{proveedor.forma_pago_descripcion}} </td>
                     <td> {{proveedor.dias_credito}} </td>
+                    <td> {{proveedor.correo}} </td>
                     <th> {{proveedor.activo == true ? "Activo" : "No activo"}} </th>
                     <td style="text-align: center;">
                         <i class="fa fa-edit fa-2x" (click)=" editarProveedor(proveedor.id)"></i>

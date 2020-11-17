@@ -9,6 +9,7 @@ export class Proveedor {
   public rfc : string;
   public codigo_postal : string;
   public telefono : string;
+  public correo: string;
   public dias_credito : number;
   public forma_pago_id : number;
   public tipo_proveedor_id : number;
@@ -33,6 +34,7 @@ export class ProveedorDto {
   public rfc : string;
   public codigo_postal : string;
   public telefono : string;
+  public correo: string;
   public dias_credito : number;
   public forma_pago_id : number;
   public tipo_proveedor_id : number;

@@ -65,6 +65,8 @@ export class AltaSucursalComponent implements OnInit {
   createForm(): void {
     this.altaForm = this.fb.group({
       nombre: [this.model.nombre, Validators.required],
+      direccion: [this.model.direccion, Validators.required],
+      telefono: [this.model.telefono, [Validators.pattern(new RegExp("[0-9 ]{10}")), Validators.required]],
       encargado: [this.model.encargado, Validators.required],
       activo: [this.model.activo]
     });

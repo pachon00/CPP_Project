@@ -64,6 +64,7 @@ export class OrdenesComponent implements OnInit, OnDestroy {
       persona_recibe : [this.recepcion.persona_recibe,Validators.required],
       numero_cheque : [this.recepcion.numero_cheque,Validators.required],
       numero_transferencia : [this.recepcion.numero_transferencia,Validators.required],
+      fecha_pago: [this.recepcion.numero_transferencia,Validators.required],
       comentarios : [this.recepcion.comentarios,Validators.required ],
     });
   }

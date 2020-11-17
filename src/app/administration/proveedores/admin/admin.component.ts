@@ -38,7 +38,7 @@ export class AdminProveedoresComponent implements OnInit {
   ngOnInit(): void {
     this.activedRoute.data.subscribe(
       response => {
-        console.log(response.formaPago);
+        // console.log(response.formaPago);
         this.formaPago = response.formaPago;
       }
     );
@@ -116,11 +116,7 @@ export class AdminProveedoresComponent implements OnInit {
             this.toastr.error(error);
           }
         );
-
     }
-
-
-
   }
 
   createForm(): void {
@@ -129,6 +125,7 @@ export class AdminProveedoresComponent implements OnInit {
       direccion: [this.model.direccion, Validators.required],
       rfc: [this.model.rfc, Validators.required],
       telefono: [this.model.telefono, Validators.required],
+      correo: [this.model.correo, Validators.required],
       forma_pago_id: [this.model.forma_pago_id, Validators.required],
       dias_credito: [this.model.dias_credito, [Validators.required, Validators.min(1), Validators.max(30)]],
       tipo_proveedor_id: [this.model.tipo_proveedor_id, Validators.required],

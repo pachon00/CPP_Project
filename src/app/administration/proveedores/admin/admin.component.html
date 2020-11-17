@@ -77,9 +77,24 @@
       <div class="row">
         <div class="col-md-6">
           <div class="form-group">
+            <label for="correo"> Correo electrónico: <span class="required">*</span> </label>
+            <input type="email" aria-describedby="correo" maxlength="25" class="form-control" id="correo"
+             placeholder="Correo electrónico"   required      formControlName="correo" 
+             pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$">
+
+             <div *ngIf="altaForm.controls['correo'].invalid && (altaForm.controls['correo'].dirty
+             || altaForm.controls['correo'].touched)" class="invalid-feedback ng-star-inserted">
+               <div *ngIf="altaForm.controls['correo'].errors.required">
+                 El correo del proveedor es requerido
+               </div>
+             </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
             <label for="forma_pago_id"> Forma Pago : <span class="required">*</span> </label>
             <select class="form-control" id="forma_pago_id"  required name="forma_pago_id"
-              formControlName="forma_pago_id">
+              formControlName="forma_pago_id" placeholder="Forma de pago">
               <option  value="0" selected> Seleccione una forma de pago  </option>
               <option *ngFor="let forma of formaPago" value="{{forma.id}}">{{forma.forma_pago}}</option>
             </select>
@@ -91,6 +106,9 @@
             </div>
           </div>
         </div>
+      </div>
+      
+      <div class="row">
         <div class="col-md-6">
           <div class="form-group">
             <label for="dias_credito"> Días Crédito: <span class="required">*</span> </label>
@@ -113,13 +131,11 @@
              </div>
           </div>
         </div>
-      </div>
-
-      <div class="row">
         <div class="col-md-6">
           <div class="form-group">
             <label for="tipo_proveedor_id"> Tipo Proveedor: <span class="required">*</span> </label>
-            <select class="form-control" id="tipo_proveedor_id"  required name="tipo_proveedor_id"   formControlName="tipo_proveedor_id">
+            <select class="form-control" id="tipo_proveedor_id"  required name="tipo_proveedor_id"   
+            placeholder="Tipo de proveedor" formControlName="tipo_proveedor_id">
               <option  value="0" selected> Seleccione un tipo de proveedor </option>
               <option *ngFor="let tipo of tipoProveedor" value="{{tipo.id}}" >{{tipo.tipo_proveedor}}</option>
             </select>
@@ -133,6 +149,10 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="row">
+        
         <div class="col-md-6">
           <div class="form-group text-left">
             <label for="activo"> Activo </label>
