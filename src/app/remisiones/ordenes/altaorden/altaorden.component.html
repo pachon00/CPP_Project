@@ -18,12 +18,12 @@
                   <label  for="tipo_proveedor_id" class="col-md-7" 
                           style="padding-left:0px;"> 
                   Tipo de proveedor :
-                  <select class="col-md-12" id="tipo_proveedor_id" 
+                  <select class="col-md-12" id="id" 
                   style="border: 1px solid #aaa;border-radius: 3px;
                   padding: 5px;background-color: transparent;padding: 4px;" 
                     name="tipo_proveedor_id" (change)="filterTypeOfSupplier($event,'SupplierType')" 
                     [(ngModel)]="selectedSupplierType">
-                    
+                    <option value="-1">Todos </option>
                     <option *ngFor="let tpago of cbTipoProvedor"  value="{{tpago.id}}">{{tpago.tipo_proveedor }}</option>
                   </select>
                 </label>
@@ -37,6 +37,7 @@
                 padding: 5px;background-color: transparent;padding: 4px;" 
                   name="forma_pago" (change)="filterPayType($event,'PayType')"
                   [(ngModel)]="selectedPayType">
+                  <option value="-1">Todos </option>
                   <option *ngFor="let fpago of cbFormaPago" value="{{fpago.id}}">{{fpago.forma_pago }}</option>
                 </select>
               </label>
@@ -48,9 +49,9 @@
               <select class="col-md-12" id="id" 
               style="border: 1px solid #aaa;border-radius: 3px;
               padding: 5px;background-color: transparent;padding: 4px;" 
-                name="id_proveedor" (change)="filterSupplier($event,'Supplier')" 
+                name="id_proveedor"  (change)="filterSupplier($event,'Supplier')"
                 [(ngModel)]="selectedSupplier">
-
+                <option value="-1">Todos </option>
                 <option *ngFor="let provedor of provedores" value="{{provedor.id}}">{{provedor.nombre }}</option>
               </select>
               </label>
