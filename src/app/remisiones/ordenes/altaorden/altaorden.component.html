@@ -21,9 +21,10 @@
                   <select class="col-md-12" id="tipo_proveedor_id" 
                   style="border: 1px solid #aaa;border-radius: 3px;
                   padding: 5px;background-color: transparent;padding: 4px;" 
-                    name="tipo_proveedor_id" (change)="filterSupplier($event,'SupplierType')"
+                    name="tipo_proveedor_id" (change)="filterTypeOfSupplier($event,'SupplierType')" 
                     [(ngModel)]="selectedSupplierType">
-                    <option *ngFor="let provedor of provedores" value="{{provedor.tipo_proveedor_id}}">{{provedor.tipo_proveedor_descripcion }}</option>
+                    
+                    <option *ngFor="let tpago of cbTipoProvedor"  value="{{tpago.id}}">{{tpago.tipo_proveedor }}</option>
                   </select>
                 </label>
           </div>
@@ -31,12 +32,12 @@
                 <label  for="forma_pago" class="col-md-7" 
                         style="padding-left:0px;"> 
                 Forma de pago :
-                <select class="col-md-12" id="forma_pago" 
+                <select class="col-md-12" id="id" 
                 style="border: 1px solid #aaa;border-radius: 3px;
                 padding: 5px;background-color: transparent;padding: 4px;" 
-                  name="forma_pago" (change)="filterSupplier($event,'PayType')"
+                  name="forma_pago" (change)="filterPayType($event,'PayType')"
                   [(ngModel)]="selectedPayType">
-                  <option *ngFor="let provedor of provedores" value="{{provedor.forma_pago_id}}">{{provedor.forma_pago_descripcion }}</option>
+                  <option *ngFor="let fpago of cbFormaPago" value="{{fpago.id}}">{{fpago.forma_pago }}</option>
                 </select>
               </label>
             </div>
@@ -44,11 +45,12 @@
               <label  for="id_proveedor" class="col-md-7" 
                       style="padding-left:0px;"> 
               Seleccione Proveedor :
-              <select class="col-md-12" id="id_proveedor" 
+              <select class="col-md-12" id="id" 
               style="border: 1px solid #aaa;border-radius: 3px;
               padding: 5px;background-color: transparent;padding: 4px;" 
-                name="id_proveedor" (change)="filterSupplier($event,'Supplier')"
+                name="id_proveedor" (change)="filterSupplier($event,'Supplier')" 
                 [(ngModel)]="selectedSupplier">
+
                 <option *ngFor="let provedor of provedores" value="{{provedor.id}}">{{provedor.nombre }}</option>
               </select>
               </label>
