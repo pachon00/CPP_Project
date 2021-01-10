@@ -18,13 +18,14 @@
               class="table table-bordered table-striped mb-0">
               <thead>
                 <tr>
-                  <th> Num Remision </th>
+                  <th> # Remision Int </th>
+                  <th> # Remision </th>
                   <th> Sucursal </th>
                   <th> Proveedor </th>
 
                   <th> Fecha Alta </th>
                   <th> Fecha Credito </th>
-
+                  <th> Monto </th>
                   <th> Estatus </th>
                   <th> Acciones </th>
                 </tr>
@@ -32,19 +33,22 @@
               <tbody>
                 <tr *ngFor="let data of this.data">
                   <td>  {{data.id}} </td>
+                  <th> {{data.numero_remision}} </th>
                   <td>  {{data.sucursal}}</td>
                   <td>  {{data.proveedor}}</td>
 
                   <td>  {{data.fecha_remision| date:'dd/MM/yyyy' }}</td>
                   <td>  {{data.fecha_pago| date:'dd/MM/yyyy' }}</td>
-
+                  <td>  {{data.cantidad | currency }}</td>
                   <td>  {{data.estado_remision}}</td>
                   <td style="text-align: center;">
-                    <i [ngStyle]="{'color':data.estado_remision_id==1 ? 'black;':'gray'}" class="fa fa-edit fa-2x"
-                    style="cursor: pointer;"
-                    (click)="(data.estado_remision_id==1 ?eliminarRemision(data.id): false)"></i>
-                    <i  [ngStyle]="{'color':data.estado_remision_id==1 ? 'black;':'gray'}"
-                    class="fa fa-trash fa-2x" style="cursor: pointer;"
+                    <i [ngStyle]="{'color':data.estado_remision_id==1 ? 'black;':'gray'}"
+                                class="fa fa-edit fa-2x"
+                                style="cursor: pointer;"
+                    (click)="(data.estado_remision_id==1 ?editarRemision(data.id): false)"></i>
+                    <i
+                     [ngStyle]="{'color':data.estado_remision_id==1 ? 'black;':'gray'}"
+                        class="fa fa-trash fa-2x" style="cursor: pointer;"
                     (click)="(data.estado_remision_id==1 ?open(content,data.id): false)"></i>
                   </td>
                 </tr>

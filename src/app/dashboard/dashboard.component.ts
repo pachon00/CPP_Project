@@ -34,7 +34,7 @@ export class DashboardComponent {
     this.service.getDashboard().subscribe( data=> {
           this.data = data;
           this.dtTrigger.next();
-
+          console.log(data);
           if (data) {
             this.total = data.length;
             this.proceso = this.data.filter(d => d.estado_id == 2).length;

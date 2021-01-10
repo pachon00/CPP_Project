@@ -16,6 +16,10 @@ export const RemisionesRoutes: Routes = [{
       component: AltaRemisionComponent
     },
     {
+      path: "remisiones/editar/:id",
+      component: AltaRemisionComponent
+    },
+    {
       path: "ordenes",
       component: OrdenesComponent
     },

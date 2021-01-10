@@ -56,11 +56,12 @@
                 <th> Sucursal </th>
                 <th> Proveedor </th>
                 <th> Forma Pago</th>
+                <th> Monto </th>
                 <th> Fecha Alta </th>
                 <th> Fecha Credito </th>
                 <th> Fecha Real Pago </th>
                 <th> Estatus </th>
-                <th> </th>
+                <!-- <th> </th> -->
               </tr>
             </thead>
             <tbody>
@@ -69,13 +70,14 @@
                   <td> {{data.sucursal}}</td>
                   <td>  {{data.proveedor}}</td>
                   <td>  {{data.forma_pago}}</td>
+                  <td>  {{data.monto | currency}}</td>
                   <td>  {{data.fecha_alta | date : 'dd/MM/yyyy'}}</td>
                   <td>  {{data.fecha_credito| date : 'dd/MM/yyyy'}}</td>
                   <td>  {{(data.fecha_real_pago | date : 'dd/MM/yyyy') == '01/01/0001' ? '': (data.fecha_real_pago | date : 'dd/MM/yyyy') }}</td>
                   <td>  {{data.estado}}</td>
-                  <td style="text-align: center;">
+                  <!-- <td style="text-align: center;">
                       <i class="fa fa-eye fa-2x"></i>
-                  </td>
+                  </td> -->
                 </tr>
             </tbody>
           </table>

@@ -11,6 +11,7 @@ import { Sucursal } from '../../../model/administration/Sucursal.model';
 import { AltaRemision } from '../../../model/remision/remisionAlta.model';
 import { RemisionService } from '../../../services/remisiones/remision.service';
 import { DatePipe } from '@angular/common';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-formapago',
@@ -51,13 +52,13 @@ export class AltaRemisionComponent implements OnInit {
         this.service.getRemisionPorId(id)
           .subscribe(
             (model) => {
+              this.isUpdate = true;
               this.model = model;
               this.createForm();
               this.accionTitulo = "Editar";
-              this.isUpdate = true;
             },
             error => {
-              this.toastr.error("Ocurrio un error al querer obtener el proveedor a editar " + error);
+              this.toastr.error("Ocurrio un error al querer obtener la remision a editar " + error);
             }
           );
       }
@@ -79,7 +80,7 @@ export class AltaRemisionComponent implements OnInit {
 
   public onSubmit(): void {
     let objData = Object.assign({}, this.altaForm.value);
-    objData = {...objData, proveedor_id: +objData.proveedor_id, sucursal_id: +objData.sucursal_id};
+    objData = {...objData, proveedor_id: +objData.proveedor_id, sucursal_id: +objData.sucursal_id, id: 0};
     console.log(objData);
     if (!this.isUpdate) {
 
@@ -96,6 +97,8 @@ export class AltaRemisionComponent implements OnInit {
         );
     }
     else {
+
+      objData.id = +this.remisionId;
       this.service.postActualizarRemision(objData)
         .subscribe(
           (data) => {
@@ -112,7 +115,7 @@ export class AltaRemisionComponent implements OnInit {
 
   public cancelar(): void {
     if (this.isUpdate) {
-      this.router.navigate(["./administration/tipoproveedor"]);
+      this.router.navigate(["./remisiones/remisiones"]);
     }
     else {
       this.model = new AltaRemision();
@@ -122,20 +125,38 @@ export class AltaRemisionComponent implements OnInit {
 
   createForm(): void {
     const currency ="\^([\\d]{0,9})(\\.|$)([\\d]{2,2}|)$";
-    this.altaForm = this.fb.group({
-      proveedor_id: [this.model.proveedor_id, Validators.required],
-      sucursal_id: [this.model.sucursal_id, Validators.required],
-      cantidad: [this.model.cantidad, [Validators.required, Validators.pattern(currency)]],
-      comentarios: [this.model.comentarios],
-      fecha_remision: [this.model.fecha_remision, Validators.required],
-    });
+    if (this.isUpdate){
+      this.altaForm = this.fb.group({
+        proveedor_id: [this.model.proveedor_id, Validators.required],
+        sucursal_id: [this.model.sucursal_id, Validators.required],
+        cantidad: [this.model.cantidad, [Validators.required, Validators.pattern(currency)]],
+        comentarios: [this.model.comentarios],
+        fecha_remision: [ formatDate(this.model.fecha_remision, 'yyyy-MM-dd', 'en'),  Validators.required],
+        fecha_pago: [formatDate(this.model.fecha_pago, 'yyyy-MM-dd', 'en')],
+        numero_remision : [this.model.numero_remision, Validators.required],
+      });
+
+      this.fechaPago = formatDate(this.model.fecha_pago, 'yyyy-MM-dd', 'en');
+      this.selectedSupplier = this.model.proveedor_id;
+    }
+    else {
+      this.altaForm = this.fb.group({
+        proveedor_id: [this.model.proveedor_id, Validators.required],
+        sucursal_id: [this.model.sucursal_id, Validators.required],
+        cantidad: [this.model.cantidad, [Validators.required, Validators.pattern(currency)]],
+        comentarios: [this.model.comentarios],
+        fecha_remision: [this.model.fecha_remision, Validators.required],
+        fecha_pago: [this.model.fecha_pago],
+        numero_remision : [this.model.numero_remision, Validators.required],
+      });
+    }
   }
 
   changePayDate($event){
     let x = this.proveedores.filter((x)=>x.id ==this.selectedSupplier);
     if(this.fechaRemision){
       let fecha = this.addDays( this.fechaRemision, x[0].dias_credito );
-      this.fechaPago = this.transformDate(fecha.toString());   
+      this.fechaPago = this.transformDate(fecha.toString());
     }
   }
 

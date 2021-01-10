@@ -34,7 +34,7 @@ export class AltaOrdenComponent implements OnInit {
   public cbTipoProvedorOriginal: TipoProveedor[];
   public cbFormaPago: FormaPago[];
   public cbFormaPagoOriginal: FormaPago[];
-  
+
   public provedoresFP: Proveedor[]=[];
   public provedoresTP: Proveedor[]=[];
 
@@ -61,7 +61,7 @@ export class AltaOrdenComponent implements OnInit {
       private activatedRoute: ActivatedRoute,
       private sucursaleService: SucursalService,
       private proveedorService: ProveedorService,
-      private tipoProvService: TipoProveedorService, 
+      private tipoProvService: TipoProveedorService,
       private formaPagoService: FormaPagoService,
       private toastr: ToastrService) {
     }
@@ -87,7 +87,7 @@ export class AltaOrdenComponent implements OnInit {
               this.dtTrigger.next();
             },
             error => {
-              this.toastr.error("Ocurrio un error al querer obtener el proveedor a editar " + error);
+              this.toastr.error("Ocurrio un error al querer obtener la orden a editar " + error);
             }
           );
       }else{
@@ -95,13 +95,13 @@ export class AltaOrdenComponent implements OnInit {
           this.remiss = new AltaOrdenDetail();
           this.provedores = data;
           // let s: any = {id:-1, nombre :"Todos" };
-          // this.provedores.push(s);         
+          // this.provedores.push(s);
         });
 
         this.tipoProvService.getTipoProveedor().subscribe((data:TipoProveedor[])=>{
           this.cbTipoProvedor = data;
           // let s: any = {id:-1, tipo_proveedor :"Todos" };
-          // this.cbTipoProvedor.push(s);         
+          // this.cbTipoProvedor.push(s);
         });
 
         this.formaPagoService.getFormaPago().subscribe((data:FormaPago[])=>{
@@ -144,7 +144,7 @@ filterSupplier(event,src){
       });
     }else{
       this.proveedorService.getProveedor().subscribe((data:Proveedor[])=>{
-        this.provedores = data; 
+        this.provedores = data;
       });
       this.formaPagoService.getFormaPago().subscribe((data:FormaPago[])=>{
         this.cbFormaPago= data;
@@ -162,12 +162,12 @@ filterPayType(event, src){
     if(event.target.value!=-1){
         console.log('pago aqui...',this.selectedPayType);
         this.proveedorService.getProveedor().subscribe((data:Proveedor[])=>{
-        this.provedores = data; 
+        this.provedores = data;
         this.provedores = this.provedores.filter(x=>x.forma_pago_id==this.selectedPayType);
         console.log('2 aqui...',this.selectedSupplierType);
         if(this.selectedSupplierType != -1){
           this.provedores = this.provedores.filter((x)=>x.tipo_proveedor_id == this.selectedSupplierType);
-        }       
+        }
         if(this.provedores.length>0){
           this.selectedSupplier=this.provedores[0].id;
           this.service.getOrdenesByIdSupplier(this.selectedSupplier).subscribe( (data:AltaOrden[])=>{
@@ -177,9 +177,9 @@ filterPayType(event, src){
         }
       });
     }else{
-      
+
       this.proveedorService.getProveedor().subscribe((data:Proveedor[])=>{
-        this.provedores = data; 
+        this.provedores = data;
         this.selectedSupplierType=-1;
       });
       this.formaPagoService.getFormaPago().subscribe((data:FormaPago[])=>{
@@ -212,10 +212,10 @@ filterPayType(event, src){
       }
       if(event.target.value!=-1){
         this.proveedorService.getProveedor().subscribe((data:Proveedor[])=>{
-          this.provedores =data;     
+          this.provedores =data;
           this.provedores =  this.provedores.filter(x=>x.tipo_proveedor_id == this.selectedSupplierType);
           let filprov = [];
-          this.provedores.map(item =>{ 
+          this.provedores.map(item =>{
             filprov.push(item.forma_pago_id); }
           );
           this.formaPagoService.getFormaPago().subscribe((data:FormaPago[])=>{
@@ -228,7 +228,7 @@ filterPayType(event, src){
               this.service.getOrdenesByIdSupplier(this.selectedPayType).subscribe( (data:AltaOrden[])=>{
                 this.data = data;
                 this.rerender();
-              }); 
+              });
           });
         });
       }
@@ -241,14 +241,14 @@ filterPayType(event, src){
       this.rerender();
     });
     this.proveedorService.getProveedor().subscribe((data:Proveedor[])=>{
-      this.provedores =data;      
+      this.provedores =data;
       // let p: any = {id:-1, nombre :"Todos" };
-      // this.provedores.push(p); 
+      // this.provedores.push(p);
       this.selectedSupplier=-1;
           this.tipoProvService.getTipoProveedor().subscribe((data:TipoProveedor[])=>{
           this.cbTipoProvedor = data;
           // let tp: any = {id:-1, tipo_proveedor :"Todos" };
-          // this.cbTipoProvedor.push(tp); 
+          // this.cbTipoProvedor.push(tp);
           this.selectedSupplierType =-1;
                 this.formaPagoService.getFormaPago().subscribe((data:FormaPago[])=>{
                   this.cbFormaPago= data;

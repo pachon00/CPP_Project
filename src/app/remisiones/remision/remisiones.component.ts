@@ -47,16 +47,22 @@ export class RemisionesComponent implements OnInit {
     });
   }
 
+  public editarRemision(remisionId: number): void {
+    this.router.navigate(["remisiones/remisiones/editar", remisionId]);
+  }
+
   public eliminarRemision(remisionId : number) : void {
-    // this.service.eliminarTipoProveedor(this.tipoProveedorId)
-    //     .subscribe( _ => {
-    //       this.tipoProvedores = this.tipoProvedores.filter(t => t.id !== this.tipoProveedorId);
-    //       this.toastr.success("El tipo de proveedor se ha eliminado correctamente.")
-    //     },
-    //     error => {
-    //       this.toastr.error(error)
-    // });
-}
+    this.service.eliminarRemision(remisionId)
+      .subscribe(
+        _ => {
+          this.data = this.data.filter(t => t.id !== remisionId);
+          this.toastr.success("La remisión se ha eliminado correctamente.")
+        },
+        error => {
+          this.toastr.error(error)
+        }
+      )
+  }
 
 public nuevaRemision() : void {
   this.router.navigate(['remisiones/remisiones/nuevo']);

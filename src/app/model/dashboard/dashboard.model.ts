@@ -8,6 +8,7 @@ export class Dashboard {
     public fecha_credito : Date;
     public fecha_real_pago : Date;
     public estado : string;
+    public monto : number
 
     constructor () {
 
