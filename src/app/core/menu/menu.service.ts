@@ -92,7 +92,7 @@ const MENUITEMS = [
     ]
   },
   {
-    state: "reportes",
+    state: "usuarios",
     name: "Usuarios",
     type: "sub",
     icon: "basic-lock-open",
@@ -104,6 +104,8 @@ const MENUITEMS = [
     ]
   }
 ];
+
+
 
 @Injectable()
 export class MenuService {

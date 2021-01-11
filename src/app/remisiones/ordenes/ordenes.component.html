@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-  
+
       <div class="card">
         <div class="card-header">
           <div class="col-md-10">
@@ -20,10 +20,10 @@
                     <th> Orden </th>
                     <th> Proveedor </th>
                     <th> Usuario </th>
-  
+
                     <th> Fecha Alta </th>
                     <th> Estatus </th>
-  
+
                     <th> Total Remisiones </th>
                     <th> Monto Total </th>
                     <th> Forma de Pago </th>
@@ -35,7 +35,7 @@
                     <td>{{data.orden_id}}</td>
                     <td>{{data.proveedor}}</td>
                     <td>{{data.usuario_alta}}</td>
-  
+
                     <td>{{data.fecha_alta | date:'dd/MM/yyyy'}}</td>
                     <td>{{data.estatus}}</td>
                     <td>{{data.total_remisiones}}</td>
@@ -43,13 +43,13 @@
                     <td>{{data.forma_pago}}</td>
                     <td style="text-align: center;" >
                       <div [ngStyle]="{'color':data.estado_orden_id==1 ? 'black;':'gray'}">
-                        <i class="fa fa-edit fa-2x" style="cursor: pointer;" 
+                        <i class="fa fa-edit fa-2x" style="cursor: pointer;"
                           (click)="data.estado_orden_id==1 ? editarOrden(data.orden_id):false">
                         </i>
-                        <i class="fa fa-trash fa-2x" style="cursor: pointer;" 
+                        <i class="fa fa-trash fa-2x" style="cursor: pointer;"
                           (click)="data.estado_orden_id==1 ? open(content,data.orden_id):false">
                         </i>
-                        <i class="fa fa-money fa-2x" style="cursor: pointer;" 
+                        <i class="fa fa-money fa-2x" style="cursor: pointer;"
                           (click)="data.estado_orden_id==1 ? TipoPago(pago,data.orden_id):false">
                         </i>
                       </div>
@@ -94,7 +94,7 @@
       </div>
       <div class="card-body">
         <form [formGroup]="altaForm" (ngSubmit)="modal.close('Save click')">
-          
+
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
@@ -106,25 +106,25 @@
                   formControlName="persona_recibe"
                   name="persona_recibe"
                   placeholder="Ingrese el nombre de la persona que recibe el pago">
-      
+
                   <div *ngIf="altaForm.controls['persona_recibe'].invalid && (altaForm.controls['persona_recibe'].dirty
                             || altaForm.controls['persona_recibe'].touched)"
                   class="invalid-feedback ng-star-inserted">
                       <div *ngIf="altaForm.controls['persona_recibe'].errors.required">
                         Se requiere registrar el nombre de la persona que recibe el pago.
                       </div>
-                  </div>    
+                  </div>
               </div>
             </div>
           </div>
-        
+
         <div class="row">
           <div class="col-md-12">
             <div class="form-group">
               <label for="fecha_pago"> Fecha pago: <span class="required">*</span> </label>
-              <input aria-describedby="fecha_pago" type="date" formControlName="fecha_pago" 
-                required (change)="getObject($event);"
-                class="form-control" id="fecha_pago" [(ngModel)]="fecha_pago">
+              <input aria-describedby="fecha_pago" type="date" formControlName="fecha_pago"
+                required
+                class="form-control" id="fecha_pago" >
               <div *ngIf="altaForm.controls['fecha_pago'].invalid && (altaForm.controls['fecha_pago'].dirty
             || altaForm.controls['fecha_pago'].touched)" class="invalid-feedback ng-star-inserted">
                 <div *ngIf="altaForm.controls['fecha_pago'].errors.required">
@@ -145,7 +145,7 @@
                   formControlName="numero_cheque"
                   name="numero_cheque"
                   placeholder="Ingrese el número de cheque">
-      
+
                   <div *ngIf="altaForm.controls['numero_cheque'].invalid && (altaForm.controls['numero_cheque'].dirty
                             || altaForm.controls['numero_cheque'].touched)"
                   class="invalid-feedback ng-star-inserted">
@@ -153,7 +153,7 @@
                         Se requiere número de cheque para aplicar pago.
                       </div>
                   </div>
-      
+
               </div>
             </div>
           </div>
@@ -169,7 +169,7 @@
                   formControlName="numero_transferencia"
                   name="numero_transferencia"
                   placeholder="Ingrese el número de transferencia">
-      
+
                   <div *ngIf="altaForm.controls['numero_transferencia'].invalid && (altaForm.controls['numero_transferencia'].dirty
                             || altaForm.controls['numero_transferencia'].touched)"
                   class="invalid-feedback ng-star-inserted">
@@ -177,11 +177,11 @@
                         Se requiere número de transferencia para aplicar pago.
                       </div>
                   </div>
-      
+
               </div>
             </div>
           </div>
-          
+
           <div class="row">
             <div class="col-md-12">
               <div class="form-group">
@@ -191,7 +191,7 @@
                   class="form-control" id="comentarios"
                   rows=3 maxlength="100"
                   formControlName="comentarios" name="comentarios"
-                  placeholder="Ingrese los comentarios"> </textarea>    
+                  placeholder="Ingrese los comentarios"> </textarea>
               </div>
             </div>
           </div>
@@ -200,7 +200,7 @@
             <div class="col-md-8">
               &nbsp;
             </div>
-      
+
             <div class="col-md-4" *ngIf="selectedOrder.forma_pago==='Efectivo'">
               <button
                 type="submit"

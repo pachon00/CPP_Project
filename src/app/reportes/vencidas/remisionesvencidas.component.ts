@@ -66,10 +66,10 @@ export class RemisionesVencidasComponent implements OnInit {
       },{
         title: 'Forma Pago',
         data: 'forma_pago',
-      },{    
+      },{
         title: 'Fecha Alta',
         data: 'fecha_alta',
-      },{    
+      },{
         title: 'Fecha Crédito',
         data: 'fecha_credito',
       },{

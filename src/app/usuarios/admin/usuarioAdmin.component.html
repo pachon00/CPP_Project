@@ -1,0 +1,143 @@
+<div class="card">
+  <div class="card-header">
+    <div class="col-md-9">
+      {{this.accionTitulo}}
+    </div>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="altaForm" (ngSubmit)="onSubmit()">
+
+
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="nombre"> Nombre Completo: <span class="required">*</span> </label>
+            <input autofocus aria-describedby="nombre" class="form-control" id="nombre"
+            maxlength="60" name="nombre" required
+              formControlName="nombre" placeholder="Ingrese el nombre del proveedor">
+            <div *ngIf="altaForm.controls['nombre'].invalid && (altaForm.controls['nombre'].dirty
+                      || altaForm.controls['nombre'].touched)" class="invalid-feedback ng-star-inserted">
+              <div *ngIf="altaForm.controls['nombre'].errors.required">
+                El nombre del usuario es requerido.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="user"> Usuario: <span class="required">*</span> </label>
+            <input autofocus aria-describedby="user" class="form-control" id="user"
+            maxlength="60" name="user" required
+              formControlName="user" placeholder="Ingrese el nombre de usuario">
+            <div *ngIf="altaForm.controls['user'].invalid && (altaForm.controls['user'].dirty
+                      || altaForm.controls['user'].touched)" class="invalid-feedback ng-star-inserted">
+              <div *ngIf="altaForm.controls['user'].errors.required">
+                El nombre del usuario es requerido
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="password"> Password: <span class="required">*</span> </label>
+            <input autofocus aria-describedby="password"  minlength="8" maxlength="12" class="form-control" id="password"
+            maxlength="60" name="password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,12}$"
+              formControlName="password" placeholder="Ingrese el nombre del proveedor">
+            <div *ngIf="altaForm.controls['password'].invalid && (altaForm.controls['password'].dirty
+                      || altaForm.controls['password'].touched)" class="invalid-feedback ng-star-inserted">
+              <div *ngIf="altaForm.controls['password'].errors.required">
+                  El password no puede quedar vacio
+              </div>
+            <div *ngIf="altaForm.controls['password'].errors.minlength">
+              La longitud del password no puede ser menor de 8 caracteres.
+            </div>
+            <div *ngIf="altaForm.controls['password'].errors.pattern">
+               El password debe contener 1 mayúscula, 1 minúscula, 1 número y un caracter especial [!@#$%^&*_=+-]
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-1"> </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="sucursal_id"> Sucural : <span class="required">*</span> </label>
+            <select class="form-control" id="sucursal_id" required name="sucursal_id" formControlName="sucursal_id"
+              placeholder="Sucursal">
+              <option value="" selected> Seleccione una sucursal </option>
+              <option *ngFor="let suc of sucursales" value="{{suc.id}}">{{suc.nombre}}</option>
+            </select>
+            <div *ngIf="altaForm.controls['sucursal_id'].invalid && (altaForm.controls['sucursal_id'].dirty
+                  || altaForm.controls['sucursal_id'].touched)" class="invalid-feedback ng-star-inserted">
+              <div *ngIf="altaForm.controls['sucursal_id'].errors.required">
+                Debe selecionar una sucursal
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-1"> </div>
+        <div class="col-md-6">
+
+          <div class="form-group">
+            <label for="rol_id"> Rol : <span class="required">*</span> </label>
+            <select class="form-control" id="rol_id"  required name="rol_id"
+              formControlName="rol_id" placeholder="Sucursal">
+              <option  value="1" selected> Administrador</option>
+              <option  value="2" selected> Usuario</option>
+
+            </select>
+            <div *ngIf="altaForm.controls['rol_id'].invalid && (altaForm.controls['rol_id'].dirty
+            || altaForm.controls['rol_id'].touched)" class="invalid-feedback ng-star-inserted">
+              <div *ngIf="altaForm.controls['rol_id'].errors.required">
+                 Debe selecionar un rol
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-1"> </div>
+        <div class="col-md-6">
+          <div class="form-group text-left">
+            <label for="activo"> Activo </label>
+            <input type="checkbox" aria-describedby="activo" class="form-control" id="activo"
+              name="activo" formControlName="activo" value="false"
+             >
+          </div>
+
+
+        </div>
+      </div>
+
+      <hr>
+      <div class="row text-center">
+        <div class="col-md-9">
+          &nbsp;
+        </div>
+        <div class="col-md-1 mr-4">
+          <button type="submit" class="btn btn-success"   [disabled]="(altaForm.pristine || altaForm.invalid)">Guardar</button>
+        </div>
+        <div class="col-md-1">
+          <button type="button" class="btn btn-danger" (click)="this.cancelar()">Cancelar</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

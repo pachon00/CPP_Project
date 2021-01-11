@@ -32,6 +32,13 @@ export const AppRoutes: Routes = [
           import("./reportes/reportes.module").then(
             m => m.ReportesModule
           )
+      },
+      {
+        path: "usuarios",
+        loadChildren: () =>
+          import("./usuarios/usuarios.module").then(
+            m => m.UsuariosModule
+          )
       }
     ]
   },

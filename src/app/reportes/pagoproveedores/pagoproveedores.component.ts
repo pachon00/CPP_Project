@@ -60,10 +60,10 @@ export class PagoProveedoresComponent implements OnInit {
       },{
         title: 'Usuario Alta',
         data: 'usuario_alta',
-      },{    
+      },{
         title: 'Fecha Pago',
         data: 'fecha_pago',
-      },{    
+      },{
         title: 'Banco',
         data: 'banco',
       },{
@@ -81,10 +81,6 @@ export class PagoProveedoresComponent implements OnInit {
       }],
       dom: 'Bfrtip',
       buttons: [
-        // 'columnsToggle',
-        // 'colvis',
-        // 'copy',
-        // 'print',
         'excel',
         'csv',
       ]
