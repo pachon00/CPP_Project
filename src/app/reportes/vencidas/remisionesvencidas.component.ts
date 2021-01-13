@@ -34,6 +34,10 @@ export class RemisionesVencidasComponent implements OnInit {
   public tipoprovedorId: number = 0;
   public sucursalId: number = 0;
 
+  public selectedSupplier: number = 0;
+  public selectedSupplierType: number = 0;
+  public selectedPayType: number = 0;
+
  constructor(private router: Router,
     private modalService: NgbModal,
     private service : ReportesService,
@@ -126,5 +130,21 @@ export class RemisionesVencidasComponent implements OnInit {
   public changeTproveedor( event : any) : void {
     this.tipoprovedorId = +event.srcElement.value;
   }
+
+  async filterTypeOfSupplier(event, src){
+    if(src==='SupplierType'){
+      if(event.target.value!=0){
+        this.proveedorService.getProveedor().subscribe((data:Proveedor[])=>{
+          this.proveedores = data;
+          this.proveedores = this.proveedores.filter(x=>x.tipo_proveedor_id==event.target.value);
+          console.log(this.proveedores);
+        });
+      }else{
+        this.proveedorService.getProveedor().subscribe((data:Proveedor[])=>{
+          this.proveedores = data;
+        });
+      }
+     }
+    }
 
 }

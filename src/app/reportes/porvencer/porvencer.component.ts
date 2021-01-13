@@ -34,6 +34,9 @@ export class PorVencerComponent implements OnInit {
   public tipoprovedorId: number = 0;
   public sucursalId: number = 0;
   //public dtOptions: any;
+  public selectedSupplier: number = 0;
+  public selectedSupplierType: number = 0;
+  public selectedPayType: number = 0;
 
   constructor(private router: Router,
     private modalService: NgbModal,
@@ -48,14 +51,11 @@ export class PorVencerComponent implements OnInit {
     this.proveedorService.getProveedor().subscribe( data => {
         this.proveedores = data;
     });
-
     this.tipoprovedorService.getTipoProveedor().subscribe( data=> {
       this.tipoprovedor = data;
     });
-
     this.sucursalService.getSucursal().subscribe( sucursales => {
       this.sucursales = sucursales;
-      console.log(sucursales);
   });
 
   this.service.getRemisionesPorVencer(this.proveedorId, this.sucursalId).subscribe( data=> {
@@ -129,5 +129,22 @@ public changeTproveedor( event : any) : void {
   this.tipoprovedorId = +event.srcElement.value;
 }
 
+async filterTypeOfSupplier(event, src){
+  if(src==='SupplierType'){
+    if(event.target.value!=0){
+      this.proveedorService.getProveedor().subscribe((data:Proveedor[])=>{
+        this.proveedores = data;
+        this.proveedores = this.proveedores.filter(x=>x.tipo_proveedor_id==event.target.value);
+        console.log(this.proveedores);
+      });
+    }else{
+      this.proveedorService.getProveedor().subscribe((data:Proveedor[])=>{
+        this.proveedores = data;
+      });
+    }
+   }
+  }
+
+  
 
 }
