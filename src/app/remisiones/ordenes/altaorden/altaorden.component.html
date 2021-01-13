@@ -2,60 +2,52 @@
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
-        <div class="row col-md-12">
-            <div class="col-md-8">
+        <div class="col-md-10">
               Órdenes de remisión
-            </div>
-            <div class="col-md-2 ml-auto">
-              <button type="button" class="btn btn-outline-primary" (click)="open(content,0);">{{ isUpdate ? "Editar" : "Generar" }} Orden</button>
-            </div>
-
+        </div>
+        <div class="col-md-1 ml-2">
+            <button type="button" class="btn btn-outline-primary" (click)="open(content,0);">{{ isUpdate ? "Editar" : "Generar" }} Orden</button> 
         </div>
       </div>
        <div class="card-body">
         <div class="row">
-          <div class="col-sm-6" *ngIf="!isUpdate">
-                  <label  for="tipo_proveedor_id" class="col-md-7" 
-                          style="padding-left:0px;"> 
-                  Tipo de proveedor :
-                  <select class="col-md-12" id="id" 
-                  style="border: 1px solid #aaa;border-radius: 3px;
-                  padding: 5px;background-color: transparent;padding: 4px;" 
-                    name="tipo_proveedor_id" (change)="filterTypeOfSupplier($event,'SupplierType')" 
+          <div class="col-md-3" *ngIf="!isUpdate">
+            <div class="form-group">
+            <label for="nombre"> Tipo de Proveedor :  </label>
+            <select class="form-control" id="id" name="tipo_proveedor_id" 
+                    (change)="filterTypeOfSupplier($event,'SupplierType')" 
                     [(ngModel)]="selectedSupplierType">
                     <option value="-1">Todos </option>
                     <option *ngFor="let tpago of cbTipoProvedor"  value="{{tpago.id}}">{{tpago.tipo_proveedor }}</option>
-                  </select>
-                </label>
+            </select>
+            </div>
           </div>
-          <div class="col-sm-6" *ngIf="!isUpdate">
-                <label  for="forma_pago" class="col-md-7" 
-                        style="padding-left:0px;"> 
-                Forma de pago :
-                <select class="col-md-12" id="id" 
-                style="border: 1px solid #aaa;border-radius: 3px;
-                padding: 5px;background-color: transparent;padding: 4px;" 
-                  name="forma_pago" (change)="filterPayType($event,'PayType')"
+          <div class="col-md-3" *ngIf="!isUpdate">
+            <div class="form-group">
+            <label for="nombre"> Forma de pago : </label>
+            <select class="form-control" id="id" name="forma_pago" 
+                  (change)="filterPayType($event,'PayType')"
                   [(ngModel)]="selectedPayType">
                   <option value="-1">Todos </option>
                   <option *ngFor="let fpago of cbFormaPago" value="{{fpago.id}}">{{fpago.forma_pago }}</option>
                 </select>
-              </label>
+              </div>
             </div>
-          <div class="col-sm-6" *ngIf="!isUpdate">
-              <label  for="id_proveedor" class="col-md-7" 
-                      style="padding-left:0px;"> 
-              Seleccione Proveedor :
-              <select class="col-md-12" id="id" 
-              style="border: 1px solid #aaa;border-radius: 3px;
-              padding: 5px;background-color: transparent;padding: 4px;" 
-                name="id_proveedor"  (change)="filterSupplier($event,'Supplier')"
-                [(ngModel)]="selectedSupplier">
+          <div class="col-md-3" *ngIf="!isUpdate">
+            <div class="form-group">
+              <label  for="id_proveedor"> Seleccione Proveedor : </label>
+              <select class="form-control" id="id" name="id_proveedor"  
+              (change)="filterSupplier($event,'Supplier')"
+              [(ngModel)]="selectedSupplier">
                 <option value="-1">Todos </option>
                 <option *ngFor="let provedor of provedores" value="{{provedor.id}}">{{provedor.nombre }}</option>
               </select>
-              </label>
+            </div>
+          </div> 
+          <div class="col-md-2 mt-auto" >
+            
           </div>
+
           <div class="table-responsive">
             <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
               class="table table-bordered table-striped mb-0">
@@ -93,7 +85,7 @@
               </tbody>
             </table>
           </div>
-        </div>
+        
       </div>
       <div class="card-footer">
         <h6 Style="text-align-last: right;">Monto Total: {{monto | currency: 'USD' | lowercase}}</h6>

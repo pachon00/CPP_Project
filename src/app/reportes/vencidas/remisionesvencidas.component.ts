@@ -10,6 +10,8 @@ import { RemisionesVencidas } from '../../model/reportes/remisionesvencidas.mode
 import { ReportesService } from '../../services/reportes/reportes.service';
 import { SucursalService } from '../../services/administration/sucursal.service';
 import { Sucursal } from '../../model/administration/Sucursal.model';
+import { TipoProveedorService } from 'src/app/services/administration/tipo-proveedor.service';
+import { TipoProveedor } from 'src/app/model/administration/TipoProveedor.model';
 
 
 @Component({
@@ -26,8 +28,10 @@ export class RemisionesVencidasComponent implements OnInit {
   public data$ : RemisionesVencidas[] = [];
   public dataBack : RemisionesVencidas[] = [];
   public proveedores : Proveedor[];
+  public tipoprovedor : TipoProveedor[];
   public sucursales: Sucursal[];
   public proveedorId: number = 0;
+  public tipoprovedorId: number = 0;
   public sucursalId: number = 0;
 
  constructor(private router: Router,
@@ -35,6 +39,7 @@ export class RemisionesVencidasComponent implements OnInit {
     private service : ReportesService,
     private proveedorService : ProveedorService,
     private sucursalService :SucursalService,
+    private tipoprovedorService: TipoProveedorService,
     private toastr: ToastrService) {
   }
 
@@ -42,7 +47,9 @@ export class RemisionesVencidasComponent implements OnInit {
     this.proveedorService.getProveedor().subscribe( data => {
         this.proveedores = data;
     })
-
+    this.tipoprovedorService.getTipoProveedor().subscribe( data=> {
+      this.tipoprovedor = data;
+    });
     this.sucursalService.getSucursal().subscribe( sucursales => {
       this.sucursales = sucursales;
   })
@@ -116,5 +123,8 @@ export class RemisionesVencidasComponent implements OnInit {
     this.proveedorId = +event.srcElement.value;
   }
 
+  public changeTproveedor( event : any) : void {
+    this.tipoprovedorId = +event.srcElement.value;
+  }
 
 }

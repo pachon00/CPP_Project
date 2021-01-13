@@ -1,10 +1,9 @@
 <div class="row">
   <div class="col-md-12">
-
     <div class="card">
       <div class="card-header">
         <div class="col-md-10">
-          Detalles Remisiones Por Vencer
+            Detalles Remisiones Por Vencer
         </div>
         <div class="col-md-1 ml-2">
 
@@ -12,16 +11,25 @@
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="col-md-5" >
+          <div class="col-md-3" >
+            <div class="form-group">
+              <label for="nombre"> Tipo de Proveedor :  </label>
+              <select class="form-control"    name="tproveedor_id"  (change)="changeTproveedor($event)">
+              <option  value="0" selected> Todos </option>
+              <option *ngFor="let tprov of tipoprovedor"   value="{{tprov.id}}">{{tprov.tipo_proveedor}}</option>
+            </select>
+            </div>
+          </div>
+          <div class="col-md-3" >
             <div class="form-group">
               <label for="nombre"> Proveedor :  </label>
               <select class="form-control"    name="proveedor_id"  (change)="changeProveedor($event)">
               <option  value="0" selected> Todos </option>
-              <option *ngFor="let prov of proveedores"   value="{{prov.id}}">{{prov.nombre}}</option> -->
+              <option *ngFor="let prov of proveedores"   value="{{prov.id}}">{{prov.nombre}}</option>
             </select>
             </div>
           </div>
-          <div class="col-md-5" >
+          <div class="col-md-3" >
             <div class="form-group">
               <label for="nombre"> Sucursal :  </label>
               <select class="form-control"  name="sucursal_id"  (change)="changeSucursal($event)" >

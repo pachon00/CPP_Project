@@ -12,7 +12,16 @@
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="col-md-5" >
+          <div class="col-md-3" >
+            <div class="form-group">
+              <label for="nombre"> Tipo de Proveedor :  </label>
+              <select class="form-control"    name="tproveedor_id"  (change)="changeTproveedor($event)">
+              <option  value="0" selected> Todos </option>
+              <option *ngFor="let tprov of tipoprovedor"   value="{{tprov.id}}">{{tprov.tipo_proveedor}}</option>
+            </select>
+            </div>
+          </div>
+          <div class="col-md-3" >
             <div class="form-group">
               <label for="nombre"> Proveedor :  </label>
               <select class="form-control"    name="proveedor_id"  (change)="changeProveedor($event)">
@@ -21,7 +30,14 @@
             </select>
             </div>
           </div>
-          <div class="col-md-5" >
+          <div class="col-md-3" >
+            <div class="form-group">
+              <label for="nombre"> Sucursal :  </label>
+              <select class="form-control"  name="sucursal_id"  (change)="changeSucursal($event)" >
+              <option  value="0" selected> Todos </option>
+              <option *ngFor="let sucursal of sucursales" value="{{sucursal.id}}">{{sucursal.nombre}}</option> -->
+            </select>
+            </div>
           </div>
           <div class="col-md-2 mt-4" >
             <button type="button" class="btn btn-outline-primary" (click)="buscarPagoProveedor()">Buscar</button>
@@ -55,10 +71,10 @@
                   <td> {{data.fecha_alta | date : 'dd/MM/yyy'}}</td>
                   <td> {{data.usuario_alta }}</td>
                   <td> {{data.fecha_pago | date : 'dd/MM/yyyy'}}</td>
-                  <td> {{data.banco }}</td>
-                  <td> {{data.numero_cheque}}</td>
-                  <td> {{data.numero_transferencia}}</td>
-                  <td> {{data.persona_recibe}}</td>
+                  <td> {{data.banco?data.banco:"."}}</td>
+                  <td> {{data.numero_cheque?data.numero_cheque:"."}}</td>
+                  <td> {{data.numero_transferencia?data.numero_transferencia:"."}}</td>
+                  <td> {{data.persona_recibe?data.persona_recibe:"."}}</td>
                   <td> {{data.numero_remisiones}}</td>
                   <td style="text-align: center;">
                     <i class="fa fa-eye fa-2x"></i>

@@ -11,6 +11,8 @@ import { ReportesService } from '../../services/reportes/reportes.service';
 import { SucursalService } from '../../services/administration/sucursal.service';
 import { Sucursal } from '../../model/administration/Sucursal.model';
 import { PagoProveedores } from 'src/app/model/reportes/pagoproveedores.model';
+import { TipoProveedor } from 'src/app/model/administration/TipoProveedor.model';
+import { TipoProveedorService } from 'src/app/services/administration/tipo-proveedor.service';
 
 
 @Component({
@@ -18,22 +20,27 @@ import { PagoProveedores } from 'src/app/model/reportes/pagoproveedores.model';
   styleUrls: ['./pagoproveedores.component.css']
 })
 export class PagoProveedoresComponent implements OnInit {
-
   @ViewChild(DataTableDirective, { static: false })
   dtElement: DataTableDirective;
+
   public dtOptions: any={}; //DataTables.Settings = {};
+
   public dtTrigger: Subject<any> = new Subject();
   public closeResult: string = '';
   public data$ : PagoProveedores[] = [];
   public proveedores : Proveedor[];
+  public tipoprovedor : TipoProveedor[];
   public sucursales: Sucursal[];
   public proveedorId: number = 0;
-
+  public tipoprovedorId: number = 0;
+  public sucursalId: number = 0;
 
  constructor(private router: Router,
     private modalService: NgbModal,
     private service : ReportesService,
     private proveedorService : ProveedorService,
+    private sucursalService :SucursalService,
+    private tipoprovedorService: TipoProveedorService,
     private toastr: ToastrService) {
   }
 
@@ -41,13 +48,34 @@ export class PagoProveedoresComponent implements OnInit {
     this.proveedorService.getProveedor().subscribe( data => {
         this.proveedores = data;
     });
-
+    this.tipoprovedorService.getTipoProveedor().subscribe( data=> {
+      this.tipoprovedor = data;
+    });
+    this.sucursalService.getSucursal().subscribe( sucursales => {
+      this.sucursales = sucursales;
+      console.log(sucursales);
+    });
     this.service.getPagoOrdenesProveedor(this.proveedorId).subscribe( data=> {
       this.data$ = data;
+     /* for (let element of this.data$){
+        element.banco
+      }*/
       this.dtTrigger.next();
     });
 
     this.dtOptions = {
+      columns:[{
+        "targets": '_all',
+        "defaultContent": "ss"
+      }],
+      dom: 'Bfrtip',
+      buttons: [
+        'excel',
+        'csv',
+      ],
+      "searching": true,
+    };
+    /*this.dtOptions = {
       columns:[{
         title: 'Num Orden',
         data: 'orden_id',
@@ -84,7 +112,7 @@ export class PagoProveedoresComponent implements OnInit {
         'excel',
         'csv',
       ]
-    };
+    };*/
   }
 
   ngOnDestroy(): void {
@@ -105,10 +133,15 @@ export class PagoProveedoresComponent implements OnInit {
     })
   }
 
+  public changeSucursal(event :any) : void {
+    this.sucursalId = +event.srcElement.value;
+  }
 
   public changeProveedor(event :any) : void {
     this.proveedorId = +event.srcElement.value;
   }
 
-
+  public changeTproveedor( event : any) : void {
+    this.tipoprovedorId = +event.srcElement.value;
+  }
 }

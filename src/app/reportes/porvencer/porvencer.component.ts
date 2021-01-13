@@ -6,8 +6,10 @@ import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Proveedor } from 'src/app/model/administration/Proveedor.model';
 import { Sucursal } from 'src/app/model/administration/Sucursal.model';
+import { TipoProveedor } from 'src/app/model/administration/TipoProveedor.model';
 import { ProveedorService } from 'src/app/services/administration/proveedores.service';
 import { SucursalService } from 'src/app/services/administration/sucursal.service';
+import { TipoProveedorService } from 'src/app/services/administration/tipo-proveedor.service';
 import { RemisionesVencidas } from '../../model/reportes/remisionesvencidas.model';
 import { ReportesService } from '../../services/reportes/reportes.service';
 
@@ -26,8 +28,10 @@ export class PorVencerComponent implements OnInit {
   public closeResult: string = '';
   public data$ : RemisionesVencidas[] = [];
   public proveedores : Proveedor[];
+  public tipoprovedor : TipoProveedor[];
   public sucursales: Sucursal[];
   public proveedorId: number = 0;
+  public tipoprovedorId: number = 0;
   public sucursalId: number = 0;
   //public dtOptions: any;
 
@@ -36,12 +40,17 @@ export class PorVencerComponent implements OnInit {
     private service : ReportesService,
     private proveedorService : ProveedorService,
     private sucursalService :SucursalService,
+    private tipoprovedorService: TipoProveedorService,
     private toastr: ToastrService) {
   }
 
   ngOnInit() : void {
     this.proveedorService.getProveedor().subscribe( data => {
         this.proveedores = data;
+    });
+
+    this.tipoprovedorService.getTipoProveedor().subscribe( data=> {
+      this.tipoprovedor = data;
     });
 
     this.sucursalService.getSucursal().subscribe( sucursales => {
@@ -114,6 +123,10 @@ public changeSucursal(event :any) : void {
 
 public changeProveedor(event :any) : void {
   this.proveedorId = +event.srcElement.value;
+}
+
+public changeTproveedor( event : any) : void {
+  this.tipoprovedorId = +event.srcElement.value;
 }
 
 
