@@ -73,14 +73,14 @@
                   <td> {{data.fecha_alta | date : 'dd/MM/yyy'}}</td>
                   <td> {{data.usuario_alta }}</td>
                   <td> {{data.fecha_pago | date : 'dd/MM/yyyy'}}</td>
-                  <td> {{data.banco?data.banco:"."}}</td>
-                  <td> {{data.numero_cheque?data.numero_cheque:"."}}</td>
-                  <td> {{data.numero_transferencia?data.numero_transferencia:"."}}</td>
-                  <td> {{data.persona_recibe?data.persona_recibe:"."}}</td>
+                  <td> {{data.banco?data.banco:""}}</td>
+                  <td> {{data.numero_cheque?data.numero_cheque:""}}</td>
+                  <td> {{data.numero_transferencia?data.numero_transferencia:""}}</td>
+                  <td> {{data.persona_recibe?data.persona_recibe:""}}</td>
                   <td> {{data.numero_remisiones}}</td>
                   <td style="text-align: center;">
                     <i class="fa fa-eye fa-2x"></i>
-                </td>
+                  </td>
                 </tr>
               </tbody>
             </table>

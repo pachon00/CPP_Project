@@ -69,54 +69,55 @@ export class PagoProveedoresComponent implements OnInit {
 
     this.dtOptions = {
       columns:[{
-        "targets": '_all',
-        "defaultContent": "ss"
-      }],
-      dom: 'Bfrtip',
-      buttons: [
-        'excel',
-        'csv',
-      ],
-      "searching": true,
-    };
-    /*this.dtOptions = {
-      columns:[{
         title: 'Num Orden',
         data: 'orden_id',
+        defaultContent: "",
       },{
         title: 'Proveedor',
         data: 'proveedor',
+        defaultContent: "",
       },{
         title: 'Fecha Alta',
         data: 'fecha_alta',
+        defaultContent: "",
       },{
         title: 'Usuario Alta',
         data: 'usuario_alta',
+        defaultContent: "",
       },{
         title: 'Fecha Pago',
         data: 'fecha_pago',
+        defaultContent: "",
       },{
         title: 'Banco',
         data: 'banco',
+        defaultContent: "",
       },{
         title: '# Cheque',
         data: 'numero_cheque',
+        defaultContent: "",
       },{
         title: '# Transferencia',
         data: 'numero_transferencia',
+        defaultContent: "",
       },{
         title: 'Recibe',
         data: 'persona_recibe',
+        defaultContent: "",
       },{
         title: '# Remisiones',
         data: 'numero_remisiones',
+        defaultContent: "",
+      },{
+        title: 'Acciones',
+        defaultContent: "",
       }],
       dom: 'Bfrtip',
       buttons: [
         'excel',
         'csv',
       ]
-    };*/
+    };
   }
 
   ngOnDestroy(): void {
