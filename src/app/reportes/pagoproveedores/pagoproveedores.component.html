@@ -4,7 +4,7 @@
     <div class="card">
       <div class="card-header">
         <div class="col-md-10">
-          Detalles Pago Proveedores
+          Detalles Pago Órdenes
         </div>
         <div class="col-md-1 ml-2">
 
@@ -12,7 +12,7 @@
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="col-md-3" >
+          <div class="col-md-2" >
             <div class="form-group">
               <label for="nombre"> Tipo de Proveedor :  </label>
               <select class="form-control"    name="tproveedor_id"  
@@ -23,19 +23,34 @@
             </select>
             </div>
           </div>
-          <div class="col-md-3" >
+          <div class="col-md-2">
+            <div class="form-group">
+            <label for="nombre"> Forma de pago : </label>
+            <select class="form-control" id="id" name="forma_pago" 
+                  (change)="filterPayType($event,'PayType')"
+                  [(ngModel)]="selectedPayType">
+                  <option value="0">Todos </option>
+                  <option *ngFor="let fpago of cbFormaPago" value="{{fpago.id}}">{{fpago.forma_pago }}</option>
+                </select>
+              </div>
+            </div>
+          <div class="col-md-2" >
             <div class="form-group">
               <label for="nombre"> Proveedor :  </label>
-              <select class="form-control"    name="proveedor_id"  (change)="changeProveedor($event)">
+              <select class="form-control"    name="proveedor_id"  
+              (change)="changeProveedor($event)"
+              [(ngModel)]="selectedSupplier">
               <option  value="0" selected> Todos </option>
               <option *ngFor="let prov of proveedores"   value="{{prov.id}}">{{prov.nombre}}</option> -->
             </select>
             </div>
           </div>
-          <div class="col-md-3" >
+          <div class="col-md-2" >
             <div class="form-group">
               <label for="nombre"> Sucursal :  </label>
-              <select class="form-control"  name="sucursal_id"  (change)="changeSucursal($event)" >
+              <select class="form-control"  name="sucursal_id"  
+              (change)="changeSucursal($event)" 
+              [(ngModel)]="selectedSucursal">
               <option  value="0" selected> Todos </option>
               <option *ngFor="let sucursal of sucursales" value="{{sucursal.id}}">{{sucursal.nombre}}</option> -->
             </select>

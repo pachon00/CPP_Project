@@ -215,8 +215,7 @@ filterPayType(event, src){
           let filprov = [];
           this.provedores.map(item =>{
             filprov.push(item.forma_pago_id);
-            }
-          );
+            });
           this.formaPagoService.getFormaPago().subscribe((data:FormaPago[])=>{
             this.cbFormaPago= data;
             this.cbFormaPago = this.cbFormaPago.filter((x)=>{

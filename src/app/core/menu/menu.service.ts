@@ -63,7 +63,7 @@ const MENUITEMS = [
       },
       {
         state: "ordenes",
-        name: "Ordenes"
+        name: "Órdenes"
       }
     ]
   },
@@ -83,11 +83,11 @@ const MENUITEMS = [
       },
       {
         state: "pagoproveedor",
-        name: "Pago Proveedores"
+        name: "Pago Órdenes"
       },
       {
         state: "pagocategoria",
-        name: "Pago Categoria"
+        name: "Pago Remisiones"
       }
     ]
   },

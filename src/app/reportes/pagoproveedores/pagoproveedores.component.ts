@@ -13,6 +13,9 @@ import { Sucursal } from '../../model/administration/Sucursal.model';
 import { PagoProveedores } from 'src/app/model/reportes/pagoproveedores.model';
 import { TipoProveedor } from 'src/app/model/administration/TipoProveedor.model';
 import { TipoProveedorService } from 'src/app/services/administration/tipo-proveedor.service';
+import { FormaPagoService } from 'src/app/services/administration/formapago.service';
+import { FormaPago } from 'src/app/model/administration/FormaPago';
+import { OrdenService } from 'src/app/services/remisiones/ordenes.service';
 
 
 @Component({
@@ -30,21 +33,25 @@ export class PagoProveedoresComponent implements OnInit {
   public data$ : PagoProveedores[] = [];
   public proveedores : Proveedor[];
   public tipoprovedor : TipoProveedor[];
+  public cbFormaPago: FormaPago[];
   public sucursales: Sucursal[];
   public proveedorId: number = 0;
   public tipoprovedorId: number = 0;
   public sucursalId: number = 0;
 
   public selectedSupplier: number = 0;
+  public selectedSucursal: number = 0;
   public selectedSupplierType: number = 0;
   public selectedPayType: number = 0;
 
  constructor(private router: Router,
     private modalService: NgbModal,
     private service : ReportesService,
+    private Ordenservice: OrdenService,
     private proveedorService : ProveedorService,
     private sucursalService :SucursalService,
     private tipoprovedorService: TipoProveedorService,
+    private formaPagoService: FormaPagoService,
     private toastr: ToastrService) {
   }
 
@@ -55,15 +62,14 @@ export class PagoProveedoresComponent implements OnInit {
     this.tipoprovedorService.getTipoProveedor().subscribe( data=> {
       this.tipoprovedor = data;
     });
+    this.formaPagoService.getFormaPago().subscribe((data:FormaPago[])=>{
+      this.cbFormaPago = data;
+    });
     this.sucursalService.getSucursal().subscribe( sucursales => {
       this.sucursales = sucursales;
-      console.log(sucursales);
     });
     this.service.getPagoOrdenesProveedor(this.proveedorId).subscribe( data=> {
       this.data$ = data;
-     /* for (let element of this.data$){
-        element.banco
-      }*/
       this.dtTrigger.next();
     });
 
@@ -155,15 +161,72 @@ export class PagoProveedoresComponent implements OnInit {
       if(event.target.value!=0){
         this.proveedorService.getProveedor().subscribe((data:Proveedor[])=>{
           this.proveedores = data;
-          this.proveedores = this.proveedores.filter(x=>x.tipo_proveedor_id==event.target.value);
-          console.log(this.proveedores);
-        });
+          this.proveedores = this.proveedores.filter(x=>x.tipo_proveedor_id == this.selectedSupplierType);
+          let filprov = [];
+          this.proveedores.map(item =>{
+            filprov.push(item.forma_pago_id);
+            });
+          this.formaPagoService.getFormaPago().subscribe((data:FormaPago[])=>{
+            this.cbFormaPago= data;
+            this.cbFormaPago = this.cbFormaPago.filter((x)=>{
+              return filprov.includes(x.id)
+            });
+            if(this.proveedores.length>0){
+              if(this.cbFormaPago.length>0){
+                this.selectedPayType =this.proveedores[0].forma_pago_id;
+                this.selectedSupplier = this.proveedores[0].id;
+              }else{
+                this.selectedPayType = 0;
+                this.selectedSupplier = 0;
+                this.selectedSucursal = 0;
+              }
+            }
+          });
+      });
       }else{
         this.proveedorService.getProveedor().subscribe((data:Proveedor[])=>{
           this.proveedores = data;
         });
+        this.tipoprovedorService.getTipoProveedor().subscribe( data=> {
+          this.tipoprovedor = data;
+        });
+        this.formaPagoService.getFormaPago().subscribe((data:FormaPago[])=>{
+          this.cbFormaPago = data;
+        });
+        this.sucursalService.getSucursal().subscribe( sucursales => {
+          this.sucursales = sucursales;
+        });
       }
      }
+    }
+
+    filterPayType(event, src){
+      if(src==='PayType'){
+        if(event.target.value!=0){
+            this.proveedorService.getProveedor().subscribe((data:Proveedor[])=>{
+            this.proveedores = data;
+            this.proveedores = this.proveedores.filter(x=>x.forma_pago_id==this.selectedPayType);
+            if(this.selectedSupplierType != 0){
+              this.proveedores = this.proveedores.filter((x)=>x.tipo_proveedor_id == this.selectedSupplierType);
+              if(this.proveedores.length>0)
+                this.selectedSupplier=this.proveedores[0].id;
+            }else{
+              if(this.proveedores.length>0)
+                this.selectedSupplier=this.proveedores[0].id;
+            }
+          });
+        }else{
+          this.proveedorService.getProveedor().subscribe((data:Proveedor[])=>{
+            this.proveedores = data;
+
+            this.selectedSupplierType=0;
+            this.selectedSupplier=0;
+          });
+          this.formaPagoService.getFormaPago().subscribe((data:FormaPago[])=>{
+              this.cbFormaPago= data;
+          });
+        }
+      }
     }
 
 }

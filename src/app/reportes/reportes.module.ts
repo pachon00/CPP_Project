@@ -8,12 +8,14 @@ import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { RemisionesVencidasComponent } from './vencidas/remisionesvencidas.component';
 import { PorVencerComponent } from './porvencer/porvencer.component';
 import { PagoProveedoresComponent } from './pagoproveedores/pagoproveedores.component';
+import { DetallePorRemisionesComponent } from './detalleporremisiones/detalleporremisiones.component';
 
 @NgModule({
   declarations: [
     RemisionesVencidasComponent,
     PorVencerComponent,
-    PagoProveedoresComponent
+    PagoProveedoresComponent,
+    DetallePorRemisionesComponent,
   ],
   imports: [
     CommonModule,
