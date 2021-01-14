@@ -3,7 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
-import { RemisionesVencidas } from '../../model/reportes/remisionesvencidas.model';
+import { RemisionesVencidas,PagoRemisiones } from '../../model/reportes/remisionesvencidas.model';
 import { PagoProveedores } from 'src/app/model/reportes/pagoproveedores.model';
 
 @Injectable(
@@ -26,6 +26,13 @@ export class ReportesService {
 
   public getRemisionesPorVencer(proveedorId:number, sucursalId:number): Observable<RemisionesVencidas[]> {
     return this.http.get<RemisionesVencidas[]>(this.baseUrl +"/RemisionesPorVencer?proveedorId=" + proveedorId + "&sucursalId=" +sucursalId )
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  public getPagoRemisiones(proveedorId:number, sucursalId:number): Observable<PagoRemisiones[]> {
+    return this.http.get<PagoRemisiones[]>(this.baseUrl +"/PagoRemisiones?proveedorId=" + proveedorId + "&sucursalId=" +sucursalId )
     .pipe(
       catchError(this.handleError)
     );

@@ -12,7 +12,7 @@ import { FormaPagoService } from 'src/app/services/administration/formapago.serv
 import { ProveedorService } from 'src/app/services/administration/proveedores.service';
 import { SucursalService } from 'src/app/services/administration/sucursal.service';
 import { TipoProveedorService } from 'src/app/services/administration/tipo-proveedor.service';
-import { RemisionesVencidas } from '../../model/reportes/remisionesvencidas.model';
+import { PagoRemisiones } from '../../model/reportes/remisionesvencidas.model';
 import { ReportesService } from '../../services/reportes/reportes.service';
 
 
@@ -28,7 +28,7 @@ export class DetallePorRemisionesComponent implements OnInit {
 
   public dtTrigger: Subject<any> = new Subject();
   public closeResult: string = '';
-  public data$ : RemisionesVencidas[] = [];
+  public data$ : PagoRemisiones[] = [];
   public proveedores : Proveedor[];
   public tipoprovedor : TipoProveedor[];
   public sucursales: Sucursal[];
@@ -66,7 +66,7 @@ export class DetallePorRemisionesComponent implements OnInit {
       this.sucursales = sucursales;
     });
 
-  this.service.getRemisionesPorVencer(this.proveedorId, this.sucursalId).subscribe( data=> {
+  this.service.getPagoRemisiones(this.proveedorId, this.sucursalId).subscribe( data=> {
     this.data$ = data;
     this.dtTrigger.next();
   });
@@ -76,23 +76,41 @@ export class DetallePorRemisionesComponent implements OnInit {
                       title: 'Num Remisión',
                       data: 'data.remision_id',
                     },{
-                      title: 'Sucursal',
-                      data: 'data.sucursal',
-                    },{
                       title: 'Proveedor',
                       data: 'data.proveedor',
                     },{
-                      title: 'Forma Pago',
-                      data: 'data.forma_pago',
-                    },{    
+                      title: 'Sucursal',
+                      data: 'data.sucursal',
+                    },{
                       title: 'Fecha Alta',
                       data: 'data.fecha_alta',
-                    },{    
+                    },{ 
                       title: 'Fecha Crédito',
                       data: 'data.fecha_credito',
                     },{
-                      title: 'Días Para Vencer',
-                      data: 'data.dias_vencimiento',
+                      title: 'Usuario Alta',
+                      data: 'data.usuario_alta',
+                    },{  
+                      title: 'Forma Pago',
+                      data: 'data.forma_pago',
+                    },{    
+                      title: 'Fecha Pago',
+                      data: 'data.fecha_pago',
+                    },{
+                      title: 'Banco',
+                      data: 'data.banco',
+                    },{
+                      title: '# Cheque',
+                      data: 'data.numero_cheque',
+                    },{
+                      title: '# Transferencia',
+                      data: 'data.numero_transferencia',
+                    },{
+                      title: 'Recibe',
+                      data: 'data.persona_recibe',
+                    },{
+                      title: 'Autoriza',
+                      data: 'data.persona_autoriza',
                     }],
                     dom: 'Bfrtip',
                     buttons: [
@@ -119,7 +137,7 @@ export class DetallePorRemisionesComponent implements OnInit {
 
 
 public buscarPorVencer() : void {
-  this.service.getRemisionesPorVencer(this.proveedorId, this.sucursalId).subscribe( data=> {
+  this.service.getPagoRemisiones(this.proveedorId, this.sucursalId).subscribe( data=> {
     this.data$ = data;
     this.rerender();
   });

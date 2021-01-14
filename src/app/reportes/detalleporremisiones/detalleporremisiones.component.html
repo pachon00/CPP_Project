@@ -67,23 +67,35 @@
               <thead>
                 <tr>
                   <th> Num Remisión </th>
-                  <th> Sucursal </th>
                   <th> Proveedor </th>
-                  <th> Forma Pago </th>
+                  <th> Sucursal </th>
                   <th> Fecha Alta </th>
                   <th> Fecha Crédito </th>
-                  <th> Dias Para Vencer </th>
+                  <th> Usuario Alta </th>
+                  <th> Forma Pago </th>
+                  <th> Fecha Pago </th>
+                  <th> Banco </th>
+                  <th> # Cheque </th>
+                  <th> # Transferencia </th>
+                  <th> Recibe </th>
+                  <th> Autoriza </th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let data of this.data$">
-                  <td> {{data.remision_id}} </td>
-                  <td> {{data.sucursal}}</td>
+                  <td> {{data.numero_remision}} </td>
                   <td> {{data.proveedor}}</td>
-                  <td> {{data.forma_pago }}</td>
+                  <td> {{data.sucursal }}</td>
                   <td> {{data.fecha_alta | date : 'dd/MM/yyyy'}}</td>
                   <td> {{data.fecha_credito | date : 'dd/MM/yyyy'}}</td>
-                  <td> {{data.dias_vencimiento * -1}}</td>
+                  <td> {{data.usuario_alta}}</td>
+                  <td> {{data.forma_pago }}</td>
+                  <td> {{data.fecha_pago | date : 'dd/MM/yyyy'}}</td>
+                  <td> {{data.banco }}</td>
+                  <td> {{data.numero_cheque }}</td>
+                  <td> {{data.numero_transferencia }}</td>
+                  <td> {{data.persona_recibe }}</td>
+                  <td> {{data.persona_autoriza }}</td>
                 </tr>
               </tbody>
             </table>
