@@ -7,6 +7,9 @@ import {
 } from "@angular/forms";
 
 import { Router } from "@angular/router";
+import { authService } from "../../services/auth/auth.service"
+import { UsuarioAutenticado, UsuarioViewModel } from "../../model/usuario/usuarioAutenticado.model";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: "app-signin",
@@ -15,16 +18,44 @@ import { Router } from "@angular/router";
 })
 export class SigninComponent implements OnInit {
   public form: FormGroup;
-  constructor(private fb: FormBuilder, private router: Router) {}
+  public userAuth: UsuarioAutenticado;
+  public parameter: UsuarioViewModel;
+  
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private usuarioService: authService,
+    private toastr: ToastrService,
+  ) {
+    this.parameter = new UsuarioViewModel();
+  }
 
   ngOnInit() {
     this.form = this.fb.group({
-      uname: [null, Validators.compose([Validators.required])],
-      password: [null, Validators.compose([Validators.required])]
+      nombreUsuario: [this.parameter.nombreUsuario, Validators.compose([Validators.required])],
+      password: [this.parameter.password, Validators.compose([Validators.required])]
     });
   }
 
   onSubmit() {
-    this.router.navigate(["/"]);
+    const objData = Object.assign({}, this.form.value);
+    const viewModel = { ...objData};
+
+    this.usuarioService.authenticate(viewModel)
+      .subscribe(usuario => {
+        this.userAuth = usuario;
+        if (this.userAuth.isValid) {
+          this.router.navigate(["./dashboard/dashboard"]);
+        }
+        else {
+          this.toastr.error("Usuario o contraseña invalidos");
+        }
+        
+      },
+        error => {
+          this.toastr.error(error);
+        }
+      );
+    
   }
 }
