@@ -10,30 +10,13 @@ export const AuthenticationRoutes: Routes = [
     path: "",
     children: [
       {
-        path: "signin",
+        path: "",
         component: SigninComponent
       },
       {
-        path: "signup",
-        component: SignupComponent
-      },
-      {
-        path: "forgot",
-        component: ForgotComponent
-      },
-      {
-        path: "lockscreen",
-        component: LockscreenComponent
+        path: "signin",
+        component: SigninComponent
       }
     ]
-  },
-  {
-    path: "dashboard",
-    children:[
-      {
-        path:"dashboard",
-        component: DashboardComponent
-      }
-      ]
   }
 ];

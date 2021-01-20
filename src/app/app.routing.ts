@@ -3,63 +3,13 @@ import { AuthLayoutComponent } from "./core";
 import { Routes } from "@angular/router";
 
 export const AppRoutes: Routes = [
-  {
-    path: "",
-    component: AdminLayoutComponent,
-    children: [
-      {
-        path: "",
-        loadChildren: () =>
-          import("./dashboard/dashboard.module").then(m => m.DashboardModule)
-      },
-      {
-        path: "administration",
-        loadChildren: () =>
-          import("./administration/administration.module").then(
-            m => m.AdministrationModule
-          )
-      },
-      {
-        path: "remisiones",
-        loadChildren: () =>
-          import("./remisiones/remisiones.module").then(
-            m => m.RemisionesModule
-          )
-      },
-      {
-        path: "reportes",
-        loadChildren: () =>
-          import("./reportes/reportes.module").then(
-            m => m.ReportesModule
-          )
-      },
-      {
-        path: "usuarios",
-        loadChildren: () =>
-          import("./usuarios/usuarios.module").then(
-            m => m.UsuariosModule
-          )
-      }
-    ]
-  },
-  {
-    path: "",
-    component: AuthLayoutComponent,
-    children: [
-      {
-        path: "authentication",
-        loadChildren: () =>
-          import("./authentication/authentication.module").then(
-            m => m.AuthenticationModule
-          )
-      },
-      {
-        path: "error",
-        loadChildren: () =>
-          import("./error/error.module").then(m => m.ErrorModule)
-      }
-    ]
-  },
+  { path: "", redirectTo: "login/signin", pathMatch: "full" },
+  { path: "login", loadChildren: "./authentication/authentication.module#AuthenticationModule" },
+  { path: "dashboard", loadChildren: "./dashboard/dashboard.module#DashboardModule" },
+  { path: "administration", loadChildren: "./administration/administration.module#AdministrationModule" },
+  { path: "remisiones", loadChildren: "./remisiones/remisiones.module#RemisionesModule" },
+  { path: "reportes", loadChildren: "./reportes/reportes.module#ReportesModule" },
+  { path: "usuarios", loadChildren: "./usuarios/usuarios.module#UsuariosModule" },  
   {
     path: "**",
     redirectTo: "error/404"
