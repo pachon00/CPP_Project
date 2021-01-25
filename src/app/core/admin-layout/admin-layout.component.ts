@@ -150,6 +150,10 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     this.options = $event;
   }
 
+  logoutUser(): void {
+    alert("si llego")
+  }
+
   openSearch(search) {
     this.modalService.open(search, { windowClass: "search", backdrop: false });
   }

@@ -14,4 +14,5 @@ export class HeaderComponent {
   openSearch = new EventEmitter<void>();
   @Output()
   toggleFullscreen = new EventEmitter<void>();
+  @Output() logoutUser = new EventEmitter<void>();
 }

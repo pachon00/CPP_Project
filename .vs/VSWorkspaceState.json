@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\administration\\sucursal\\alta",
+    "\\src\\app\\guard",
+    "\\src\\app\\model\\usuario",
+    "\\src\\app\\services\\auth",
+    "\\src\\app\\services\\usuarios",
+    "\\src\\app\\usuarios\\admin"
+  ],
+  "SelectedNode": "\\package.json",
+  "PreviewInSolutionExplorer": false
+}

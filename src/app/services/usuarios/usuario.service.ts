@@ -24,7 +24,6 @@ export class UsuarioService {
       );
   }
 
-
   public postUsuario(usuario: UsuarioAlta)
     : Observable<Usuario> {
     return this.http.post<Usuario>(this.baseUrl, usuario)

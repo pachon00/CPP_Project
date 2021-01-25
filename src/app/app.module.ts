@@ -28,6 +28,8 @@ import { SidebarModule } from "ng-sidebar";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { DataTablesModule } from 'angular-datatables';
 import { ToastrModule } from 'ngx-toastr';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AuthGuard } from "../app/guard/auth.guard";
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
@@ -85,9 +87,10 @@ const DEFAULT_GLOBAL_VALIDATION_MESSAGES = {
       globalValidationMessages: DEFAULT_GLOBAL_VALIDATION_MESSAGES,
       validateOn: "blur"
     }),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    FontAwesomeModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

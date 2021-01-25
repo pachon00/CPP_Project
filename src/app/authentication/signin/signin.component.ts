@@ -7,7 +7,7 @@ import {
 } from "@angular/forms";
 
 import { Router } from "@angular/router";
-import { authService } from "../../services/auth/auth.service"
+import { authService } from "../../services/auth/auth.service";
 import { UsuarioAutenticado, UsuarioViewModel } from "../../model/usuario/usuarioAutenticado.model";
 import { ToastrService } from 'ngx-toastr';
 
@@ -45,6 +45,7 @@ export class SigninComponent implements OnInit {
       .subscribe(usuario => {
         this.userAuth = usuario;
         if (this.userAuth.isValid) {
+          this.usuarioService.setLoggedUser(this.userAuth);
           this.router.navigate(["dashboard"]);
         }
         else {
