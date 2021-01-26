@@ -10,6 +10,7 @@ import { TipoProveedor } from 'src/app/model/administration/TipoProveedor.model'
 import { ProveedorService } from 'src/app/services/administration/proveedores.service';
 import { SucursalService } from 'src/app/services/administration/sucursal.service';
 import { TipoProveedorService } from 'src/app/services/administration/tipo-proveedor.service';
+import { authService } from 'src/app/services/auth/auth.service';
 import { RemisionesVencidas } from '../../model/reportes/remisionesvencidas.model';
 import { ReportesService } from '../../services/reportes/reportes.service';
 
@@ -37,6 +38,7 @@ export class PorVencerComponent implements OnInit {
   public selectedSupplier: number = 0;
   public selectedSupplierType: number = 0;
   public selectedPayType: number = 0;
+  public mostrarSucursal : boolean = true;
 
   constructor(private router: Router,
     private modalService: NgbModal,
@@ -44,7 +46,16 @@ export class PorVencerComponent implements OnInit {
     private proveedorService : ProveedorService,
     private sucursalService :SucursalService,
     private tipoprovedorService: TipoProveedorService,
+    private authServ : authService,
     private toastr: ToastrService) {
+
+      let usuario =  this.authServ.getLoggedUser();
+      if (usuario) {
+        if (usuario.rol.id !== 1) {
+            this.sucursalId = usuario.sucursal.id;
+            this.mostrarSucursal = false;
+        }
+      }
   }
 
   ngOnInit() : void {
@@ -76,10 +87,10 @@ export class PorVencerComponent implements OnInit {
                     },{
                       title: 'Forma Pago',
                       data: 'data.forma_pago',
-                    },{    
+                    },{
                       title: 'Fecha Alta',
                       data: 'data.fecha_alta',
-                    },{    
+                    },{
                       title: 'Fecha Crédito',
                       data: 'data.fecha_credito',
                     },{
@@ -145,6 +156,6 @@ async filterTypeOfSupplier(event, src){
    }
   }
 
-  
+
 
 }
