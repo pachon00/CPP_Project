@@ -12,6 +12,7 @@ import { AltaRemision } from '../../../model/remision/remisionAlta.model';
 import { RemisionService } from '../../../services/remisiones/remision.service';
 import { DatePipe } from '@angular/common';
 import { formatDate } from '@angular/common';
+import { authService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-formapago',
@@ -39,6 +40,7 @@ export class AltaRemisionComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private sucursaleService: SucursalService,
     private proveedorService: ProveedorService,
+    private authServ : authService,
     private toastr: ToastrService) {
     this.model = new AltaRemision();
   }
@@ -72,7 +74,14 @@ export class AltaRemisionComponent implements OnInit {
 
     this.sucursaleService.getSucursal().subscribe(data => {
       if (data) {
-        this.sucursales = data.filter(d => d.activo);
+        let usuario =  this.authServ.getLoggedUser();
+        let temData = data;
+        if (usuario) {
+          if (usuario.rol.id !== 1) {
+            temData = temData.filter( d => d.id === usuario.sucursal.id);
+          }
+        }
+        this.sucursales = temData.filter(d => d.activo);
       }
     })
   }

@@ -1,0 +1,5 @@
+import { ModuleWithProviders } from '@angular/core';
+import { NgxValidatorGlobalConfig } from './validator.class';
+export declare class NgxValidatorModule {
+    static forRoot(config: NgxValidatorGlobalConfig): ModuleWithProviders;
+}

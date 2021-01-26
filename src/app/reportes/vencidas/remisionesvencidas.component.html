@@ -15,8 +15,8 @@
           <div class="col-md-3" >
             <div class="form-group">
               <label for="nombre"> Tipo de Proveedor :  </label>
-              <select class="form-control"    name="tproveedor_id"  
-              (change)="filterTypeOfSupplier($event,'SupplierType')" 
+              <select class="form-control"    name="tproveedor_id"
+              (change)="filterTypeOfSupplier($event,'SupplierType')"
               [(ngModel)]="selectedSupplierType">
               <option  value="0" selected> Todos </option>
               <option *ngFor="let tprov of tipoprovedor"   value="{{tprov.id}}">{{tprov.tipo_proveedor}}</option>
@@ -26,7 +26,7 @@
           <div class="col-md-3" >
             <div class="form-group">
               <label for="nombre"> Proveedor :  </label>
-              <select class="form-control"    name="proveedor_id"  
+              <select class="form-control"    name="proveedor_id"
               (change)="changeProveedor($event)">
               <option  value="0" selected> Todos </option>
               <option *ngFor="let prov of proveedores"   value="{{prov.id}}">{{prov.nombre}}</option> -->
@@ -34,7 +34,7 @@
             </div>
           </div>
           <div class="col-md-3" >
-            <div class="form-group">
+            <div class="form-group" *ngIf="this.mostrarSucursal">
               <label for="nombre"> Sucursal :  </label>
               <select class="form-control"  name="sucursal_id"  (change)="changeSucursal($event)" >
               <option  value="0" selected> Todos </option>

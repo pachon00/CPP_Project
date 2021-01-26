@@ -20,7 +20,7 @@ export class SigninComponent implements OnInit {
   public form: FormGroup;
   public userAuth: UsuarioAutenticado;
   public parameter: UsuarioViewModel;
-  
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -44,19 +44,24 @@ export class SigninComponent implements OnInit {
     this.usuarioService.authenticate(viewModel)
       .subscribe(usuario => {
         this.userAuth = usuario;
-        if (this.userAuth.isValid) {
-          this.usuarioService.setLoggedUser(this.userAuth);
-          this.router.navigate(["dashboard"]);
+
+        if (usuario === null || usuario === undefined) {
+          this.toastr.error("Usuario no encontrado");
         }
         else {
-          this.toastr.error("Usuario o contraseña invalidos");
+          if (this.userAuth.isValid) {
+            this.usuarioService.setLoggedUser(this.userAuth);
+              this.router.navigate(["dashboard/inicio"]);
+          }
+          else {
+            this.toastr.error("Usuario o contraseña invalidos");
+          }
         }
-        
       },
         error => {
           this.toastr.error(error);
         }
       );
-    
+
   }
 }

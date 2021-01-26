@@ -13,8 +13,8 @@
           <div class="col-md-2" >
             <div class="form-group">
               <label for="nombre"> Tipo de Proveedor :  </label>
-              <select class="form-control"    name="tproveedor_id"  
-                (change)="filterTypeOfSupplier($event,'SupplierType')" 
+              <select class="form-control"    name="tproveedor_id"
+                (change)="filterTypeOfSupplier($event,'SupplierType')"
                 [(ngModel)]="selectedSupplierType">
               <option  value="0" selected> Todos </option>
               <option *ngFor="let tprov of tipoprovedor"   value="{{tprov.id}}">{{tprov.tipo_proveedor}}</option>
@@ -24,7 +24,7 @@
           <div class="col-md-2">
             <div class="form-group">
             <label for="nombre"> Forma de pago : </label>
-            <select class="form-control" id="id" name="forma_pago" 
+            <select class="form-control" id="id" name="forma_pago"
                   (change)="filterPayType($event,'PayType')"
                   [(ngModel)]="selectedPayType">
                   <option value="0">Todos </option>
@@ -35,7 +35,7 @@
           <div class="col-md-2" >
             <div class="form-group">
               <label for="nombre"> Proveedor :  </label>
-              <select class="form-control"    name="proveedor_id"  
+              <select class="form-control"    name="proveedor_id"
               (change)="changeProveedor($event)"
               [(ngModel)]="selectedSupplier">
               <option  value="0" selected> Todos </option>
@@ -44,10 +44,10 @@
             </div>
           </div>
           <div class="col-md-2" >
-            <div class="form-group">
+            <div class="form-group"  *ngIf="this.mostrarSucursal">
               <label for="nombre"> Sucursal :  </label>
-              <select class="form-control"  name="sucursal_id"  
-              (change)="changeSucursal($event)" 
+              <select class="form-control"  name="sucursal_id"
+              (change)="changeSucursal($event)"
               [(ngModel)]="selectedSucursal">
               <option  value="0" selected> Todos </option>
               <option *ngFor="let sucursal of sucursales" value="{{sucursal.id}}">{{sucursal.nombre}}</option> -->

@@ -1,4 +1,6 @@
 import { Injectable } from "@angular/core";
+import { authService } from "../../services/auth/auth.service";
+import { UsuarioViewModel, UsuarioAutenticado } from '../../model/usuario/usuarioAutenticado.model';
 
 export interface BadgeItem {
   type: string;
@@ -22,10 +24,16 @@ export interface Menu {
 
 const MENUITEMS = [
   {
-    state: "/",
+    state: "dashboard",
     name: "Inicio",
     type: "link",
-    icon: "basic-accelerator"
+    icon: "basic-accelerator",
+    children: [
+      {
+        state: "inicio",
+        name: "Inicio"
+      },
+    ]
   },
   {
     state: "administration",
@@ -105,11 +113,65 @@ const MENUITEMS = [
   }
 ];
 
+const MENUITEMSUSER = [
+  {
+    state: "dashboard",
+    name: "Inicio",
+    type: "link",
+    icon: "basic-accelerator",
+    children: [
+      {
+        state: "inicio",
+        name: "Inicio"
+      },
+    ]
+  },
+
+  {
+    state: "remisiones",
+    name: "Remisiones",
+    type: "sub",
+    icon: "ecommerce-creditcard",
+    children: [
+      {
+        state: "remisiones",
+        name: "Remisiones"
+      }
+    ]
+  },
+  {
+    state: "reportes",
+    name: "Reportes",
+    type: "sub",
+    icon: "basic-sheet-pen",
+    children: [
+      {
+        state: "porvencer",
+        name: "Pagos por vencer"
+      },
+      {
+        state: "remisionesvencidas",
+        name: "Pagos vencidos"
+      },
+      {
+        state: "pagocategoria",
+        name: "Pago Remisiones"
+      }
+    ]
+  },
+
+];
 
 
 @Injectable()
 export class MenuService {
+
+  constructor(private authServ: authService) { }
   getAll(): Menu[] {
-    return MENUITEMS;
+    const user: UsuarioAutenticado = this.authServ.getLoggedUser();
+    if (user.rol.id === 1)
+      return MENUITEMS;
+    else
+      return MENUITEMSUSER;
   }
 }

@@ -42,22 +42,22 @@ export class authService {
   }
 
   public setLoggedUser(currentUser) {
-    let cypherText = crypto.AES.encrypt(JSON.stringify(currentUser), this.secretKey);
-    localStorage.setItem('currentUser', cypherText.toString());
+   // let cypherText = crypto.AES.encrypt(JSON.stringify(currentUser), this.secretKey);
+    localStorage.setItem('currentUser', JSON.stringify(currentUser));
   }
 
   public getLoggedUser() {
     let cypherText = localStorage.getItem("currentUser") || '';
-    var bytes = crypto.AES.decrypt(cypherText, this.secretKey);
-    var text = bytes.toString(crypto.enc.Utf8);
-    var User = <UsuarioAutenticado>JSON.parse(text);
+    //var bytes = crypto.AES.decrypt(cypherText, this.secretKey);
+  //  var text = bytes.toString(crypto.enc.Utf8);
+    var User = <UsuarioAutenticado>JSON.parse(cypherText);
     return User;
   }
 
   public removeLoggedUser() {
     localStorage.removeItem('currentUser');
     localStorage.clear();
-    this.sendAuthenticateStatus(false);
+   // this.sendAuthenticateStatus(false);
   }
 
   private handleError(error: HttpErrorResponse) {

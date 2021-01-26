@@ -9,6 +9,7 @@ export class Dashboard {
     public fecha_real_pago : Date;
     public estado : string;
     public monto : number
+    public sucursal_id : number;
 
     constructor () {
 

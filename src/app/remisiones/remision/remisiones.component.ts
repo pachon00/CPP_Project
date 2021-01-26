@@ -4,6 +4,8 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
+import { UsuarioAutenticado } from '../../model/usuario/usuarioAutenticado.model';
+import { authService } from '../../services/auth/auth.service';
 import { Remision } from '../../model/remision/remision.model';
 import { AltaRemision } from '../../model/remision/remisionAlta.model';
 import { RemisionService } from '../../services/remisiones/remision.service';
@@ -20,18 +22,26 @@ export class RemisionesComponent implements OnInit {
   public dtTrigger: Subject<any> = new Subject();
   public closeResult: string = '';
   public data : Remision[] = [];
+  public user: UsuarioAutenticado;
 
 
   constructor(private router: Router,
     private modalService: NgbModal,
     private service : RemisionService,
+    private authServ : authService,
     private toastr: ToastrService) {
   }
 
   ngOnInit() : void {
     this.service.getRemision().subscribe( data=> {
-      this.data = data;
-      console.log(data);
+      let usuario =  this.authServ.getLoggedUser();
+      let temData = data;
+      if (usuario) {
+        if (usuario.rol.id !== 1) {
+          temData = temData.filter( d => d.sucursal_id === usuario.sucursal.id);
+        }
+      }
+      this.data = temData;
       this.dtTrigger.next();
     })
   }

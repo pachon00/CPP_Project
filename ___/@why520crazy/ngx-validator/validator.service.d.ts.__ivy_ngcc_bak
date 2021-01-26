@@ -1,0 +1,38 @@
+import { NgForm, FormGroupDirective, NgControl } from '@angular/forms';
+import { NgxValidatorLoader } from './validator-loader.service';
+import { NgxValidatorConfig, Dictionary } from './validator.class';
+export declare class NgxFormValidatorService {
+    private thyFormValidateLoader;
+    private _ngForm;
+    private _formElement;
+    private _config;
+    private _controls;
+    validations: Dictionary<{
+        hasError?: boolean;
+        errorMessages?: string[];
+    }>;
+    private _getValidationFeedbackStrategy;
+    private _getElement;
+    private _clearElementError;
+    _tryGetValidation(name: string): {
+        hasError?: boolean;
+        errorMessages?: string[];
+    };
+    private _initializeFormControlValidation;
+    private _restFormControlValidation;
+    private _getValidationMessage;
+    private _getValidationMessages;
+    private _setControlValidationError;
+    readonly validatorConfig: NgxValidatorConfig;
+    constructor(thyFormValidateLoader: NgxValidatorLoader);
+    initialize(ngForm: NgForm | FormGroupDirective, formElement: HTMLElement): void;
+    initializeFormControlsValidation(controls: NgControl[]): void;
+    setValidatorConfig(config: NgxValidatorConfig): void;
+    private _getControls;
+    private _getControlByName;
+    validateControl(name: string): void;
+    validateControls(): void;
+    validate($event?: Event): boolean;
+    reset(): void;
+    markControlAsError(name: string, message: string): void;
+}

@@ -11,6 +11,7 @@ export class Remision {
   public estado_remision : string;
   public estado_remision_id : number;
   public cantidad : number;
+  public sucursal_id : number;
   constructor () {
 
   }

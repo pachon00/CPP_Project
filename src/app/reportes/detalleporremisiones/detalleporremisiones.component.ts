@@ -8,10 +8,12 @@ import { FormaPago } from 'src/app/model/administration/FormaPago';
 import { Proveedor } from 'src/app/model/administration/Proveedor.model';
 import { Sucursal } from 'src/app/model/administration/Sucursal.model';
 import { TipoProveedor } from 'src/app/model/administration/TipoProveedor.model';
+import { UsuarioAutenticado } from 'src/app/model/usuario/usuarioAutenticado.model';
 import { FormaPagoService } from 'src/app/services/administration/formapago.service';
 import { ProveedorService } from 'src/app/services/administration/proveedores.service';
 import { SucursalService } from 'src/app/services/administration/sucursal.service';
 import { TipoProveedorService } from 'src/app/services/administration/tipo-proveedor.service';
+import { authService } from 'src/app/services/auth/auth.service';
 import { PagoRemisiones } from '../../model/reportes/remisionesvencidas.model';
 import { ReportesService } from '../../services/reportes/reportes.service';
 
@@ -41,6 +43,9 @@ export class DetallePorRemisionesComponent implements OnInit {
   public selectedSupplierType: number = 0;
   public selectedPayType: number = 0;
   public selectedSucursal: number = 0;
+  public user: UsuarioAutenticado;
+  public mostrarSucursal : boolean = true;
+
 
   constructor(private router: Router,
     private modalService: NgbModal,
@@ -49,7 +54,15 @@ export class DetallePorRemisionesComponent implements OnInit {
     private sucursalService :SucursalService,
     private tipoprovedorService: TipoProveedorService,
     private formaPagoService: FormaPagoService,
+    private authServ : authService,
     private toastr: ToastrService) {
+      let usuario =  this.authServ.getLoggedUser();
+      if (usuario) {
+        if (usuario.rol.id !== 1) {
+            this.sucursalId = usuario.sucursal.id;
+            this.mostrarSucursal = false;
+        }
+      }
   }
 
   ngOnInit() : void {
@@ -84,16 +97,16 @@ export class DetallePorRemisionesComponent implements OnInit {
                     },{
                       title: 'Fecha Alta',
                       data: 'data.fecha_alta',
-                    },{ 
+                    },{
                       title: 'Fecha Crédito',
                       data: 'data.fecha_credito',
                     },{
                       title: 'Usuario Alta',
                       data: 'data.usuario_alta',
-                    },{  
+                    },{
                       title: 'Forma Pago',
                       data: 'data.forma_pago',
-                    },{    
+                    },{
                       title: 'Fecha Pago',
                       data: 'data.fecha_pago',
                     },{

@@ -1,0 +1,30 @@
+import { OnInit, NgZone, Renderer2, ElementRef, OnDestroy, AfterContentInit, QueryList } from '@angular/core';
+import { NgxFormValidatorService } from '../validator.service';
+import { ControlContainer, NgControl } from '@angular/forms';
+import { NgxValidatorConfig } from '../validator.class';
+export declare enum NgxEnterKeyMode {
+    submit = "submit",
+    alwaysSubmit = "alwaysSubmit",
+    forbidSubmit = "forbidSubmit"
+}
+export declare class NgxFormValidatorDirective implements OnInit, AfterContentInit, OnDestroy {
+    private ngZone;
+    private renderer;
+    private elementRef;
+    private _validator;
+    private ngForm;
+    controls: QueryList<NgControl>;
+    private unsubscribe;
+    onSubmitSuccess: ($event: any) => void;
+    enterKeyMode: NgxEnterKeyMode;
+    ngxFormValidatorConfig: NgxValidatorConfig;
+    ngxFormValidator: NgxValidatorConfig;
+    readonly validator: NgxFormValidatorService;
+    constructor(ngZone: NgZone, renderer: Renderer2, elementRef: ElementRef, _validator: NgxFormValidatorService, ngForm: ControlContainer);
+    ngOnInit(): void;
+    ngAfterContentInit(): void;
+    submit($event: Event): void;
+    submitRunInZone($event: Event): void;
+    onKeydown($event: KeyboardEvent): void;
+    ngOnDestroy(): void;
+}

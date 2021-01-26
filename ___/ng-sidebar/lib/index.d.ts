@@ -1,0 +1,6 @@
+export { SidebarContainer } from './sidebar-container.component';
+export { Sidebar } from './sidebar.component';
+export { CloseSidebar } from './close.directive';
+export { SidebarModule } from './sidebar.module';
+
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguZC50cyIsInNvdXJjZXMiOlsiaW5kZXguZC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQSIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCB7IFNpZGViYXJDb250YWluZXIgfSBmcm9tICcuL3NpZGViYXItY29udGFpbmVyLmNvbXBvbmVudCc7XG5leHBvcnQgeyBTaWRlYmFyIH0gZnJvbSAnLi9zaWRlYmFyLmNvbXBvbmVudCc7XG5leHBvcnQgeyBDbG9zZVNpZGViYXIgfSBmcm9tICcuL2Nsb3NlLmRpcmVjdGl2ZSc7XG5leHBvcnQgeyBTaWRlYmFyTW9kdWxlIH0gZnJvbSAnLi9zaWRlYmFyLm1vZHVsZSc7XG4iXX0=

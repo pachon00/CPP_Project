@@ -1,0 +1,48 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingReturn,uselessCode} checked by tsc
+ */
+/**
+ * @param {?} message
+ * @param {?} validationErrorValues
+ * @return {?}
+ */
+function maxOrMinLengthTransformer(message, validationErrorValues) {
+    return message.replace(`{requiredLength}`, validationErrorValues.requiredLength.toString());
+}
+/**
+ * @param {?} message
+ * @param {?} validationErrorValues
+ * @return {?}
+ */
+function maxTransformer(message, validationErrorValues) {
+    return message.replace(`{max}`, validationErrorValues.max.toString());
+}
+/**
+ * @param {?} message
+ * @param {?} validationErrorValues
+ * @return {?}
+ */
+function minxTransformer(message, validationErrorValues) {
+    return message.replace(`{min}`, validationErrorValues.min.toString());
+}
+/** @type {?} */
+const transformerMap = {
+    minlength: maxOrMinLengthTransformer,
+    maxlength: maxOrMinLengthTransformer,
+    max: maxTransformer,
+    min: minxTransformer
+};
+/**
+ * @param {?} validatorName
+ * @param {?} message
+ * @param {?} validationErrorValues
+ * @return {?}
+ */
+export function transformMessage(validatorName, message, validationErrorValues) {
+    if (transformerMap[validatorName] && validationErrorValues) {
+        return transformerMap[validatorName](message, validationErrorValues);
+    }
+    return message;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibWVzc2FnZS10cmFuc2Zvcm1lcnMuanMiLCJzb3VyY2VSb290Ijoibmc6Ly9Ad2h5NTIwY3Jhenkvbmd4LXZhbGlkYXRvci8iLCJzb3VyY2VzIjpbIm1lc3NhZ2UtdHJhbnNmb3JtZXJzLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7OztBQUFBLFNBQVMseUJBQXlCLENBQUMsT0FBZSxFQUFFLHFCQUFpRDtJQUNqRyxPQUFPLE9BQU8sQ0FBQyxPQUFPLENBQUMsa0JBQWtCLEVBQUUscUJBQXFCLENBQUMsY0FBYyxDQUFDLFFBQVEsRUFBRSxDQUFDLENBQUM7QUFDaEcsQ0FBQzs7Ozs7O0FBRUQsU0FBUyxjQUFjLENBQUMsT0FBZSxFQUFFLHFCQUFzRDtJQUMzRixPQUFPLE9BQU8sQ0FBQyxPQUFPLENBQUMsT0FBTyxFQUFFLHFCQUFxQixDQUFDLEdBQUcsQ0FBQyxRQUFRLEVBQUUsQ0FBQyxDQUFDO0FBQzFFLENBQUM7Ozs7OztBQUVELFNBQVMsZUFBZSxDQUFDLE9BQWUsRUFBRSxxQkFBc0Q7SUFDNUYsT0FBTyxPQUFPLENBQUMsT0FBTyxDQUFDLE9BQU8sRUFBRSxxQkFBcUIsQ0FBQyxHQUFHLENBQUMsUUFBUSxFQUFFLENBQUMsQ0FBQztBQUMxRSxDQUFDOztNQUVLLGNBQWMsR0FBRztJQUNuQixTQUFTLEVBQUUseUJBQXlCO0lBQ3BDLFNBQVMsRUFBRSx5QkFBeUI7SUFDcEMsR0FBRyxFQUFFLGNBQWM7SUFDbkIsR0FBRyxFQUFFLGVBQWU7Q0FDdkI7Ozs7Ozs7QUFFRCxNQUFNLFVBQVUsZ0JBQWdCLENBQUMsYUFBcUIsRUFBRSxPQUFlLEVBQUUscUJBQTBCO0lBQy9GLElBQUksY0FBYyxDQUFDLGFBQWEsQ0FBQyxJQUFJLHFCQUFxQixFQUFFO1FBQ3hELE9BQU8sY0FBYyxDQUFDLGFBQWEsQ0FBQyxDQUFDLE9BQU8sRUFBRSxxQkFBcUIsQ0FBQyxDQUFDO0tBQ3hFO0lBQ0QsT0FBTyxPQUFPLENBQUM7QUFDbkIsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbImZ1bmN0aW9uIG1heE9yTWluTGVuZ3RoVHJhbnNmb3JtZXIobWVzc2FnZTogc3RyaW5nLCB2YWxpZGF0aW9uRXJyb3JWYWx1ZXM6IHsgcmVxdWlyZWRMZW5ndGg6IG51bWJlciB9KTogc3RyaW5nIHtcbiAgICByZXR1cm4gbWVzc2FnZS5yZXBsYWNlKGB7cmVxdWlyZWRMZW5ndGh9YCwgdmFsaWRhdGlvbkVycm9yVmFsdWVzLnJlcXVpcmVkTGVuZ3RoLnRvU3RyaW5nKCkpO1xufVxuXG5mdW5jdGlvbiBtYXhUcmFuc2Zvcm1lcihtZXNzYWdlOiBzdHJpbmcsIHZhbGlkYXRpb25FcnJvclZhbHVlczogeyBtYXg6IG51bWJlcjsgYWN0dWFsOiBudW1iZXIgfSk6IHN0cmluZyB7XG4gICAgcmV0dXJuIG1lc3NhZ2UucmVwbGFjZShge21heH1gLCB2YWxpZGF0aW9uRXJyb3JWYWx1ZXMubWF4LnRvU3RyaW5nKCkpO1xufVxuXG5mdW5jdGlvbiBtaW54VHJhbnNmb3JtZXIobWVzc2FnZTogc3RyaW5nLCB2YWxpZGF0aW9uRXJyb3JWYWx1ZXM6IHsgbWluOiBudW1iZXI7IGFjdHVhbDogbnVtYmVyIH0pOiBzdHJpbmcge1xuICAgIHJldHVybiBtZXNzYWdlLnJlcGxhY2UoYHttaW59YCwgdmFsaWRhdGlvbkVycm9yVmFsdWVzLm1pbi50b1N0cmluZygpKTtcbn1cblxuY29uc3QgdHJhbnNmb3JtZXJNYXAgPSB7XG4gICAgbWlubGVuZ3RoOiBtYXhPck1pbkxlbmd0aFRyYW5zZm9ybWVyLFxuICAgIG1heGxlbmd0aDogbWF4T3JNaW5MZW5ndGhUcmFuc2Zvcm1lcixcbiAgICBtYXg6IG1heFRyYW5zZm9ybWVyLFxuICAgIG1pbjogbWlueFRyYW5zZm9ybWVyXG59O1xuXG5leHBvcnQgZnVuY3Rpb24gdHJhbnNmb3JtTWVzc2FnZSh2YWxpZGF0b3JOYW1lOiBzdHJpbmcsIG1lc3NhZ2U6IHN0cmluZywgdmFsaWRhdGlvbkVycm9yVmFsdWVzOiBhbnkpIHtcbiAgICBpZiAodHJhbnNmb3JtZXJNYXBbdmFsaWRhdG9yTmFtZV0gJiYgdmFsaWRhdGlvbkVycm9yVmFsdWVzKSB7XG4gICAgICAgIHJldHVybiB0cmFuc2Zvcm1lck1hcFt2YWxpZGF0b3JOYW1lXShtZXNzYWdlLCB2YWxpZGF0aW9uRXJyb3JWYWx1ZXMpO1xuICAgIH1cbiAgICByZXR1cm4gbWVzc2FnZTtcbn1cbiJdfQ==

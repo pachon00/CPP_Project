@@ -9,7 +9,6 @@ import { SucursalService } from '../../services/administration/sucursal.service'
 import { UsuarioService } from '../../services/usuarios/usuario.service';
 
 @Component({
-
   templateUrl: './usuarioAdmin.component.html',
   styleUrls: ['./usuarioAdmin.component.css']
 })

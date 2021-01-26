@@ -1,0 +1,80 @@
+{
+  "_args": [
+    [
+      "@why520crazy/ngx-validator@1.0.0",
+      "/mnt/c/Users/ignacio.mariscal/Documents/Personal/Ortiz/CPP.View/cpp_project"
+    ]
+  ],
+  "_from": "@why520crazy/ngx-validator@1.0.0",
+  "_id": "@why520crazy/ngx-validator@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-BaHHIT7j55kdRwTTDyP9b1ymivu3+CkDHWptpLe0doweL4MWXO7I/nveB4MxS0Sk/OFHbFvUR2AK3bNGSetAHA==",
+  "_location": "/@why520crazy/ngx-validator",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@why520crazy/ngx-validator@1.0.0",
+    "name": "@why520crazy/ngx-validator",
+    "escapedName": "@why520crazy%2fngx-validator",
+    "scope": "@why520crazy",
+    "rawSpec": "1.0.0",
+    "saveSpec": null,
+    "fetchSpec": "1.0.0"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@why520crazy/ngx-validator/-/ngx-validator-1.0.0.tgz",
+  "_spec": "1.0.0",
+  "_where": "/mnt/c/Users/ignacio.mariscal/Documents/Personal/Ortiz/CPP.View/cpp_project",
+  "author": {
+    "name": "why520crazy",
+    "email": "mail@why520crazy@163.com"
+  },
+  "bugs": {
+    "url": "https://github.com/why520crazy/ngx-validator/issues"
+  },
+  "dependencies": {
+    "tslib": "^1.9.0"
+  },
+  "description": "Angular7+ form validator, make error tips easy and automatic. don't need to manually write error tips templates.",
+  "es2015_ivy_ngcc": "__ivy_ngcc__/fesm2015/why520crazy-ngx-validator.js",
+  "es2015": "fesm2015/why520crazy-ngx-validator.js",
+  "esm2015": "esm2015/why520crazy-ngx-validator.js",
+  "esm5": "esm5/why520crazy-ngx-validator.js",
+  "fesm2015_ivy_ngcc": "__ivy_ngcc__/fesm2015/why520crazy-ngx-validator.js",
+  "fesm2015": "fesm2015/why520crazy-ngx-validator.js",
+  "fesm5_ivy_ngcc": "__ivy_ngcc__/fesm5/why520crazy-ngx-validator.js",
+  "fesm5": "fesm5/why520crazy-ngx-validator.js",
+  "homepage": "https://github.com/why520crazy/ngx-validator#readme",
+  "license": "MIT",
+  "main": "bundles/why520crazy-ngx-validator.umd.js",
+  "metadata": "why520crazy-ngx-validator.metadata.json",
+  "module_ivy_ngcc": "__ivy_ngcc__/fesm5/why520crazy-ngx-validator.js",
+  "module": "fesm5/why520crazy-ngx-validator.js",
+  "name": "@why520crazy/ngx-validator",
+  "peerDependencies": {
+    "@angular/common": "^7.0.0",
+    "@angular/forms": "^7.0.0",
+    "@angular/core": "^7.0.0"
+  },
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/why520crazy/ngx-validator.git"
+  },
+  "sideEffects": false,
+  "typings": "why520crazy-ngx-validator.d.ts",
+  "version": "1.0.0",
+  "__processed_by_ivy_ngcc__": {
+    "es2015": "9.0.7",
+    "fesm2015": "9.0.7",
+    "fesm5": "9.0.7",
+    "module": "9.0.7",
+    "typings": "9.0.7"
+  },
+  "scripts": {
+    "prepublishOnly": "node --eval \"console.error('ERROR: Trying to publish a package that has been compiled by NGCC. This is not allowed.\\nPlease delete and rebuild the package, without compiling with NGCC, before attempting to publish.\\nNote that NGCC may have been run by importing this package into another project that is being built with Ivy enabled.\\n')\" && exit 1"
+  }
+}

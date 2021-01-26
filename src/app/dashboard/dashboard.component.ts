@@ -3,6 +3,8 @@ import { DataTableDirective } from "angular-datatables";
 import { ToastrService } from "ngx-toastr";
 import { Subject } from "rxjs";
 import { Dashboard } from "../model/dashboard/dashboard.model";
+import { UsuarioAutenticado } from "../model/usuario/usuarioAutenticado.model";
+import { authService } from "../services/auth/auth.service";
 import { DashboardService } from "../services/dashboard.service";
 
 @Component({
@@ -17,7 +19,7 @@ export class DashboardComponent {
   public dtOptions: DataTables.Settings = {};
   public dtTrigger: Subject<any> = new Subject();
   public data : Dashboard[] = [];
-
+  public user: UsuarioAutenticado;
   public total : number;
   public proceso : number;
   public pagadas  : number;
@@ -25,14 +27,21 @@ export class DashboardComponent {
 
   constructor(
       private service: DashboardService,
-      private toast : ToastrService
+      private toast : ToastrService,
+      private authServ : authService
       ) {
-
-  }
+ }
 
   ngOnInit(): void {
     this.service.getDashboard().subscribe( data=> {
-          this.data = data;
+          var usuario =  this.authServ.getLoggedUser();
+          let temData = data;
+          if (usuario) {
+            if (usuario.rol.id !== 1) {
+              temData = temData.filter( d => d.sucursal_id === usuario.sucursal.id);
+            }
+          }
+          this.data = temData;
           this.dtTrigger.next();
           console.log(data);
           if (data) {
@@ -42,7 +51,6 @@ export class DashboardComponent {
             this.canceladas = this.data.filter(d => d.estado_id == 4).length;
           }
     })
-
   }
 
 

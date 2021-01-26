@@ -7,8 +7,8 @@
 
 export const environment = {
   production: false,
-  apiServer : "http://localhost:5000/api/"
-   //apiServer : "http://imariscalmodus-001-site1.htempurl.com/api/"
+  //apiServer : "http://localhost:5000/api/"
+  apiServer : "http://imariscal-002-site2.dtempurl.com/api/"
 
 
 };

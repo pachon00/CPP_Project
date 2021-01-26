@@ -12,6 +12,7 @@ import { SucursalService } from '../../services/administration/sucursal.service'
 import { Sucursal } from '../../model/administration/Sucursal.model';
 import { TipoProveedorService } from 'src/app/services/administration/tipo-proveedor.service';
 import { TipoProveedor } from 'src/app/model/administration/TipoProveedor.model';
+import { authService } from 'src/app/services/auth/auth.service';
 
 
 @Component({
@@ -38,14 +39,27 @@ export class RemisionesVencidasComponent implements OnInit {
   public selectedSupplierType: number = 0;
   public selectedPayType: number = 0;
 
+  public mostrarSucursal : boolean = true;
+
  constructor(private router: Router,
     private modalService: NgbModal,
     private service : ReportesService,
     private proveedorService : ProveedorService,
     private sucursalService :SucursalService,
     private tipoprovedorService: TipoProveedorService,
+    private authServ : authService,
     private toastr: ToastrService) {
+
+      let usuario =  this.authServ.getLoggedUser();
+      if (usuario) {
+        if (usuario.rol.id !== 1) {
+            this.sucursalId = usuario.sucursal.id;
+            this.mostrarSucursal = false;
+        }
+      }
+
   }
+
 
   ngOnInit() : void {
     this.proveedorService.getProveedor().subscribe( data => {

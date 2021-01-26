@@ -9,7 +9,8 @@ export class PagoProveedores {
   public  numero_cheque: string;
   public  numero_transferencia: string;
   public  persona_recibe: string;
-  public   numero_remisiones :number;
+  public  numero_remisiones :number;
+  public sucursal_id : number;
   constructor() {
 
   }
