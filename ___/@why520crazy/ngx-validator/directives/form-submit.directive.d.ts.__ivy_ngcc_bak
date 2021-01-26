@@ -1,9 +1,0 @@
-import { OnInit, EventEmitter } from '@angular/core';
-import { NgxFormValidatorDirective } from './form-validator.directive';
-export declare class NgxFormSubmitDirective implements OnInit {
-    private validatorDirective;
-    ngxFormSubmit: EventEmitter<{}>;
-    constructor(validatorDirective: NgxFormValidatorDirective);
-    ngOnInit(): void;
-    onSubmit($event: any): void;
-}
