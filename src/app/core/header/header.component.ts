@@ -6,13 +6,14 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
   styleUrls: ["./header.component.scss"]
 })
 export class HeaderComponent {
-  @Input()
-  heading: string;
+  @Input() heading: string;
+  @Input() userName: string;
   @Output()
   toggleSidebar = new EventEmitter<void>();
   @Output()
   openSearch = new EventEmitter<void>();
   @Output()
   toggleFullscreen = new EventEmitter<void>();
-  @Output() logoutUser = new EventEmitter<void>();
+  @Output()
+  logoutUser = new EventEmitter<void>();
 }

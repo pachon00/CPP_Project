@@ -17,6 +17,7 @@ import { BreakpointObserver } from "@angular/cdk/layout";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Title } from "@angular/platform-browser";
 import { TranslateService } from "@ngx-translate/core";
+import { authService } from "../../services/auth/auth.service";
 
 const SMALL_WIDTH_BREAKPOINT = 991;
 
@@ -55,6 +56,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() isScreenSmall: boolean;
 
   routeOptions: Options;
+  public userName: string;
 
   options = {
     lang: "en",
@@ -80,7 +82,8 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     private route: ActivatedRoute,
     public translate: TranslateService,
     private modalService: NgbModal,
-    private titleService: Title
+    private titleService: Title,
+    private authService: authService
   ) {
     const browserLang: string = translate.getBrowserLang();
     translate.use(browserLang.match(/en|fr/) ? browserLang : "en");
@@ -102,6 +105,7 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
       });
 
     this.runOnRouteChange();
+    this.userName = this.getUserName();
   }
 
   ngAfterViewInit(): void {
@@ -138,6 +142,11 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
+  getUserName() {
+    let usuario = this.authService.getLoggedUser();
+    return usuario.nombre;
+  }
+
   isOver(): boolean {
     return this.isScreenSmall;
   }
@@ -151,7 +160,14 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   logoutUser(): void {
-    alert("si llego")
+    this.authService.isUserAuthenticate().subscribe(
+      authenticated => {
+        if (authenticated) {
+          this.authService.removeLoggedUser();
+          this.router.navigate(['login/signin']);
+        }
+      }
+    );
   }
 
   openSearch(search) {

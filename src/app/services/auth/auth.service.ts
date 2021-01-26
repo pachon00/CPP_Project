@@ -42,15 +42,15 @@ export class authService {
   }
 
   public setLoggedUser(currentUser) {
-    let cypherText = crypto.AES.encrypt(this.secretKey, JSON.stringify(currentUser));
+    let cypherText = crypto.AES.encrypt(JSON.stringify(currentUser), this.secretKey);
     localStorage.setItem('currentUser', cypherText.toString());
   }
 
-  public getLoggedUser(currentUser) {
+  public getLoggedUser() {
     let cypherText = localStorage.getItem("currentUser") || '';
     var bytes = crypto.AES.decrypt(cypherText, this.secretKey);
-    localStorage.setItem('currentUser', cypherText.toString());
-    var User = <UsuarioAutenticado>JSON.parse(bytes.toString(crypto.enc.Utf8));
+    var text = bytes.toString(crypto.enc.Utf8);
+    var User = <UsuarioAutenticado>JSON.parse(text);
     return User;
   }
 

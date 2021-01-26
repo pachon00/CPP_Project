@@ -19,7 +19,7 @@
 
   <div ng-sidebar-content class="app-inner">
     <app-header (toggleSidebar)="toogleSidebar()" (openSearch)="openSearch(search)" (toggleFullscreen)="toggleFullscreen()" (logoutUser)="logoutUser()"
-      [heading]="routeOptions.heading"></app-header>
+      [heading]="routeOptions.heading" [userName]="userName"></app-header>
 
     <div class="main-content">
       <router-outlet></router-outlet>
