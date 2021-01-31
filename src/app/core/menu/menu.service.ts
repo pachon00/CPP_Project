@@ -169,9 +169,12 @@ export class MenuService {
   constructor(private authServ: authService) { }
   getAll(): Menu[] {
     const user: UsuarioAutenticado = this.authServ.getLoggedUser();
-    if (user.rol.id === 1)
-      return MENUITEMS;
-    else
-      return MENUITEMSUSER;
+    if (this.authServ.isAuthenticate) {
+      if (user.rol.id === 1)
+        return MENUITEMS;
+      else
+        return MENUITEMSUSER;
+    }
+    return [];
   }
 }

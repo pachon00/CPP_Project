@@ -143,8 +143,11 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getUserName() {
-    let usuario = this.authService.getLoggedUser();
-    return usuario.nombre;
+    if (this.authService.isAuthenticate) {
+      let usuario = this.authService.getLoggedUser();
+      return usuario.nombre;
+    }
+    return "";
   }
 
   isOver(): boolean {
@@ -160,14 +163,10 @@ export class LayoutComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   logoutUser(): void {
-    this.authService.isUserAuthenticate().subscribe(
-      authenticated => {
-        if (authenticated) {
-          this.authService.removeLoggedUser();
-          this.router.navigate(['login/signin']);
-        }
-      }
-    );
+    if (this.authService.isAuthenticate) {
+      this.authService.removeLoggedUser();
+      this.router.navigate(['login/signin']);
+    }
   }
 
   openSearch(search) {

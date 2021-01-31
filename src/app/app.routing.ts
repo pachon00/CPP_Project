@@ -4,17 +4,16 @@ import { Routes } from "@angular/router";
 import { AuthGuard } from "../app/guard/auth.guard";
 
 export const AppRoutes: Routes = [
-  { path: "", redirectTo: "login/signin", pathMatch: "full" },
-  {
-    path: "login",
-    loadChildren: () =>
-      import("./authentication/authentication.module").then(a => a.AuthenticationModule)
-  },
   {
     path: "",
     component: AdminLayoutComponent,
     children: [
-
+      { path: "", redirectTo: "login/signin", pathMatch: "full" },
+      {
+        path: "login",
+        loadChildren: () =>
+          import("./authentication/authentication.module").then(a => a.AuthenticationModule)
+      },
       {
         path: "dashboard",
         loadChildren: () =>

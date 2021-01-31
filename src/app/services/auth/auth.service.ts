@@ -17,7 +17,6 @@ export class authService {
 
   private baseUrl: string = `${environment.apiServer}Auth`;
   private secretKey = "##User!!KEY";
-  private isAuthenticateUser = new BehaviorSubject<boolean>(this.isAuthenticate());
 
   constructor(private http: HttpClient) { }
 
@@ -29,35 +28,27 @@ export class authService {
       );
   }
 
-  public isUserAuthenticate() {
-    return this.isAuthenticateUser.asObservable();
-  }
-
-  private sendAuthenticateStatus(value: boolean) {
-    return this.isAuthenticateUser.next(value);
-  }
-
-  private isAuthenticate(): boolean {
-    return !!localStorage.getItem("currentUser");
-  }
+  public isAuthenticate: boolean = localStorage.getItem("currentUser") !== null;
 
   public setLoggedUser(currentUser) {
-   // let cypherText = crypto.AES.encrypt(JSON.stringify(currentUser), this.secretKey);
-    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    let cypherText = crypto.AES.encrypt(JSON.stringify(currentUser), this.secretKey);
+    localStorage.setItem('currentUser', cypherText);
   }
 
   public getLoggedUser() {
-    let cypherText = localStorage.getItem("currentUser") || '';
-    //var bytes = crypto.AES.decrypt(cypherText, this.secretKey);
-  //  var text = bytes.toString(crypto.enc.Utf8);
-    var User = <UsuarioAutenticado>JSON.parse(cypherText);
+    var User = new UsuarioAutenticado();
+    if (this.isAuthenticate) {
+      let cypherText = localStorage.getItem("currentUser") || '';
+      var bytes = crypto.AES.decrypt(cypherText, this.secretKey);
+      var text = bytes.toString(crypto.enc.Utf8);
+      User = <UsuarioAutenticado>JSON.parse(text);
+    }
     return User;
   }
 
   public removeLoggedUser() {
     localStorage.removeItem('currentUser');
     localStorage.clear();
-   // this.sendAuthenticateStatus(false);
   }
 
   private handleError(error: HttpErrorResponse) {
