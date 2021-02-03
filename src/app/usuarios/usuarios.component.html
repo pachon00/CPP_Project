@@ -32,8 +32,8 @@
                 <tr *ngFor="let user of this.data">
                   <td> {{user.user}}</td>
                   <td> {{user.nombre}}</td>
-                  <td> {{user.sucursal_nombre}} </td>
-                  <td> {{user.rol}} </td>
+                  <td> {{user.nombre_sucursal}} </td>
+                  <td> {{user.rol.descripcion}} </td>
                   <th> {{user.activo == true ? "Activo" : "No activo"}} </th>
                   <td style="text-align: center;">
                       <i class="fa fa-edit fa-2x" (click)="editarUsuario(user.id)"></i>

@@ -95,11 +95,9 @@
 
           <div class="form-group">
             <label for="rol_id"> Rol : <span class="required">*</span> </label>
-            <select class="form-control" id="rol_id"  required name="rol_id"
-              formControlName="rol_id" placeholder="Sucursal">
-              <option  value="1" selected> Administrador</option>
-              <option  value="2" selected> Usuario</option>
-
+            <select class="form-control" id="rol_id" required name="rol_id" formControlName="rol_id" placeholder="Rol">
+              <option value="" selected> Seleccione un rol </option>
+              <option *ngFor="let rol of roles" value="{{rol.id}}">{{rol.descripcion}}</option>
             </select>
             <div *ngIf="altaForm.controls['rol_id'].invalid && (altaForm.controls['rol_id'].dirty
             || altaForm.controls['rol_id'].touched)" class="invalid-feedback ng-star-inserted">

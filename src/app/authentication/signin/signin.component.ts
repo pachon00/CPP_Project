@@ -51,7 +51,7 @@ export class SigninComponent implements OnInit {
         else {
           if (this.userAuth.isValid) {
             this.usuarioService.setLoggedUser(this.userAuth);
-              this.router.navigate(["dashboard/inicio"]);
+            this.router.navigate(["dashboard/inicio"]);
           }
           else {
             this.toastr.error("Usuario o contraseña invalidos");

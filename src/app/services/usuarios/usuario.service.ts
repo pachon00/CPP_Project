@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Usuario } from '../../model/usuario/usuario.model';
 import { UsuarioAlta } from 'src/app/model/usuario/usuarioAlta.model';
+import { Rol } from '../../model/usuario/usuarioAutenticado.model';
 
 @Injectable(
   {
@@ -14,7 +15,15 @@ import { UsuarioAlta } from 'src/app/model/usuario/usuarioAlta.model';
 export class UsuarioService {
 
   private baseUrl: string = `${environment.apiServer}Usuario`;
+  private rol: Rol[];
   constructor(private http: HttpClient) { }
+
+  public getRoles(): Observable<Rol[]>{
+    let url = this.baseUrl + "/ObtenerRoles";
+    return this.http.get<Rol[]>(url).pipe(
+      catchError(this.handleError)
+    );
+  }
 
   public getUsuarios()
     : Observable<Usuario[]> {
